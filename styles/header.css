@@ -20,3 +20,18 @@ header {
   border-bottom-style: solid;
   border-bottom-color: rgb(191, 191, 191);
 }
+
+.socials {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+
+.socials a {
+  text-decoration: none;
+}
+
+.socials img {
+  width: 20px;
+  margin: 5px 4px;
+}
