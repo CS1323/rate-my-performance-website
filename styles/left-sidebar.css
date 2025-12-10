@@ -27,7 +27,7 @@
 }
 
 .sidebar-link img, 
-.material-symbols-outlined {
+.sidebar-link .material-symbols-outlined {
   height: 24px;
   margin-bottom: 4px;
 }

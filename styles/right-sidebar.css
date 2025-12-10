@@ -1,0 +1,28 @@
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+  right: 10px;
+  bottom: 0;
+  top: 75px;
+  width: 300px;
+  background-color: white;
+  z-index: 50;
+}
+
+.ad-image {
+  height: 300px;
+  padding: 10px;
+  object-fit: fill;
+
+  /* displays broken image if ad images don't load properly */
+  font-family: 'Material Symbols Outlined'; 
+  font-size: 32px;
+  text-align: center;
+}
+
+.ad-image:before {
+  content: "broken_image";
+}
