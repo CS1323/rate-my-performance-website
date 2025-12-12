@@ -1,7 +1,10 @@
 body {
-  /* This style below will be inherited */
   font-family: sans-serif, Arial;
   margin: 0;
-  padding: 80px 25px 50px 100px;
   background-color: white;
+}
+
+/* include padding/border in element width calculations to avoid overflow */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
