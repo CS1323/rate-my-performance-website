@@ -82,6 +82,101 @@
           <div class="initial-post-comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quo consequuntur esse! Dolorem consectetur qui quia ab enim dolorum eveniet recusandae pariatur laborum impedit! Excepturi veritatis vel voluptas. Odit, eligendi!
           </div>
         </section>
+        <!-- Comments section: post form + list -->
+        <section class="comments-section">
+          <h2>Comments</h2>
+
+          <!-- Post form (UI only) -->
+          <form id="postForm" class="post-form" action="#" onsubmit="return false;">
+            <div class="form-row">
+              <label for="username">Display name</label>
+              <input id="username" name="username" type="text" placeholder="Your name" maxlength="30">
+            </div>
+
+            <div class="form-row avatar-picker">
+              <div class="label">Choose an avatar</div>
+              <div class="avatars">
+                <label class="avatar-option">
+                  <input type="radio" name="avatar" value="A" checked>
+                  <span class="avatar">A</span>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatar" value="B">
+                  <span class="avatar">B</span>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatar" value="C">
+                  <span class="avatar">C</span>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatar" value="D">
+                  <span class="avatar">D</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="body">Comment</label>
+              <textarea id="body" name="body" rows="4" placeholder="Write your comment..."></textarea>
+            </div>
+
+            <div class="form-row form-actions">
+              <button type="submit" class="btn-post">Post comment</button>
+            </div>
+          </form>
+
+          <!-- Static initial comments (UI only) -->
+          <div class="comments-list">
+            <article class="comment" data-id="1">
+              <div class="comment-header">
+                <span class="avatar">CK</span>
+                <div class="meta">
+                  <div class="username">Cadence Keys</div>
+                  <div class="time">2 days ago</div>
+                </div>
+              </div>
+              <div class="comment-body">This is a sample initial comment. Love the energy here — good content for the world of Campus Rival.</div>
+              <div class="comment-actions">
+                <button class="vote up">▲ <span class="count">12</span></button>
+                <button class="vote down">▼</button>
+                <button class="reply">Reply</button>
+              </div>
+              <div class="replies">
+                <article class="comment reply" data-id="1-1">
+                  <div class="comment-header">
+                    <span class="avatar">DD</span>
+                    <div class="meta">
+                      <div class="username">Drew Dumontier</div>
+                      <div class="time">1 day ago</div>
+                    </div>
+                  </div>
+                  <div class="comment-body">Replying to this — haha great!</div>
+                  <div class="comment-actions">
+                    <button class="vote up">▲ <span class="count">3</span></button>
+                    <button class="vote down">▼</button>
+                    <button class="reply">Reply</button>
+                  </div>
+                </article>
+              </div>
+            </article>
+
+            <article class="comment" data-id="2">
+              <div class="comment-header">
+                <span class="avatar">TR</span>
+                <div class="meta">
+                  <div class="username">T. Reader</div>
+                  <div class="time">3 hours ago</div>
+                </div>
+              </div>
+              <div class="comment-body">Another sample comment — testing how content wraps and looks on mobile.</div>
+              <div class="comment-actions">
+                <button class="vote up">▲ <span class="count">5</span></button>
+                <button class="vote down">▼</button>
+                <button class="reply">Reply</button>
+              </div>
+            </article>
+          </div>
+        </section>
       </main>
 
       <!-- right sidebar: ads -->
