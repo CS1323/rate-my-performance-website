@@ -1,17 +1,20 @@
 .right.sidebar {
   right: 0;
-  width: 300px;
+  width: 400px;
+  align-items: center;
+  border-left-color: rgb(191, 191, 191);
+  border-left-style: solid;
+  border-left-width: 1px;
 }
 
 .ad-image {
-  height: 300px;
+  height: 350px;
   padding: 10px;
   object-fit: fill;
 
   /* displays broken image if ad images don't load properly */
   font-family: 'Material Symbols Outlined'; 
   font-size: 32px;
-  text-align: center;
 }
 
 .ad-image:before {

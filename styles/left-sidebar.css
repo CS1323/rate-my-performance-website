@@ -2,6 +2,9 @@
   left: 0;
   justify-content: space-between;
   width: 100px;
+  border-right-color: rgb(191, 191, 191);
+  border-right-style: solid;
+  border-right-width: 1px;
 }
 
 .sidebar-link {
@@ -33,4 +36,35 @@
   margin-top: 10px;
   font-size: 10px;
   text-align: center;
+}
+
+
+@media (min-width: 1200px) {
+  .left.sidebar {
+    width: 250px;
+  }
+  
+  .sidebar-link {
+    height: 60px;
+    flex-direction: row;
+    justify-content: none;
+    padding: 8px 24px;
+  }
+
+  .sidebar-link img, 
+  .sidebar-link .material-symbols-outlined {
+    margin-bottom: 0;
+    margin-right: 24px;
+  }
+  
+  .sidebar-link div {
+    font-size: 14px;
+    flex: 1;
+    text-align: left;
+  }
+
+  .copyright {
+    font-size: 12px;
+    text-align: center;
+  }
 }
