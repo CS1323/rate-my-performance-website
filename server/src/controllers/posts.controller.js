@@ -5,7 +5,10 @@ import { prisma } from "../../config/db.js";
  */
 export const getPost = async (req, res) => {
   try {
-    const post = await prisma.post.findFirst();
+    const { slug } = req.params;
+    const post = await prisma.post.findUnique({
+      where: { slug },
+    });    
 
     if (!post) {
       return res.status(404).json({ error: "Post not found" });

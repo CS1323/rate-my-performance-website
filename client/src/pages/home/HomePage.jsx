@@ -1,13 +1,120 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
 import { InitialPost } from "./InitialPost";
 import { PostForm } from "./PostForm";
-import ThumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
-import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
+import { Comment } from "./Comment";
+
 import './HomePage.css';
 
+const POST_SLUG = "drew-dumontier";
+
 export function HomePage() {
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch post and comments on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch post
+        const postRes = await axios.get(`/api/posts/${POST_SLUG}`);
+        setPost(postRes.data);
+
+        // Fetch comments for the post
+        const commentsRes = await axios.get(`/api/comments/post/${postRes.data.id}`);
+        setComments(commentsRes.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Handle vote on a comment
+  const handleVote = async (commentId, voteType) => {
+    try {
+      // TODO: Calculate IP hash client-side or let backend handle
+      const ipHash = "temp-hash"; // Will be replaced with actual IP hashing
+      
+      await axios.post("/api/votes", {
+        commentId,
+        voteType,
+        ipHash,
+      });
+
+      // Refresh comments to get updated counts
+      if (post) {
+        const commentsRes = await axios.get(`/api/comments/post/${post.id}`);
+        setComments(commentsRes.data);
+      }
+    } catch (err) {
+      console.error("Error voting:", err);
+    }
+  };
+
+  // Handle reply (shows reply form - to be implemented)
+  const handleReply = (commentId) => {
+    console.log("Reply to comment:", commentId);
+    // TODO: Show reply form modal or inline form
+  };
+
+  // Handle new comment posted
+  const handleCommentPosted = () => {
+    // Refresh comments after a new one is posted
+    if (post) {
+      axios.get(`/api/comments/post/${post.id}`).then((res) => {
+        setComments(res.data);
+      }).catch(err => console.error("Error fetching updated comments:", err));
+    }
+  };
+
+  if (loading) {
+    return (
+      <>
+        <title>Rate My Performance</title>
+        <Header />
+        <div className="layout">
+          <NavSidebar />
+          <main className="content">
+            <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+          </main>
+          <AdsSidebar />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <title>Rate My Performance</title>
+        <Header />
+        <div className="layout">
+          <NavSidebar />
+          <main className="content">
+            <div style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>
+              Error: {error}
+            </div>
+          </main>
+          <AdsSidebar />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <title>Rate My Performance</title>
@@ -17,79 +124,30 @@ export function HomePage() {
         <NavSidebar />
 
         <main className="content">
-          <InitialPost />
-          
-          {/* <!-- Comments section: post form + list --> */}
+          <InitialPost post={post} />
+
+          {/* Comments section: post form + list */}
           <section className="comments-section">
             <h2>Comments</h2>
 
-            <PostForm />
+            <PostForm onCommentPosted={handleCommentPosted} postId={post?.id} />
 
-            {/* <!-- Static initial comments (UI only) --> */}
+            {/* Dynamic comments from API */}
             <div className="comments-list">
-              <article className="comment" data-id="1">
-                <div className="comment-header">
-                  <span className="avatar">CK</span>
-                  <div className="meta">
-                    <div className="username">Cadence Keys</div>
-                    <div className="time">2 days ago</div>
-                  </div>
-                </div>
-                <div className="comment-body">This is a sample initial comment. Love the energy here — good content for the world of Campus Rival.</div>
-                <div className="comment-actions">
-                  <button className="vote up">
-                    <img src={ThumbsUpIcon} />
-                    <span className="count">12</span>
-                  </button>
-                  <button className="vote down">
-                    <img src={ThumbsDownIcon} />
-                  </button>
-                  <button className="reply">Reply</button>
-                </div>
-                <div className="replies">
-                  <article className="comment reply" data-id="1-1">
-                    <div className="comment-header">
-                      <span className="avatar">DD</span>
-                      <div className="meta">
-                        <div className="username">Drew Dumontier</div>
-                        <div className="time">1 day ago</div>
-                      </div>
-                    </div>
-                    <div className="comment-body">Replying to this — haha great!</div>
-                    <div className="comment-actions">
-                      <button className="vote up">
-                        <img src={ThumbsUpIcon} />
-                        <span className="count">3</span>
-                      </button>
-                      <button className="vote down">
-                        <img src={ThumbsDownIcon} />
-                      </button>
-                      <button className="reply">Reply</button>
-                    </div>
-                  </article>
-                </div>
-              </article>
-
-              <article className="comment" data-id="2">
-                <div className="comment-header">
-                  <span className="avatar">TR</span>
-                  <div className="meta">
-                    <div className="username">T. Reader</div>
-                    <div className="time">3 hours ago</div>
-                  </div>
-                </div>
-                <div className="comment-body">Another sample comment — testing how content wraps and looks on mobile.</div>
-                <div className="comment-actions">
-                  <button className="vote up">
-                    <img src={ThumbsUpIcon} />
-                    <span className="count">5</span>
-                  </button>
-                  <button className="vote down">
-                    <img src={ThumbsDownIcon} />
-                  </button>
-                  <button className="reply">Reply</button>
-                </div>
-              </article>
+              {comments.length > 0 ? (
+                comments.map((comment) => (
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    onVote={handleVote}
+                    onReply={handleReply}
+                  />
+                ))
+              ) : (
+                <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
+                  No comments yet. Be the first to comment!
+                </p>
+              )}
             </div>
           </section>
         </main>

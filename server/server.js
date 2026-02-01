@@ -1,7 +1,13 @@
 import express from "express";
 import { config } from "dotenv";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { connectDB, disconnectDB } from "./config/db.js";
 import { errorHandler, notFound } from "./src/middleware/error.middleware.js";
+
+// Get __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Import Routes
 import postsRoutes from "./src/routes/posts.routes.js";
@@ -18,6 +24,10 @@ const app = express();
 // Body parsing middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files (images, etc.) using absolute path
+// Mount at /images route so files are accessible at /images/filename.png
+app.use("/images", express.static(join(__dirname, "images")));
 
 // API Routes
 app.use("/api/posts", postsRoutes)
