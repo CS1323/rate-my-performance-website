@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import { connectDB, disconnectDB } from "./config/db.js";
+import { errorHandler, notFound } from "./src/middleware/error.middleware.js";
 
 // Import Routes
 import postsRoutes from "./src/routes/posts.routes.js";
@@ -24,6 +25,10 @@ app.use("/api/comments", commentsRoutes)
 app.use("/api/votes", votesRoutes)
 app.use("/api/reports", reportsRoutes)
 app.use("/api/quiz", quizRoutes)
+
+// Error middleware
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = 5001;
 const server = app.listen(PORT, () => {
