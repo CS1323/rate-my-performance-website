@@ -104,6 +104,25 @@
 .vote.voted img{filter:invert(0.3) sepia(1) hue-rotate(200deg) saturate(1.5)}
 .vote .count{margin-left:6px;font-weight:600}
 
+.flag {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: filter 0.2s;
+}
+.flag img {
+  width: 20px;
+  height: 20px;
+  filter: grayscale(0.7) brightness(0.8);
+  transition: filter 0.2s;
+}
+.flag:hover img {
+  filter: grayscale(0) brightness(1.2) sepia(1) hue-rotate(-30deg) saturate(2);
+}
+
 @media (max-width:700px){
   .comments-section{padding:16px}
   .initial-post{padding:20px}

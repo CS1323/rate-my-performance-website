@@ -31,6 +31,7 @@ async function main() {
       content: "First comment! This site is awesome.",
       authorName: "Anon1",
       avatarId: 1,
+      llmScore: 0,
     },
   });
 
@@ -40,6 +41,7 @@ async function main() {
       content: "Can't wait to see what people post here!",
       authorName: "Anon2",
       avatarId: 2,
+      llmScore: 6,
     },
   });
 
@@ -51,6 +53,7 @@ async function main() {
       content: "I agree, totally!",
       authorName: "Anon3",
       avatarId: 3,
+      llmScore: 3,
     },
   });
 
@@ -61,6 +64,7 @@ async function main() {
       content: "Me too!",
       authorName: "Anon4",
       avatarId: 4,
+      llmScore: 1,
     },
   });
 
@@ -93,7 +97,6 @@ async function main() {
     data: {
       commentId: comment2.id,
       reason: "Inappropriate language",
-      score: 3,
       ipHash: await fakeIpHash("127.0.0.4"),
     },
   });

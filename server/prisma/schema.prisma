@@ -40,6 +40,7 @@ model Comment {
   likeCount       Int         @default(0)
   dislikeCount    Int         @default(0)
 
+  llmScore        Int?
   status          CommentStatus @default(VISIBLE)
 
   createdAt       DateTime    @default(now())
@@ -88,7 +89,6 @@ model Report {
   id        String   @id @default(uuid())
   commentId String
   reason    String?
-  score     Int
   ipHash    String
 
   createdAt DateTime @default(now())

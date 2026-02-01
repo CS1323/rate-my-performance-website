@@ -1,6 +1,9 @@
 import ThumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
 import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
+import FlagIcon from '../../assets/images/icons/flag.svg';
 import { useState } from 'react';
+import axios from 'axios';
+import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
 import avatar1 from '../../assets/images/avatars/avatar1.svg';
 import avatar2 from '../../assets/images/avatars/avatar2.svg';
@@ -32,6 +35,28 @@ function formatTimeAgo(createdAt) {
 }
 
 export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted }) {
+    const [reporting, setReporting] = useState(false);
+
+    const handleFlagClick = async () => {
+      setReporting(true);
+      try {
+        const reason = window.prompt('Why are you reporting this comment? (optional)', '');
+        if (reason === null) {
+          setReporting(false);
+          return;
+        }
+        await axios.post('/api/reports', {
+          commentId: comment.id,
+          reason,
+        });
+        window.alert('Thank you for your report. Our moderators will review this comment.');
+      } catch (err) {
+        window.alert('Failed to report comment. Please try again later.');
+        console.error('Report error:', err);
+      } finally {
+        setReporting(false);
+      }
+    };
   const [showReplyForm, setShowReplyForm] = useState(false);
   if (!comment) return null;
 
@@ -90,6 +115,9 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
             onClick={() => handleVoteClick('DISLIKE')}
           >
             <img src={ThumbsDownIcon} alt="Dislike" />
+          </button>
+          <button className="flag" title="Report this comment" onClick={handleFlagClick}>
+            <img src={FlagIcon} alt="Flag" style={{ width: 20, height: 20 }} />
           </button>
           <button className="reply" onClick={handleReplyClick}>Reply</button>
         </div>

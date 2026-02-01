@@ -6,11 +6,11 @@ import { hashIp } from "../utils/hashIp.js";
  */
 export const reportComment = async (req, res) => {
   try {
-    const { commentId, reason, score } = req.body;
+    const { commentId, reason } = req.body;
     const ipHash = await hashIp(req.ip);
 
     await prisma.report.create({
-      data: { commentId, reason, score, ipHash },
+      data: { commentId, reason, ipHash },
     });
 
     // Auto-hide if reports exceed threshold
