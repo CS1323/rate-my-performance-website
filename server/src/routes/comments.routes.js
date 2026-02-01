@@ -1,4 +1,5 @@
 import express from "express";
+import { getCommentsByPost, createComment, replyToComment } from "../controllers/comments.controller";
 
 const router = express.Router();
 
