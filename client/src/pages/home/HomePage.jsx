@@ -199,6 +199,7 @@ export function HomePage() {
                     onVote={handleVote}
                     onReply={handleReply}
                     userVoteState={userVotes}
+                    onReplyPosted={handleCommentPosted}
                   />
                 ))
               ) : (

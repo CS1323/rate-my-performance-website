@@ -16,7 +16,8 @@ const AVATARS = [
   { id: 4, src: avatar4, label: 'Jersey' },
 ];
 
-export function CommentForm({ postId, onCommentPosted }) {
+
+export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel, mode = 'comment' }) {
   const [username, setUsername] = useState('');
   const [avatarId, setAvatarId] = useState(1);
   const [content, setContent] = useState('');
@@ -26,50 +27,50 @@ export function CommentForm({ postId, onCommentPosted }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate input
     if (!username.trim()) {
       setError('Please enter a display name');
       return;
     }
     if (!content.trim()) {
-      setError('Please enter a comment');
+      setError(`Please enter a ${mode === 'reply' ? 'reply' : 'comment'}`);
       return;
     }
 
     try {
       setLoading(true);
       setError(null);
-
-      // Post comment to backend
-      await axios.post(`/api/comments/post/${postId}`, {
-        authorName: username,
-        avatarId: parseInt(avatarId),
-        content: content,
-      });
-
-      // Reset form
+      if (mode === 'reply' && parentCommentId) {
+        await axios.post(`/api/comments/${parentCommentId}/reply`, {
+          authorName: username,
+          avatarId: parseInt(avatarId),
+          content: content,
+        });
+      } else if (postId) {
+        await axios.post(`/api/comments/post/${postId}`, {
+          authorName: username,
+          avatarId: parseInt(avatarId),
+          content: content,
+        });
+      }
       setUsername('');
       setAvatarId(1);
       setContent('');
-
-      // Notify parent to refresh comments
-      if (onCommentPosted) {
-        onCommentPosted();
-      }
+      if (onSubmitSuccess) onSubmitSuccess();
+      if (onCancel) onCancel();
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to post comment');
-      console.error('Error posting comment:', err);
+      setError(err.response?.data?.error || `Failed to post ${mode}`);
+      console.error(`Error posting ${mode}:`, err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form className="comment-form" onSubmit={handleSubmit}>
+    <form className={`comment-form${mode === 'reply' ? ' reply-form' : ''}`} onSubmit={handleSubmit}>
       <div className="form-row">
-        <label htmlFor="username">Display name</label>
+        <label htmlFor={mode + "-username"}>Display name</label>
         <input
-          id="username"
+          id={mode + "-username"}
           type="text"
           placeholder="Your name"
           maxLength="30"
@@ -78,7 +79,6 @@ export function CommentForm({ postId, onCommentPosted }) {
           disabled={loading}
         />
       </div>
-
       <div className="form-row avatar-picker">
         <div className="label">Choose an avatar</div>
         <div className="avatars">
@@ -97,25 +97,25 @@ export function CommentForm({ postId, onCommentPosted }) {
           ))}
         </div>
       </div>
-
       <div className="form-row">
-        <label htmlFor="content">Comment</label>
+        <label htmlFor={mode + "-content"}>{mode === 'reply' ? 'Reply' : 'Comment'}</label>
         <textarea
-          id="content"
-          rows="4"
-          placeholder="Write your comment..."
+          id={mode + "-content"}
+          rows={mode === 'reply' ? 3 : 4}
+          placeholder={mode === 'reply' ? 'Write your reply...' : 'Write your comment...'}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           disabled={loading}
         />
       </div>
-
       {error && <div className="form-error">{error}</div>}
-
       <div className="form-row form-actions">
         <button type="submit" className="btn-post" disabled={loading}>
-          {loading ? 'Posting...' : 'Post comment'}
+          {loading ? (mode === 'reply' ? 'Replying...' : 'Posting...') : (mode === 'reply' ? 'Reply' : 'Post comment')}
         </button>
+        {onCancel && (
+          <button type="button" onClick={onCancel} disabled={loading} className="cancel-btn">Cancel</button>
+        )}
       </div>
     </form>
   );

@@ -1,15 +1,19 @@
 import ThumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
 import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
+import { useState } from 'react';
+import { CommentForm } from './CommentForm';
+import avatar1 from '../../assets/images/avatars/avatar1.svg';
+import avatar2 from '../../assets/images/avatars/avatar2.svg';
+import avatar3 from '../../assets/images/avatars/avatar3.svg';
+import avatar4 from '../../assets/images/avatars/avatar4.svg';
 
-// Helper function to get avatar initials from author name
-function getAvatarInitials(name) {
-  if (!name) return '?';
-  const parts = name.split(' ');
-  if (parts.length > 1) {
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  }
-  return name.substring(0, 2).toUpperCase();
-}
+
+const AVATAR_IMAGES = {
+  1: avatar1,
+  2: avatar2,
+  3: avatar3,
+  4: avatar4,
+};
 
 // Helper function to format relative time
 function formatTimeAgo(createdAt) {
@@ -27,7 +31,8 @@ function formatTimeAgo(createdAt) {
   return created.toLocaleDateString();
 }
 
-export function Comment({ comment, onVote, onReply, userVoteState }) {
+export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted }) {
+  const [showReplyForm, setShowReplyForm] = useState(false);
   if (!comment) return null;
 
   const handleVoteClick = (voteType) => {
@@ -37,9 +42,16 @@ export function Comment({ comment, onVote, onReply, userVoteState }) {
   };
 
   const handleReplyClick = () => {
-    if (onReply) {
-      onReply(comment.id);
-    }
+    setShowReplyForm(true);
+  };
+
+  const handleReplyCancel = () => {
+    setShowReplyForm(false);
+  };
+
+  const handleReplySuccess = () => {
+    setShowReplyForm(false);
+    if (onReplyPosted) onReplyPosted();
   };
 
   const currentUserVote = userVoteState?.[comment.id];
@@ -47,8 +59,16 @@ export function Comment({ comment, onVote, onReply, userVoteState }) {
   return (
     <>
       <article className="comment" data-id={comment.id}>
+
         <div className="comment-header">
-          <span className="avatar">{getAvatarInitials(comment.authorName)}</span>
+          <span className="avatar">
+            <img
+              src={AVATAR_IMAGES[comment.avatarId]}
+              alt="avatar"
+              className="avatar-preview"
+              style={{ width: 40, height: 40, borderRadius: '50%' }}
+            />
+          </span>
           <div className="meta">
             <div className="username">{comment.authorName}</div>
             <div className="time">{formatTimeAgo(comment.createdAt)}</div>
@@ -74,6 +94,15 @@ export function Comment({ comment, onVote, onReply, userVoteState }) {
           <button className="reply" onClick={handleReplyClick}>Reply</button>
         </div>
 
+        {showReplyForm && (
+          <CommentForm
+            parentCommentId={comment.id}
+            mode="reply"
+            onSubmitSuccess={handleReplySuccess}
+            onCancel={handleReplyCancel}
+          />
+        )}
+
         {comment.replies && comment.replies.length > 0 && (
           <div className="replies">
             {comment.replies.map((reply) => (
@@ -83,6 +112,7 @@ export function Comment({ comment, onVote, onReply, userVoteState }) {
                 onVote={onVote}
                 onReply={onReply}
                 userVoteState={userVoteState}
+                onReplyPosted={onReplyPosted}
               />
             ))}
           </div>
