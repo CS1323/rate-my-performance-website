@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 
 // Navigation Icons
 import HomeIcon from '../assets/images/icons/home.svg';
@@ -14,39 +14,39 @@ export function NavSidebar() {
     <nav className="left sidebar">
       {/* <!-- top section: navigation--> */}
       <div>
-        <Link to="/" className="sidebar-link">
+        <NavLink to="/" className="sidebar-link">
           <img src={HomeIcon} />
             <div>Home</div>
-        </Link>
-        <Link to="/cfu-boyfriend-quiz" className="sidebar-link">
+        </NavLink>
+        <NavLink to="/cfu-boyfriend-quiz" className="sidebar-link">
           <img src={FileTextIcon} />
             <div>CFU Boyfriend Quiz</div>
-        </Link>
-        <Link to="/about-me" className="sidebar-link">
+        </NavLink>
+        <NavLink to="/about-me" className="sidebar-link">
           <img src={UserIcon} />
             <div>About Me</div>
-        </Link>
+        </NavLink>
       </div>
       {/* <!-- bottom section: website compliance --> */}
       <div>
-        <Link to="/rules" className="sidebar-link">
+        <NavLink to="/rules" className="sidebar-link">
           <img src={BookOpenIcon} />
             <div>Rules</div>
-        </Link>
-        <Link to="/privacy-policy" className="sidebar-link">
+        </NavLink>
+        <NavLink to="/privacy-policy" className="sidebar-link">
           <img src={ClipboardIcon} />
             <div>Privacy Policy</div>
-        </Link>
-        <Link to="/user-agreement" className="sidebar-link">
+        </NavLink>
+        <NavLink to="/user-agreement" className="sidebar-link">
           <img src={ClipboardIcon} />
             <div>User Agreement</div>
-        </Link>
-        <Link to="/accessibility" className="sidebar-link">
+        </NavLink>
+        <NavLink to="/accessibility" className="sidebar-link">
           <span className="material-symbols-outlined">
             settings_accessibility
           </span>
           <div>Accessibility</div>
-        </Link>
+        </NavLink>
         {/* <!-- copyright --> */}
         <p className="copyright">
           &copy; 2025 Cadence Keys
