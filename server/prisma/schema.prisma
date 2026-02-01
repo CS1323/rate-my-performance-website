@@ -12,3 +12,87 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+// Models
+model Post {
+  id        String    @id @default(uuid())
+  slug      String    @unique
+  title     String
+  createdAt DateTime  @default(now())
+
+  // Relations
+  comments  Comment[]
+}
+
+
+model Comment {
+  id              String      @id @default(uuid())
+  postId          String
+  parentCommentId String?
+
+  content         String?
+  authorName      String
+  avatarId        Int
+
+  likeCount       Int         @default(0)
+  dislikeCount    Int         @default(0)
+
+  status          CommentStatus @default(VISIBLE)
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relations 
+  post            Post        @relation(fields: [postId], references: [id])
+  parent          Comment?    @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         Comment[]   @relation("CommentReplies")
+
+  votes           Vote[]
+  reports         Report[]
+
+  @@index([postId])
+  @@index([parentCommentId])
+}
+
+enum CommentStatus {
+  VISIBLE
+  HIDDEN
+  DELETED
+}
+
+
+model Vote {
+  id        String   @id @default(uuid())
+  commentId String
+  type      VoteType
+  ipHash    String
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  comment   Comment  @relation(fields: [commentId], references: [id])
+
+  @@unique([commentId, ipHash])
+}
+
+enum VoteType {
+  LIKE
+  DISLIKE
+}
+
+
+model Report {
+  id        String   @id @default(uuid())
+  commentId String
+  reason    String?
+  score     Int
+  ipHash    String
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  comment   Comment  @relation(fields: [commentId], references: [id])
+
+  @@index([commentId])
+}
