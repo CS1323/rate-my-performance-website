@@ -1,5 +1,5 @@
 import express from "express";
-import { getQuiz, submitQuiz } from "../controllers/quiz.controller";
+import { getQuiz, submitQuiz } from "../controllers/quiz.controller.js";
 
 const router = express.Router();
 
@@ -8,3 +8,5 @@ router.get("/cfu-boyfriend", getQuiz);
 
 // POST /api/quiz/cfu-boyfriend/submit
 router.post("/cfu-boyfriend/submit", submitQuiz);
+
+export default router;

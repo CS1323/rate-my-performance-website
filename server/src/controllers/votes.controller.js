@@ -1,5 +1,5 @@
-import { prisma } from "../../config/db";
-import { hashIp } from "../utils/hashIp";
+import { prisma } from "../../config/db.js";
+import { hashIp } from "../utils/hashIp.js";
 
 /**
  * Cast, change, or remove a vote on a comment
