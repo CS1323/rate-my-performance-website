@@ -1,0 +1,18 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+  <!-- Jersey main body - Red -->
+  <rect x="30" y="30" width="40" height="45" fill="#DC143C" rx="4"/>
+  <!-- Jersey neck collar -->
+  <ellipse cx="50" cy="30" rx="12" ry="4" fill="#FFF"/>
+  <!-- Jersey sleeves -->
+  <rect x="25" y="38" width="6" height="20" fill="#DC143C" rx="2"/>
+  <rect x="69" y="38" width="6" height="20" fill="#DC143C" rx="2"/>
+  <!-- Jersey number - large "1" on chest -->
+  <text x="50" y="63" font-size="24" font-weight="bold" fill="#FFF" text-anchor="middle" font-family="Arial">1</text>
+  <!-- Stripe on sleeves -->
+  <rect x="25" y="42" width="6" height="3" fill="#FFF" opacity="0.7"/>
+  <rect x="69" y="42" width="6" height="3" fill="#FFF" opacity="0.7"/>
+  <!-- Bottom hem stitching -->
+  <line x1="32" y1="75" x2="68" y2="75" stroke="#A00000" stroke-width="1" opacity="0.5"/>
+</svg>

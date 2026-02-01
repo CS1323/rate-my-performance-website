@@ -5,7 +5,8 @@ import { prisma } from "../../config/db.js";
  */
 const createComment = async (req, res) => {
   try {
-    const { postId, content, authorName, avatarId } = req.body;
+    const { postId } = req.params;
+    const { content, authorName, avatarId } = req.body;
 
     // Validate input
     if (!content || !content.trim()) {

@@ -5,7 +5,7 @@ import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
 import { InitialPost } from "./InitialPost";
-import { PostForm } from "./PostForm";
+import { CommentForm } from "./CommentForm";
 import { Comment } from "./Comment";
 
 import './HomePage.css';
@@ -126,11 +126,11 @@ export function HomePage() {
         <main className="content">
           <InitialPost post={post} />
 
-          {/* Comments section: post form + list */}
+          {/* Comments section: comment form + list */}
           <section className="comments-section">
             <h2>Comments</h2>
 
-            <PostForm onCommentPosted={handleCommentPosted} postId={post?.id} />
+            <CommentForm postId={post?.id} onCommentPosted={handleCommentPosted} />
 
             {/* Dynamic comments from API */}
             <div className="comments-list">
