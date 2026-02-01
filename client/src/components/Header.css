@@ -50,16 +50,13 @@ header {
   text-decoration: none;
 }
 
-.socials img {
-  width: 28px;
-  height: 28px;
+.social-icon {
+  color: rgba(255, 255, 255, 0.85);
   margin: 0 4px;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
-  transition: opacity 0.15s, transform 0.2s;
-  object-fit: contain;
+  transition: color 0.15s, transform 0.2s;
 }
-.socials img:hover {
-  opacity: 1;
+
+.social-icon:hover {
+  color: rgba(255, 255, 255, 1);
   transform: scale(1.08) rotate(-6deg);
 }
