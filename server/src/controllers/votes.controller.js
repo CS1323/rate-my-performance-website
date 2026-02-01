@@ -6,8 +6,10 @@ import { hashIp } from "../utils/hashIp.js";
  */
 export const submitVote = async (req, res) => {
   try {
-    const { commentId, type } = req.body; // type = 'LIKE' or 'DISLIKE'
-    const ipHash = await hashIp(req.ip);
+    const { commentId, type, ipHash } = req.body; // type = 'LIKE' or 'DISLIKE', ipHash from frontend
+    if (!ipHash) {
+      return res.status(400).json({ error: 'ipHash required' });
+    }
 
     // Check for existing vote by this IP
     const existingVote = await prisma.vote.findUnique({
@@ -33,19 +35,21 @@ export const submitVote = async (req, res) => {
       ]);
 
     } else if (existingVote.type !== type) {
-      // Toggle vote
+      // Switch vote: decrement previous, increment new
       await prisma.$transaction([
         prisma.vote.update({ where: { id: existingVote.id }, data: { type } }),
-
+        
         prisma.comment.update({
           where: { id: commentId },
           data: {
-            likeCount: type === "LIKE" 
-              ? { increment: 1, decrement: 0 } 
-              : { decrement: 1 },
-            dislikeCount: type === "DISLIKE" 
-              ? { increment: 1, decrement: 0 } 
-              : { decrement: 1 },
+            likeCount:
+              type === "LIKE"
+                ? { increment: 1, decrement: 1 } // +1 LIKE, -1 DISLIKE
+                : { decrement: 1 }, // -1 LIKE if switching to DISLIKE
+            dislikeCount:
+              type === "DISLIKE"
+                ? { increment: 1, decrement: 1 } // +1 DISLIKE, -1 LIKE
+                : { decrement: 1 }, // -1 DISLIKE if switching to LIKE
           },
         }),
       ]);
@@ -73,4 +77,39 @@ export const submitVote = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to cast vote" });
   }
-}
+};
+
+/**
+ * Get the current user's votes for a specific post
+ */
+export const getUserVotes = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { ipHash } = req.query;
+
+    if (!ipHash) {
+      return res.status(400).json({ error: "ipHash required" });
+    }
+
+    // Get all votes from this IP on comments in this post
+    const userVotes = await prisma.vote.findMany({
+      where: {
+        comment: {
+          postId: postId,
+        },
+        ipHash: ipHash,
+      },
+    });
+
+    // Convert to object format: { commentId: voteType }
+    const voteMap = {};
+    userVotes.forEach((vote) => {
+      voteMap[vote.commentId] = vote.type;
+    });
+
+    res.json(voteMap);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch user votes" });
+  }
+};

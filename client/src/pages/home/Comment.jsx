@@ -27,7 +27,7 @@ function formatTimeAgo(createdAt) {
   return created.toLocaleDateString();
 }
 
-export function Comment({ comment, onVote, onReply }) {
+export function Comment({ comment, onVote, onReply, userVoteState }) {
   if (!comment) return null;
 
   const handleVoteClick = (voteType) => {
@@ -41,6 +41,8 @@ export function Comment({ comment, onVote, onReply }) {
       onReply(comment.id);
     }
   };
+
+  const currentUserVote = userVoteState?.[comment.id];
 
   return (
     <>
@@ -56,13 +58,18 @@ export function Comment({ comment, onVote, onReply }) {
         <div className="comment-body">{comment.content}</div>
 
         <div className="comment-actions">
-          <button className="vote up" onClick={() => handleVoteClick('LIKE')}>
+          <button 
+            className={`vote up ${currentUserVote === 'LIKE' ? 'voted' : ''}`} 
+            onClick={() => handleVoteClick('LIKE')}
+          >
             <img src={ThumbsUpIcon} alt="Like" />
             <span className="count">{comment.likeCount || 0}</span>
           </button>
-          <button className="vote down" onClick={() => handleVoteClick('DISLIKE')}>
+          <button 
+            className={`vote down ${currentUserVote === 'DISLIKE' ? 'voted' : ''}`}
+            onClick={() => handleVoteClick('DISLIKE')}
+          >
             <img src={ThumbsDownIcon} alt="Dislike" />
-            {comment.dislikeCount > 0 && <span className="count">{comment.dislikeCount}</span>}
           </button>
           <button className="reply" onClick={handleReplyClick}>Reply</button>
         </div>
@@ -75,6 +82,7 @@ export function Comment({ comment, onVote, onReply }) {
                 comment={reply}
                 onVote={onVote}
                 onReply={onReply}
+                userVoteState={userVoteState}
               />
             ))}
           </div>

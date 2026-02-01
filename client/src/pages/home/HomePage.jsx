@@ -7,6 +7,7 @@ import { AdsSidebar } from "../../components/AdsSidebar";
 import { InitialPost } from "./InitialPost";
 import { CommentForm } from "./CommentForm";
 import { Comment } from "./Comment";
+import { getUserIdentifier } from "../../utils/userIdentifier";
 
 import './HomePage.css';
 
@@ -17,6 +18,7 @@ export function HomePage() {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userVotes, setUserVotes] = useState({}); // Track which comments user has voted on
 
   // Fetch post and comments on mount
   useEffect(() => {
@@ -32,6 +34,11 @@ export function HomePage() {
         // Fetch comments for the post
         const commentsRes = await axios.get(`/api/comments/post/${postRes.data.id}`);
         setComments(commentsRes.data);
+
+        // Fetch user's votes for this post
+        const userIdentifier = getUserIdentifier();
+        const votesRes = await axios.get(`/api/votes/${postRes.data.id}?ipHash=${userIdentifier}`);
+        setUserVotes(votesRes.data || {});
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.message);
@@ -46,23 +53,73 @@ export function HomePage() {
   // Handle vote on a comment
   const handleVote = async (commentId, voteType) => {
     try {
-      // TODO: Calculate IP hash client-side or let backend handle
-      const ipHash = "temp-hash"; // Will be replaced with actual IP hashing
-      
+      // Get unique user identifier
+      const userIdentifier = getUserIdentifier();
+
+      // Post vote to backend
       await axios.post("/api/votes", {
         commentId,
-        voteType,
-        ipHash,
+        type: voteType,
+        ipHash: userIdentifier,
       });
 
-      // Refresh comments to get updated counts
+      // Always re-fetch comments and userVotes to ensure correct counts
       if (post) {
-        const commentsRes = await axios.get(`/api/comments/post/${post.id}`);
+        const [commentsRes, votesRes] = await Promise.all([
+          axios.get(`/api/comments/post/${post.id}`),
+          axios.get(`/api/votes/${post.id}?ipHash=${userIdentifier}`)
+        ]);
         setComments(commentsRes.data);
+        setUserVotes(votesRes.data || {});
       }
     } catch (err) {
-      console.error("Error voting:", err);
+      console.error("Error voting:", err.response?.data || err.message);
     }
+  };
+
+  // Helper function to update vote counts optimistically
+  const updateCommentVoteCount = (comment, commentId, voteType, currentUserVote) => {
+    if (comment.id === commentId) {
+      const newComment = { ...comment };
+
+      if (currentUserVote === voteType) {
+        // User is removing their vote
+        if (voteType === 'LIKE') {
+          newComment.likeCount = Math.max(0, newComment.likeCount - 1);
+        } else {
+          newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
+        }
+      } else {
+        // User is adding or changing their vote
+        if (currentUserVote) {
+          // Remove old vote
+          if (currentUserVote === 'LIKE') {
+            newComment.likeCount = Math.max(0, newComment.likeCount - 1);
+          } else {
+            newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
+          }
+        }
+        // Add new vote
+        if (voteType === 'LIKE') {
+          newComment.likeCount = (newComment.likeCount || 0) + 1;
+        } else {
+          newComment.dislikeCount = (newComment.dislikeCount || 0) + 1;
+        }
+      }
+      return newComment;
+    }
+
+    // Recursively update nested replies
+    if (comment.replies && comment.replies.length > 0) {
+      return {
+        ...comment,
+        replies: comment.replies.map((reply) =>
+          updateCommentVoteCount(reply, commentId, voteType, currentUserVote)
+        ),
+      };
+    }
+
+    return comment;
   };
 
   // Handle reply (shows reply form - to be implemented)
@@ -141,6 +198,7 @@ export function HomePage() {
                     comment={comment}
                     onVote={handleVote}
                     onReply={handleReply}
+                    userVoteState={userVotes}
                   />
                 ))
               ) : (

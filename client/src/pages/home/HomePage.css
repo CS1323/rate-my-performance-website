@@ -100,6 +100,8 @@
 .comment-body{margin:6px 0;color:#222}
 .comment-actions{display:flex;gap:8px;align-items:center}
 .vote{background:transparent;border:none;cursor:pointer;font-weight:700;padding:4px}
+.vote img{width:20px;height:20px;transition:filter 0.2s}
+.vote.voted img{filter:invert(0.3) sepia(1) hue-rotate(200deg) saturate(1.5)}
 .vote .count{margin-left:6px;font-weight:600}
 
 @media (max-width:700px){
