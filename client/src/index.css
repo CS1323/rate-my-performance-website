@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto+Slab:wght@400;700&display=swap');
 body {
-  font-family: sans-serif, Arial;
+  font-family: 'Oswald', 'Roboto Slab', Arial, sans-serif;
   margin: 0;
-  background-color: white;
+  background: #f7f5f2;
+  color: #222;
 }
-
-/* include padding/border in element width calculations to avoid overflow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(135deg, #f7f5f2 0px, #f7f5f2 40px, #ece7e1 40px, #ece7e1 80px);
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
 *, *::before, *::after {
   box-sizing: border-box;
 }
