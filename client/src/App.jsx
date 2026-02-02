@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router';
 import { HomePage } from './pages/home/HomePage'
+import { CFUBoyfriendQuiz } from './pages/quiz/CFUBoyfriendQuiz'
 import './App.css'
 
 function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path='cfu-boyfriend-quiz' element={<div>Test Quiz Page</div>} />
+      <Route path='cfu-boyfriend-quiz' element={<CFUBoyfriendQuiz />} />
       <Route path='about-me' element={<div>Test About Me Page</div>} />
 
       <Route path='rules' element={<div>Test Rules Page</div>} />
