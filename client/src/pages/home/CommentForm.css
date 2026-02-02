@@ -1,0 +1,179 @@
+/* CommentForm.css - Styling for comment and reply forms */
+
+/* --- Comment Form Container --- */
+.comment-form {
+  background: #f7f5f2;
+  border: 3px solid #5c0700;
+  padding: 22px 20px 16px 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 6px 0 rgba(92,7,0,0.04);
+}
+
+.comment-form .form-row {
+  margin-bottom: 22px;
+}
+
+.comment-form label,
+.comment-form .label {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #5c0700;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.comment-form input[type="text"],
+.comment-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.13rem;
+  padding: 12px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.comment-form input[type="text"]:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: #5c0700;
+  box-shadow: 0 0 4px rgba(92,7,0,0.2);
+}
+
+/* --- Avatar Picker Styles --- */
+.avatar-picker .avatars {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.avatar-option {
+  display: inline-block;
+  position: relative;
+}
+
+.avatar-option input {
+  display: none;
+}
+
+.avatar-preview {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  border: 2.5px solid #e0d6ce;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
+}
+
+.avatar-preview:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+.avatar-preview.selected {
+  border-color: #5c0700;
+  background: rgba(92, 7, 0, 0.1);
+  box-shadow: 0 2px 8px 0 rgba(92,7,0,0.15);
+}
+
+/* --- Form Actions --- */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-post {
+  background: #5c0700;
+  color: #fff;
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 0.89rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  padding: 5px 12px 5px 12px;
+  margin-right: 8px;
+  box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.btn-post:hover:not(:disabled) {
+  background: #7a0900;
+  box-shadow: 0 2px 8px 0 rgba(92,7,0,0.15);
+}
+
+.btn-post:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.cancel-btn {
+  background: #fff;
+  color: #5c0700;
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid #5c0700;
+  border-radius: 50px;
+  padding: 4px 10px 4px 10px;
+  letter-spacing: 0.05px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: #5c0700;
+  color: #fff;
+  border-color: #222;
+}
+
+.cancel-btn:disabled {
+  background: #f7f5f2;
+  color: #bdbdbd;
+  border-color: #bdbdbd;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* --- Form Error Styling --- */
+.form-error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 4px;
+}
+
+/* --- Reply Form Specific Styles --- */
+.reply-form {
+  margin: 12px 0 0 0;
+  padding: 16px;
+  border: 2px solid #222;
+  background: #f9f9f9;
+}
+
+.reply-form .form-row {
+  margin-bottom: 16px;
+}
+
+.reply-form .avatar-preview {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 6px;
+}

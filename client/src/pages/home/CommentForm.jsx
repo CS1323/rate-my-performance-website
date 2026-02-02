@@ -1,19 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { HockeyPuckIcon, HockeyStickIcon, IceSkatesIcon, HockeyJerseyIcon } from '../../components/icons';
 
-// Import avatar images
-import avatar1 from '../../assets/images/avatars/avatar1.svg';
-import avatar2 from '../../assets/images/avatars/avatar2.svg';
-import avatar3 from '../../assets/images/avatars/avatar3.svg';
-import avatar4 from '../../assets/images/avatars/avatar4.svg';
-
-import './HomePage.css';
+import './CommentForm.css';
 
 const AVATARS = [
-  { id: 1, src: avatar1, label: 'Puck' },
-  { id: 2, src: avatar2, label: 'Stick' },
-  { id: 3, src: avatar3, label: 'Skates' },
-  { id: 4, src: avatar4, label: 'Jersey' },
+  { id: 1, component: HockeyPuckIcon, label: 'Hockey Puck' },
+  { id: 2, component: HockeyStickIcon, label: 'Hockey Stick' },
+  { id: 3, component: IceSkatesIcon, label: 'Ice Skates' },
+  { id: 4, component: HockeyJerseyIcon, label: 'Hockey Jersey' },
 ];
 
 
@@ -57,9 +52,11 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
       setContent('');
       if (onSubmitSuccess) onSubmitSuccess();
       if (onCancel) onCancel();
+      
     } catch (err) {
       setError(err.response?.data?.error || `Failed to post ${mode}`);
       console.error(`Error posting ${mode}:`, err);
+      
     } finally {
       setLoading(false);
     }
@@ -79,24 +76,34 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
           disabled={loading}
         />
       </div>
+      
       <div className="form-row avatar-picker">
         <div className="label">Choose an avatar</div>
         <div className="avatars">
-          {AVATARS.map((avatar) => (
-            <label key={avatar.id} className="avatar-option">
-              <input
-                type="radio"
-                name="avatar"
-                value={avatar.id}
-                checked={parseInt(avatarId) === avatar.id}
-                onChange={(e) => setAvatarId(e.target.value)}
-                disabled={loading}
-              />
-              <img src={avatar.src} alt={avatar.label} className="avatar-preview" />
-            </label>
-          ))}
+          {AVATARS.map((avatar) => {
+            const IconComponent = avatar.component;
+            return (
+              <label key={avatar.id} className="avatar-option">
+                <input
+                  type="radio"
+                  name="avatar"
+                  value={avatar.id}
+                  checked={parseInt(avatarId) === avatar.id}
+                  onChange={(e) => setAvatarId(e.target.value)}
+                  disabled={loading}
+                />
+                <IconComponent 
+                  size={40}
+                  className={`avatar-preview ${parseInt(avatarId) === avatar.id ? 'selected' : ''}`}
+                  color="#333"
+                  title={avatar.label}
+                />
+              </label>
+            );
+          })}
         </div>
       </div>
+
       <div className="form-row">
         <label htmlFor={mode + "-content"}>{mode === 'reply' ? 'Reply' : 'Comment'}</label>
         <textarea
@@ -108,7 +115,9 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
           disabled={loading}
         />
       </div>
+
       {error && <div className="form-error">{error}</div>}
+
       <div className="form-row form-actions">
         <button type="submit" className="btn-post" disabled={loading}>
           {loading ? (mode === 'reply' ? 'Replying...' : 'Posting...') : (mode === 'reply' ? 'Reply' : 'Post comment')}

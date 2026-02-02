@@ -5,17 +5,16 @@ import { useState } from 'react';
 import axios from 'axios';
 import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
-import avatar1 from '../../assets/images/avatars/avatar1.svg';
-import avatar2 from '../../assets/images/avatars/avatar2.svg';
-import avatar3 from '../../assets/images/avatars/avatar3.svg';
-import avatar4 from '../../assets/images/avatars/avatar4.svg';
+import { HockeyPuckIcon, HockeyStickIcon, IceSkatesIcon, HockeyJerseyIcon } from '../../components/icons';
+
+import './Comment.css';
 
 
-const AVATAR_IMAGES = {
-  1: avatar1,
-  2: avatar2,
-  3: avatar3,
-  4: avatar4,
+const AVATAR_COMPONENTS = {
+  1: HockeyPuckIcon,
+  2: HockeyStickIcon,
+  3: IceSkatesIcon,
+  4: HockeyJerseyIcon,
 };
 
 // Helper function to format relative time
@@ -87,12 +86,17 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
 
         <div className="comment-header">
           <span className="avatar">
-            <img
-              src={AVATAR_IMAGES[comment.avatarId]}
-              alt="avatar"
-              className="avatar-preview"
-              style={{ width: 40, height: 40, borderRadius: '50%' }}
-            />
+            {(() => {
+              const AvatarComponent = AVATAR_COMPONENTS[comment.avatarId] || HockeyPuckIcon;
+              return (
+                <AvatarComponent 
+                  size={40} 
+                  className="avatar-preview"
+                  color="#333"
+                  title={`Avatar ${comment.avatarId}`}
+                />
+              );
+            })()}
           </span>
           <div className="meta">
             <div className="username">{comment.authorName}</div>

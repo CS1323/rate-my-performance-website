@@ -1,3 +1,5 @@
+import './InitialPost.css';
+
 export function InitialPost({ post }) {
   // Safely handle null/undefined post
   if (!post) {
