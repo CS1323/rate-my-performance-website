@@ -36,8 +36,7 @@
 }
 
 .sidebar-link:hover {
-  background-color: #5c0700;
-  color: #fff;
+  background-color: lightgray;
   border-radius: 8px;
   transition: background 0.15s, color 0.15s;
 }
