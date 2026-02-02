@@ -1,5 +1,6 @@
 .layout {
   display: flex;
+  flex-direction: column;
   margin-top: 75px;
   min-width: 0;
   min-height: calc(100vh - 75px); /* full viewport minus header */
@@ -10,10 +11,25 @@
   /* allow the flex child to shrink below its content width and enable internal scrolling */
   min-width: 0;
   overflow-y: auto; /* allow vertical scrolling */
+  padding: 0 12px;
+}
+
+/* Tablet+: Add horizontal padding for content margins */
+@media (min-width: 768px) {
+  .content {
+    padding: 0 16px;
+  }
+}
+
+/* Desktop: Increase padding */
+@media (min-width: 1024px) {
+  .content {
+    padding: 0 20px;
+  }
 }
 
 .sidebar {
-  display: flex;
+  display: none;
   flex-direction: column;
   /* allow inner sections to stretch to full sidebar width */
   align-items: stretch;
@@ -22,4 +38,78 @@
   height: calc(100vh - 75px);
   background-color: white;
   z-index: 50;
+}
+
+/* Show sidebar on mobile when toggle is active */
+.layout[style*="flex"] .left.sidebar {
+  display: flex;
+}
+
+/* Hide ads when sidebar is open on mobile */
+.layout[style*="flex"] .inline-ad-mobile,
+.layout[style*="flex"] .sidebar-ad {
+  display: none;
+}
+
+/* Tablet (640px+): Start showing sidebars with scaling widths */
+@media (min-width: 640px) {
+  .layout {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    display: flex;
+  }
+
+  /* Gradually scale widths from 640px to 768px */
+  .left.sidebar {
+    width: clamp(60px, 15vw, 100px);
+  }
+
+  .right.sidebar {
+    width: clamp(140px, 18vw, 220px);
+  }
+
+  /* Hide inline ads when right sidebar is visible */
+  .inline-ad-mobile {
+    display: none;
+  }
+}
+
+/* Tablet middle (768px): Adjust scaling range */
+@media (min-width: 768px) {
+  .left.sidebar {
+    width: clamp(80px, 12vw, 120px);
+  }
+
+  .right.sidebar {
+    width: clamp(160px, 22vw, 250px);
+  }
+}
+
+/* Tablet-Desktop transition (900px) */
+@media (min-width: 900px) {
+  .left.sidebar {
+    width: clamp(100px, 14vw, 180px);
+  }
+
+  .right.sidebar {
+    width: clamp(240px, 32vw, 320px);
+  }
+}
+
+/* Desktop (1024px+): Expand to full widths */
+@media (min-width: 1024px) {
+  .left.sidebar {
+    width: 250px;
+  }
+
+  .right.sidebar {
+    width: 350px;
+  }
+
+  /* Only show sidebar ads on desktop, keep inline ads hidden */
+  .sidebar-ad {
+    display: block !important;
+  }
 }

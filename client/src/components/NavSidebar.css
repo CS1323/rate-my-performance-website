@@ -1,15 +1,16 @@
 .left.sidebar {
   left: 0;
   justify-content: space-between;
-  width: 100px;
   border-right-color: rgb(191, 191, 191);
   border-right-style: solid;
   border-right-width: 1px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 
 .sidebar-link {
-  height: 75px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,6 +25,7 @@
   border: none;
   outline: none;
   transition: background 0.15s;
+  flex-shrink: 0;
 }
 
 .sidebar-link:visited,
@@ -54,8 +56,28 @@
 
 .copyright {
   margin-top: 10px;
-  font-size: 10px;
+  font-size: 9px;
   text-align: center;
+  color: #666;
+  padding: 0 5px;
+  line-height: 1.2;
+}
+
+/* Tablet+: Increase copyright size */
+@media (min-width: 768px) {
+  .copyright {
+    font-size: 10px;
+    margin-top: 12px;
+  }
+}
+
+/* Desktop: Original size */
+@media (min-width: 1200px) {
+  .copyright {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+  }
 }
 
 

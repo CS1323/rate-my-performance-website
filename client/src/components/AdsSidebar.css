@@ -1,16 +1,77 @@
 .right.sidebar {
   right: 0;
-  width: 400px;
   align-items: center;
   border-left-color: rgb(191, 191, 191);
   border-left-style: solid;
   border-left-width: 1px;
 }
 
+/* Mobile: Show ads inline within comments section */
+@media (max-width: 767px) {
+  .right.sidebar {
+    display: none;
+  }
+
+  .inline-ad-mobile {
+    margin: 16px 0;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #eee;
+  }
+
+  .inline-ad-mobile .right.sidebar {
+    display: flex;
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    top: auto;
+  }
+
+  .inline-ad-mobile .ad-image {
+    height: 200px;
+    width: 100%;
+  }
+}
+
+/* Tablet: Show ads with narrower width on 768px-1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .right.sidebar {
+    width: 300px;
+  }
+
+  .ad-image {
+    height: 280px;
+    width: 100%;
+  }
+
+  .inline-ad-mobile {
+    display: none;
+  }
+}
+
+/* Desktop: Full width ads on 1024px+ */
+@media (min-width: 1024px) {
+  .right.sidebar {
+    width: 400px;
+  }
+
+  .ad-image {
+    height: 350px;
+    width: 100%;
+  }
+
+  .inline-ad-mobile {
+    display: none;
+  }
+}
+
 .ad-image {
-  height: 350px;
   padding: 10px;
-  object-fit: fill;
+  object-fit: contain;
+  background: #fff;
 
   /* displays broken image if ad images don't load properly */
   font-family: 'Material Symbols Outlined'; 

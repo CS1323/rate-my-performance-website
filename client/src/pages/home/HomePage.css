@@ -1,10 +1,30 @@
 /* HomePage.css - Main page layout and comments section container */
 
 /* --- Comments Section Container --- */
+/* Mobile: Full width with padding */
 .comments-section {
-  padding: 32px 0;
-  max-width: 700px;
-  margin: 0 auto;
+  padding: 16px 8px;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+
+/* Tablet: Add max-width constraint and center */
+@media (min-width: 768px) {
+  .comments-section {
+    padding: 24px 12px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+/* Desktop: Full width constraint */
+@media (min-width: 1024px) {
+  .comments-section {
+    padding: 32px 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 }
 
 .comments-section h2 {

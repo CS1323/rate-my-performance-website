@@ -4,34 +4,94 @@
 .comment-form {
   background: #f7f5f2;
   border: 3px solid #5c0700;
-  padding: 22px 20px 16px 20px;
+  padding: 14px 12px 10px 12px;
   border-radius: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   box-shadow: 0 1px 6px 0 rgba(92,7,0,0.04);
 }
 
 .comment-form .form-row {
-  margin-bottom: 22px;
+  margin-bottom: 14px;
+}
+
+/* Tablet+: Increase padding */
+@media (min-width: 768px) {
+  .comment-form {
+    padding: 18px 16px 12px 16px;
+    margin-bottom: 18px;
+  }
+
+  .comment-form .form-row {
+    margin-bottom: 18px;
+  }
+}
+
+/* Desktop: Original padding */
+@media (min-width: 1024px) {
+  .comment-form {
+    padding: 22px 20px 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .comment-form .form-row {
+    margin-bottom: 22px;
+  }
 }
 
 .comment-form label,
 .comment-form .label {
-  font-size: 1.13rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #5c0700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: block;
+}
+
+/* Tablet+: Increase label size */
+@media (min-width: 768px) {
+  .comment-form label,
+  .comment-form .label {
+    font-size: 1rem;
+    margin-bottom: 7px;
+  }
+}
+
+/* Desktop: Original label size */
+@media (min-width: 1024px) {
+  .comment-form label,
+  .comment-form .label {
+    font-size: 1.13rem;
+    margin-bottom: 8px;
+  }
 }
 
 .comment-form input[type="text"],
 .comment-form textarea {
   width: 100%;
   box-sizing: border-box;
-  font-size: 1.13rem;
-  padding: 12px 12px;
+  font-size: 0.95rem;
+  padding: 8px 10px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-family: inherit;
+}
+
+/* Tablet+: Increase input size */
+@media (min-width: 768px) {
+  .comment-form input[type="text"],
+  .comment-form textarea {
+    font-size: 1rem;
+    padding: 10px 11px;
+  }
+}
+
+/* Desktop: Original input size */
+@media (min-width: 1024px) {
+  .comment-form input[type="text"],
+  .comment-form textarea {
+    font-size: 1.13rem;
+    padding: 12px 12px;
+  }
 }
 
 .comment-form input[type="text"]:focus,
@@ -44,10 +104,24 @@
 /* --- Avatar Picker Styles --- */
 .avatar-picker .avatars {
   display: flex;
-  gap: 18px;
+  gap: 12px;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 0;
+}
+
+/* Tablet+: Increase gap */
+@media (min-width: 768px) {
+  .avatar-picker .avatars {
+    gap: 15px;
+  }
+}
+
+/* Desktop: Original gap */
+@media (min-width: 1024px) {
+  .avatar-picker .avatars {
+    gap: 18px;
+  }
 }
 
 .avatar-option {
@@ -60,17 +134,39 @@
 }
 
 .avatar-preview {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
   border: 2.5px solid #e0d6ce;
   background: rgba(255, 255, 255, 0.1);
-  padding: 8px;
+  padding: 6px;
   transition: all 0.2s;
   cursor: pointer;
   box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
+}
+
+/* Tablet: Slightly larger */
+@media (min-width: 768px) {
+  .avatar-preview {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 7px;
+  }
+}
+
+/* Desktop: Original size */
+@media (min-width: 1024px) {
+  .avatar-preview {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px;
+  }
 }
 
 .avatar-preview:hover {
@@ -87,24 +183,58 @@
 /* --- Form Actions --- */
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
+  margin-top: 12px;
+}
+
+/* Tablet+: Increase gap */
+@media (min-width: 768px) {
+  .form-actions {
+    gap: 11px;
+    margin-top: 14px;
+  }
+}
+
+/* Desktop: Original gap */
+@media (min-width: 1024px) {
+  .form-actions {
+    gap: 12px;
+    margin-top: 0;
+  }
 }
 
 .btn-post {
   background: #5c0700;
   color: #fff;
   font-family: 'Oswald', Arial, sans-serif;
-  font-size: 0.89rem;
+  font-size: 0.8rem;
   font-weight: 600;
   border: none;
   border-radius: 50px;
-  padding: 5px 12px 5px 12px;
-  margin-right: 8px;
+  padding: 4px 10px;
   box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
   letter-spacing: 0.1px;
   cursor: pointer;
   transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+/* Tablet+: Larger button */
+@media (min-width: 768px) {
+  .btn-post {
+    font-size: 0.85rem;
+    padding: 4px 11px;
+    margin-right: 6px;
+  }
+}
+
+/* Desktop: Original button size */
+@media (min-width: 1024px) {
+  .btn-post {
+    font-size: 0.89rem;
+    padding: 5px 12px 5px 12px;
+    margin-right: 8px;
+  }
 }
 
 .btn-post:hover:not(:disabled) {

@@ -5,7 +5,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px 0 24px;
+  padding: 0 12px 0 8px;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,47 +16,133 @@ header {
   box-shadow: 0 2px 12px 0 rgba(92,7,0,0.08);
 }
 
-.cfu-logo-title {
+/* Header left section: puck + title */
+.header-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
 }
 
-.cfu-puck-logo {
-  width: 48px;
-  height: 48px;
-  margin-right: 2px;
-  vertical-align: middle;
+/* Puck logo - always visible */
+.puck-logo-static {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+/* Hide puck on mobile, show on tablet+ */
+@media (max-width: 767px) {
+  .puck-logo-static {
+    display: none;
+  }
+}
+
+/* Mobile hamburger button (visible on screens < 768px) */
+.hamburger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.puck-toggle-logo {
+  width: 40px;
+  height: 40px;
+}
+
+/* Hide hamburger on tablet and desktop */
+@media (min-width: 768px) {
+  .hamburger-btn {
+    display: none;
+  }
+
+  header {
+    padding: 0 32px 0 24px;
+  }
 }
 
 .header-title {
   font-family: 'Oswald', Arial, sans-serif;
-  font-size: 2.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 1px;
+  letter-spacing: 0.2px;
   text-shadow: 0 2px 8px rgba(92,7,0,0.12);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
+/* Tablet: Medium title size */
+@media (min-width: 768px) {
+  .header-title {
+    font-size: 1.4rem;
+    letter-spacing: 0.4px;
+  }
+}
+
+/* Desktop: Full title size */
+@media (min-width: 1024px) {
+  .header-title {
+    font-size: 2.1rem;
+    letter-spacing: 1px;
+  }
+}
 
 .socials {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 8px;
+  flex-shrink: 0;
 }
-
 
 .socials a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .social-icon {
   color: rgba(255, 255, 255, 0.85);
-  margin: 0 4px;
+  margin: 0;
   transition: color 0.15s, transform 0.2s;
+  width: 24px;
+  height: 24px;
 }
 
-.social-icon:hover {
-  color: rgba(255, 255, 255, 1);
-  transform: scale(1.08) rotate(-6deg);
+/* Tablet+: Larger gap between icons */
+@media (min-width: 768px) {
+  .socials {
+    gap: 12px;
+  }
+
+  .social-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Desktop: Full spacing */
+@media (min-width: 1024px) {
+  .socials {
+    gap: 14px;
+  }
+
+  .social-icon {
+    width: 28px;
+    height: 28px;
+  }
 }

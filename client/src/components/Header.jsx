@@ -3,11 +3,19 @@ import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 import PuckLogo from '../assets/images/icons/cfu-puck.svg';
 import './Header.css';
 
-export function Header() {
+export function Header({ onToggleSidebar }) {
   return (
     <header>
-      <div className="cfu-logo-title">
-        <img src={PuckLogo} alt="CFU puck logo" className="cfu-puck-logo" />
+      <div className="header-left">
+        <button 
+          className="hamburger-btn" 
+          onClick={onToggleSidebar}
+          aria-label="Toggle navigation"
+          title="Toggle menu"
+        >
+          <img src={PuckLogo} alt="Menu" className="puck-toggle-logo" />
+        </button>
+        <img src={PuckLogo} alt="CFU puck logo" className="puck-logo-static" />
         <span className="header-title">Rate My Performance</span>
       </div>
       <div className="socials">

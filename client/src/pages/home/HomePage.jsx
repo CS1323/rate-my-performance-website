@@ -19,6 +19,7 @@ export function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userVotes, setUserVotes] = useState({}); // Track which comments user has voted on
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile sidebar toggle
 
   // Fetch post and comments on mount
   useEffect(() => {
@@ -142,7 +143,7 @@ export function HomePage() {
     return (
       <>
         <title>Rate My Performance</title>
-        <Header />
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
@@ -158,7 +159,7 @@ export function HomePage() {
     return (
       <>
         <title>Rate My Performance</title>
-        <Header />
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
@@ -175,9 +176,9 @@ export function HomePage() {
   return (
     <>
       <title>Rate My Performance</title>
-      <Header />
+      <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-      <div className="layout">
+      <div className="layout" style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}>
         <NavSidebar />
 
         <main className="content">
@@ -192,15 +193,22 @@ export function HomePage() {
             {/* Dynamic comments from API */}
             <div className="comments-list">
               {comments.length > 0 ? (
-                comments.map((comment) => (
-                  <Comment
-                    key={comment.id}
-                    comment={comment}
-                    onVote={handleVote}
-                    onReply={handleReply}
-                    userVoteState={userVotes}
-                    onReplyPosted={handleCommentPosted}
-                  />
+                comments.map((comment, index) => (
+                  <div key={comment.id}>
+                    <Comment
+                      comment={comment}
+                      onVote={handleVote}
+                      onReply={handleReply}
+                      userVoteState={userVotes}
+                      onReplyPosted={handleCommentPosted}
+                    />
+                    {/* Intersperse ads on mobile every 2 comments */}
+                    {(index + 1) % 2 === 0 && (
+                      <div className="inline-ad-mobile">
+                        <AdsSidebar />
+                      </div>
+                    )}
+                  </div>
                 ))
               ) : (
                 <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
@@ -211,7 +219,7 @@ export function HomePage() {
           </section>
         </main>
 
-        <AdsSidebar />
+        <AdsSidebar className="sidebar-ad" />
       </div>
     </>
   );
