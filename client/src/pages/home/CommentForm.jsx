@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { HockeyPuckIcon, HockeyStickIcon, IceSkatesIcon, HockeyJerseyIcon } from '../../components/icons';
 
 import './CommentForm.css';
 
+import HockeyStickSvg from '../../assets/images/icons/avatars/hockey-stick.svg';
+import HockeySkate from '../../assets/images/icons/avatars/hockey-skate.svg';
+import HockeyRink from '../../assets/images/icons/avatars/hockey-rink.svg';
+import HockeyPlayer from '../../assets/images/icons/avatars/hockey-player.svg';
+
 const AVATARS = [
-  { id: 1, component: HockeyPuckIcon, label: 'Hockey Puck' },
-  { id: 2, component: HockeyStickIcon, label: 'Hockey Stick' },
-  { id: 3, component: IceSkatesIcon, label: 'Ice Skates' },
-  { id: 4, component: HockeyJerseyIcon, label: 'Hockey Jersey' },
+  { id: 1, image: HockeyStickSvg, label: 'Hockey Stick' },
+  { id: 2, image: HockeySkate, label: 'Hockey Skate' },
+  { id: 3, image: HockeyRink, label: 'Hockey Rink' },
+  { id: 4, image: HockeyPlayer, label: 'Hockey Player' },
 ];
 
 
@@ -81,7 +85,6 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
         <div className="label">Choose an avatar</div>
         <div className="avatars">
           {AVATARS.map((avatar) => {
-            const IconComponent = avatar.component;
             return (
               <label key={avatar.id} className="avatar-option">
                 <input
@@ -92,10 +95,10 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
                   onChange={(e) => setAvatarId(e.target.value)}
                   disabled={loading}
                 />
-                <IconComponent 
-                  size={40}
+                <img 
+                  src={avatar.image}
+                  alt={avatar.label}
                   className={`avatar-preview ${parseInt(avatarId) === avatar.id ? 'selected' : ''}`}
-                  color="#333"
                   title={avatar.label}
                 />
               </label>
