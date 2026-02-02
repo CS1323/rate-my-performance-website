@@ -20,16 +20,16 @@ export function Header({ onToggleSidebar }) {
       </div>
       <div className="socials">
         <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer">
-          <FacebookIcon size={28} className="social-icon" />
+          <FacebookIcon size={28} color="#fff" className="social-icon" />
         </a>
         <a href="https://www.instagram.com/cadencekeysauthor/" target="_blank" rel="noopener noreferrer">
-          <InstagramIcon size={28} className="social-icon" />
+          <InstagramIcon size={28} color="#fff" className="social-icon" />
         </a>
         <a href="https://www.tiktok.com/@cadencekeysauthor" target="_blank" rel="noopener noreferrer">
-          <TikTokIcon size={28} className="social-icon" />
+          <TikTokIcon size={28} color="#fff" className="social-icon" />
         </a>
         <a href="https://www.youtube.com/channel/UCR2EQ8F1x3olZDs1JrE7z4g" target="_blank" rel="noopener noreferrer">
-          <YouTubeIcon size={28} className="social-icon" />
+          <YouTubeIcon size={28} color="#fff" className="social-icon" />
         </a>
       </div>
     </header>

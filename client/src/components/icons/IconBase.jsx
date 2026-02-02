@@ -10,8 +10,7 @@ export const IconBase = ({
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    style={{ color }}
-    fill="none"
+    style={{ color, fill: color }}
     className={className}
     xmlns="http://www.w3.org/2000/svg"
     {...props}
