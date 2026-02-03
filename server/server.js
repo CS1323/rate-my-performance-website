@@ -14,6 +14,7 @@ import postsRoutes from "./src/routes/posts.routes.js";
 import commentsRoutes from "./src/routes/comments.routes.js";
 import votesRoutes from "./src/routes/votes.routes.js";
 import reportsRoutes from "./src/routes/reports.routes.js";
+import adsRoutes from "./src/routes/ads.routes.js";
 
 config();
 connectDB();
@@ -33,6 +34,7 @@ app.use("/api/posts", postsRoutes)
 app.use("/api/comments", commentsRoutes)
 app.use("/api/votes", votesRoutes)
 app.use("/api/reports", reportsRoutes)
+app.use("/api/ads", adsRoutes)
 
 // Error middleware
 app.use(notFound);
