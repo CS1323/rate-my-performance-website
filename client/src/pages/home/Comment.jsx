@@ -62,14 +62,21 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
   const [showReplyForm, setShowReplyForm] = useState(false);
   if (!comment) return null;
 
+  // Determine if comment is hidden or deleted
+  const isHidden = comment.status === 'HIDDEN';
+  const isDeleted = comment.status === 'DELETED';
+  const isVisible = comment.status === 'VISIBLE';
+
   const handleVoteClick = (voteType) => {
-    if (onVote) {
+    if (onVote && isVisible) {
       onVote(comment.id, voteType);
     }
   };
 
   const handleReplyClick = () => {
-    setShowReplyForm(true);
+    if (isVisible) {
+      setShowReplyForm(true);
+    }
   };
 
   const handleReplyCancel = () => {
@@ -82,6 +89,44 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
   };
 
   const currentUserVote = userVoteState?.[comment.id];
+
+  // Render placeholder for hidden/deleted comments
+  if (isHidden || isDeleted) {
+    return (
+      <>
+        <article className="comment comment-placeholder" data-id={comment.id}>
+          <div className="comment-body comment-placeholder-text">
+            {isHidden ? (
+              <>
+                <span className="material-symbols-outlined placeholder-icon">visibility_off</span>
+                Comment hidden by moderation
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined placeholder-icon">delete</span>
+                Comment deleted
+              </>
+            )}
+          </div>
+
+          {comment.replies && comment.replies.length > 0 && (
+            <div className="replies">
+              {comment.replies.map((reply) => (
+                <Comment
+                  key={reply.id}
+                  comment={reply}
+                  onVote={onVote}
+                  onReply={onReply}
+                  userVoteState={userVoteState}
+                  onReplyPosted={onReplyPosted}
+                />
+              ))}
+            </div>
+          )}
+        </article>
+      </>
+    );
+  }
 
   return (
     <>
