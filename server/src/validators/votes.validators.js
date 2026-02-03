@@ -7,7 +7,7 @@ import { z } from 'zod';
 const submitVoteSchema = z.object({
   commentId: z.string()
     .uuid("Invalid comment ID format"),
-  voteType: z.enum(['LIKE', 'DISLIKE'], {
+  type: z.enum(['LIKE', 'DISLIKE'], {
     errorMap: () => ({ message: "Vote type must be either 'LIKE' or 'DISLIKE'" })
   }),
   ipHash: z.string()
