@@ -35,12 +35,29 @@ const replyToCommentSchema = z.object({
 });
 
 /**
- * Schema for getting comments by post (validates params)
- * GET /api/comments/post/:postId
+ * Schema for getting comments by post with pagination and sorting
+ * GET /api/comments/post/:postId?sort=top|latest&page=1&limit=10
  */
 const getCommentsByPostSchema = z.object({
   postId: z.string()
-    .uuid("Invalid post ID format")
+    .uuid("Invalid post ID format"),
+  sort: z.enum(["top", "latest"])
+    .optional()
+    .default("top")
+    .catch("top"),
+  page: z.coerce.number()
+    .int("Page must be an integer")
+    .min(1, "Page must be at least 1")
+    .optional()
+    .default(1)
+    .catch(1),
+  limit: z.coerce.number()
+    .int("Limit must be an integer")
+    .min(1, "Limit must be at least 1")
+    .max(50, "Limit cannot exceed 50")
+    .optional()
+    .default(10)
+    .catch(10)
 });
 
 export {createCommentSchema, replyToCommentSchema, getCommentsByPostSchema};

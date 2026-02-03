@@ -156,34 +156,68 @@ const replyToComment = async (req, res) => {
 }
 
 /**
- * Get all comments for a post (nested tree)
+ * Get all comments for a post with pagination and sorting
  */
 const getCommentsByPost = async (req, res) => {
   try {
     const { postId } = req.params;
+    const { sort = 'top', page = '1', limit = '10' } = req.query;
 
-    // Fetch flat list of comments
-    const comments = await prisma.comment.findMany({
-      where: { postId },
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const pageSize = Math.max(1, Math.min(50, parseInt(limit, 10) || 10)); // Cap at 50
+    const skip = (pageNum - 1) * pageSize;
+
+    // Fetch top-level comments only (no parentCommentId)
+    const topLevelComments = await prisma.comment.findMany({
+      where: { postId, parentCommentId: null },
+      skip,
+      take: pageSize,
       orderBy: [{ createdAt: "asc" }],
     });
 
-    // Build nested tree
-    const map = new Map();
-    const roots = [];
+    // For each top-level comment, fetch all its replies
+    const commentsWithReplies = await Promise.all(
+      topLevelComments.map(async (comment) => {
+        const replies = await prisma.comment.findMany({
+          where: { parentCommentId: comment.id },
+          orderBy: [{ createdAt: "asc" }],
+        });
+        return { ...comment, replies };
+      })
+    );
 
-    for (const comment of comments) {
-      comment.replies = [];
-      map.set(comment.id, comment);
-
-      if (!comment.parentCommentId) roots.push(comment);
-      else {
-        const parent = map.get(comment.parentCommentId);
-        if (parent) parent.replies.push(comment);
-      }
+    // Sort top-level comments by requested sort mode
+    if (sort === 'latest') {
+      commentsWithReplies.sort((a, b) => 
+        new Date(b.createdAt) - new Date(a.createdAt)
+      );
+    } else {
+      // Default: 'top' sorting by score
+      commentsWithReplies.sort((a, b) => {
+        const scoreA = (a.likeCount || 0) - (a.dislikeCount || 0);
+        const scoreB = (b.likeCount || 0) - (b.dislikeCount || 0);
+        return scoreB - scoreA;
+      });
     }
 
-    res.status(200).json(roots);
+    // Get total count for pagination metadata
+    const totalCount = await prisma.comment.count({
+      where: { postId, parentCommentId: null },
+    });
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const hasNextPage = pageNum < totalPages;
+
+    res.status(200).json({
+      comments: commentsWithReplies,
+      pagination: {
+        currentPage: pageNum,
+        pageSize,
+        totalCount,
+        totalPages,
+        hasNextPage,
+      }
+    });
 
   } catch (err) {
     console.error(err);

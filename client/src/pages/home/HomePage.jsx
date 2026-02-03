@@ -20,8 +20,14 @@ export function HomePage() {
   const [error, setError] = useState(null);
   const [userVotes, setUserVotes] = useState({}); // Track which comments user has voted on
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile sidebar toggle
+  
+  // Pagination and sorting state
+  const [sortMode, setSortMode] = useState('top'); // 'top' or 'latest'
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationMeta, setPaginationMeta] = useState(null);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  // Fetch post and comments on mount
+  // Fetch post and initial comments on mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,9 +38,13 @@ export function HomePage() {
         const postRes = await axios.get(`/api/posts/${POST_SLUG}`);
         setPost(postRes.data);
 
-        // Fetch comments for the post
-        const commentsRes = await axios.get(`/api/comments/post/${postRes.data.id}`);
-        setComments(commentsRes.data);
+        // Fetch initial comments (page 1, with sort mode)
+        const commentsRes = await axios.get(
+          `/api/comments/post/${postRes.data.id}?sort=${sortMode}&page=1&limit=10`
+        );
+        setComments(commentsRes.data.comments || []);
+        setPaginationMeta(commentsRes.data.pagination || null);
+        setCurrentPage(1);
 
         // Fetch user's votes for this post
         const userIdentifier = getUserIdentifier();
@@ -49,7 +59,7 @@ export function HomePage() {
     };
 
     fetchData();
-  }, []);
+  }, [sortMode]);
 
   // Handle vote on a comment
   const handleVote = async (commentId, voteType) => {
@@ -67,14 +77,36 @@ export function HomePage() {
       // Always re-fetch comments and userVotes to ensure correct counts
       if (post) {
         const [commentsRes, votesRes] = await Promise.all([
-          axios.get(`/api/comments/post/${post.id}`),
+          axios.get(`/api/comments/post/${post.id}?sort=${sortMode}&page=${currentPage}&limit=10`),
           axios.get(`/api/votes/${post.id}?ipHash=${userIdentifier}`)
         ]);
-        setComments(commentsRes.data);
+        setComments(commentsRes.data.comments || []);
+        setPaginationMeta(commentsRes.data.pagination || null);
         setUserVotes(votesRes.data || {});
       }
     } catch (err) {
       console.error("Error voting:", err.response?.data || err.message);
+    }
+  };
+
+  // Handle loading more comments
+  const handleLoadMore = async () => {
+    try {
+      setLoadingMore(true);
+      const nextPage = currentPage + 1;
+
+      const commentsRes = await axios.get(
+        `/api/comments/post/${post.id}?sort=${sortMode}&page=${nextPage}&limit=10`
+      );
+      
+      // Append new comments to existing ones
+      setComments([...comments, ...(commentsRes.data.comments || [])]);
+      setPaginationMeta(commentsRes.data.pagination || null);
+      setCurrentPage(nextPage);
+    } catch (err) {
+      console.error("Error loading more comments:", err);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -129,13 +161,18 @@ export function HomePage() {
     // TODO: Show reply form modal or inline form
   };
 
-  // Handle new comment posted
+  // Handle new comment posted - refresh from page 1
   const handleCommentPosted = () => {
-    // Refresh comments after a new one is posted
+    // Refresh comments after a new one is posted, reset to page 1
     if (post) {
-      axios.get(`/api/comments/post/${post.id}`).then((res) => {
-        setComments(res.data);
-      }).catch(err => console.error("Error fetching updated comments:", err));
+      axios
+        .get(`/api/comments/post/${post.id}?sort=${sortMode}&page=1&limit=10`)
+        .then((res) => {
+          setComments(res.data.comments || []);
+          setPaginationMeta(res.data.pagination || null);
+          setCurrentPage(1);
+        })
+        .catch(err => console.error("Error fetching updated comments:", err));
     }
   };
 
@@ -186,30 +223,61 @@ export function HomePage() {
 
           {/* Comments section: comment form + list */}
           <section className="comments-section">
-            <h2>Comments</h2>
+            <div className="comments-header">
+              <h2>Comments</h2>
+              
+              {/* Sort controls - mobile optimized */}
+              <div className="sort-controls">
+                <button 
+                  className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
+                  onClick={() => setSortMode('top')}
+                >
+                  Top
+                </button>
+                <button 
+                  className={`sort-btn ${sortMode === 'latest' ? 'active' : ''}`}
+                  onClick={() => setSortMode('latest')}
+                >
+                  Latest
+                </button>
+              </div>
+            </div>
 
             <CommentForm postId={post?.id} onCommentPosted={handleCommentPosted} />
 
             {/* Dynamic comments from API */}
             <div className="comments-list">
               {comments.length > 0 ? (
-                comments.map((comment, index) => (
-                  <div key={comment.id}>
-                    <Comment
-                      comment={comment}
-                      onVote={handleVote}
-                      onReply={handleReply}
-                      userVoteState={userVotes}
-                      onReplyPosted={handleCommentPosted}
-                    />
-                    {/* Intersperse ads on mobile every 2 comments */}
-                    {(index + 1) % 2 === 0 && (
-                      <div className="inline-ad-mobile">
-                        <AdsSidebar />
-                      </div>
-                    )}
-                  </div>
-                ))
+                <>
+                  {comments.map((comment, index) => (
+                    <div key={comment.id}>
+                      <Comment
+                        comment={comment}
+                        onVote={handleVote}
+                        onReply={handleReply}
+                        userVoteState={userVotes}
+                        onReplyPosted={handleCommentPosted}
+                      />
+                      {/* Intersperse ads on mobile every 2 comments */}
+                      {(index + 1) % 2 === 0 && (
+                        <div className="inline-ad-mobile">
+                          <AdsSidebar />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {/* Load More button if there are more pages */}
+                  {paginationMeta?.hasNextPage && (
+                    <button 
+                      className="load-more-btn"
+                      onClick={handleLoadMore}
+                      disabled={loadingMore}
+                    >
+                      {loadingMore ? 'Loading...' : 'Load More Comments'}
+                    </button>
+                  )}
+                </>
               ) : (
                 <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
                   No comments yet. Be the first to comment!

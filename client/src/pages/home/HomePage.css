@@ -35,6 +35,77 @@
   color: #5c0700;
 }
 
+/* --- Comments Header with Sort Controls --- */
+.comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.comments-header h2 {
+  margin: 0;
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Sort controls - mobile optimized */
+.sort-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.sort-btn:hover {
+  background: #e0e0e0;
+  border-color: #999;
+}
+
+.sort-btn.active {
+  background: #5c0700;
+  color: #fff;
+  border-color: #5c0700;
+}
+
+/* Load More button - mobile optimized */
+.load-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin: 24px 0;
+  border: none;
+  background: #5c0700;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.load-more-btn:hover:not(:disabled) {
+  background: #7a0a00;
+}
+
+.load-more-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* --- Comments List Container --- */
 .comments-list {
   margin-top: 24px;
