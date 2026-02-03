@@ -13,6 +13,8 @@ export function Accessibility() {
 
   return (
     <>
+      <title>Accessibility - RMP</title>
+
       <Header onToggleSidebar={handleToggleSidebar} />
       
       <div 

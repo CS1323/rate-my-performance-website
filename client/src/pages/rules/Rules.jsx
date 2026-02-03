@@ -13,6 +13,8 @@ export function Rules() {
 
   return (
     <>
+      <title>RMP Rules</title>
+
       <Header onToggleSidebar={handleToggleSidebar} />
       
       <div 

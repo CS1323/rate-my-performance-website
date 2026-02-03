@@ -82,6 +82,8 @@ export function CFUBoyfriendQuiz() {
 
   return (
     <>
+      <title>CFU Boyfriend Quiz - RMP</title>
+
       <Header onToggleSidebar={handleToggleSidebar} />
       
       <div 

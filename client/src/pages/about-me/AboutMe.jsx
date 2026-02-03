@@ -16,6 +16,8 @@ export function AboutMe() {
 
   return (
     <>
+      <title>About Me - RMP</title>
+
       <Header onToggleSidebar={handleToggleSidebar} />
       
       <div 

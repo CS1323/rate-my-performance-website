@@ -3,7 +3,7 @@ import { HomePage } from './pages/home/HomePage'
 import { CFUBoyfriendQuiz } from './pages/quiz/CFUBoyfriendQuiz'
 import { AboutMe } from './pages/about-me/AboutMe'
 import { Rules } from './pages/rules/Rules'
-import { PrivacyPolicy } from './pages/privacy-policy/PrivacyPolicyClean'
+import { PrivacyPolicy } from './pages/privacy-policy/PrivacyPolicyPage';
 import { UserAgreement } from './pages/user-agreement/UserAgreement'
 import { Accessibility } from './pages/accessibility/Accessibility'
 import './App.css'

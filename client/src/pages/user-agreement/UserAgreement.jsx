@@ -13,6 +13,8 @@ export function UserAgreement() {
 
   return (
     <>
+      <title>RMP User Agreement</title>
+
       <Header onToggleSidebar={handleToggleSidebar} />
       
       <div 
