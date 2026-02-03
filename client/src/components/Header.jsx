@@ -16,7 +16,7 @@ export function Header({ onToggleSidebar }) {
           <img src={PuckLogo} alt="Menu" className="puck-toggle-logo" />
         </button>
         <img src={PuckLogo} alt="CFU puck logo" className="puck-logo-static" />
-        <span className="header-title">Rate My Performance</span>
+        <span className="header-title">RATE MY PERFORMANCE</span>
       </div>
       <div className="socials">
         <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer">

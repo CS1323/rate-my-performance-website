@@ -94,12 +94,12 @@
   }
 
   .right.sidebar {
-    width: clamp(240px, 32vw, 320px);
+    width: clamp(240px, 32vw, 350px);
   }
 }
 
 /* Desktop (1024px+): Expand to full widths */
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .left.sidebar {
     width: 250px;
   }

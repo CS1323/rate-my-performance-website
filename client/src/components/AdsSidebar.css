@@ -38,12 +38,8 @@
 
 /* Tablet: Show ads with narrower width on 768px-1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .right.sidebar {
-    width: 300px;
-  }
-
   .ad-image {
-    height: 280px;
+    /* height: 180px; */
     width: 100%;
   }
 
@@ -54,12 +50,8 @@
 
 /* Desktop: Full width ads on 1024px+ */
 @media (min-width: 1024px) {
-  .right.sidebar {
-    width: 400px;
-  }
-
   .ad-image {
-    height: 350px;
+    /* height: 250px; */
     width: 100%;
   }
 
@@ -75,7 +67,7 @@
 
   /* displays broken image if ad images don't load properly */
   font-family: 'Material Symbols Outlined'; 
-  font-size: 32px;
+  font-size: 1rem;
 }
 
 .ad-image:before {

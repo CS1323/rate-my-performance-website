@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'SF Collegiate';
+  src: url('/fonts/SF_Collegiate_Solid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 header {
   height: 75px;
@@ -74,9 +80,9 @@ header {
 }
 
 .header-title {
-  font-family: 'Oswald', Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: 'SF Collegiate', 'Oswald', Arial, sans-serif;
+  font-size: 2.1rem;
+  font-weight: normal;
   color: #fff;
   letter-spacing: 0.2px;
   text-shadow: 0 2px 8px rgba(92,7,0,0.12);
@@ -89,7 +95,7 @@ header {
 /* Tablet: Medium title size */
 @media (min-width: 768px) {
   .header-title {
-    font-size: 1.4rem;
+    /* font-size: 1.4rem; */
     letter-spacing: 0.4px;
   }
 }
@@ -97,7 +103,7 @@ header {
 /* Desktop: Full title size */
 @media (min-width: 1024px) {
   .header-title {
-    font-size: 2.1rem;
+    font-size: 2.5rem;
     letter-spacing: 1px;
   }
 }
@@ -138,10 +144,5 @@ header {
 @media (min-width: 1024px) {
   .socials {
     gap: 14px;
-  }
-
-  .social-icon {
-    width: 28px;
-    height: 28px;
   }
 }
