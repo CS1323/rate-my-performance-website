@@ -25,8 +25,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files (images, etc.) using absolute path
-// Mount at /images route so files are accessible at /images/filename.png
+// Serve images from /images
 app.use("/images", express.static(join(__dirname, "images")));
 
 // API Routes
@@ -40,7 +39,7 @@ app.use("/api/ads", adsRoutes)
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 const server = app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);
 });
