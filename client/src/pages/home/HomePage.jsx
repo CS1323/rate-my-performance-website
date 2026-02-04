@@ -22,7 +22,7 @@ export function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile sidebar toggle
   
   // Pagination and sorting state
-  const [sortMode, setSortMode] = useState('top'); // 'top' or 'latest'
+  const [sortMode, setSortMode] = useState('latest'); // 'top' or 'latest'
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationMeta, setPaginationMeta] = useState(null);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -229,16 +229,16 @@ export function HomePage() {
               {/* Sort controls - mobile optimized */}
               <div className="sort-controls">
                 <button 
-                  className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
-                  onClick={() => setSortMode('top')}
-                >
-                  Top
-                </button>
-                <button 
                   className={`sort-btn ${sortMode === 'latest' ? 'active' : ''}`}
                   onClick={() => setSortMode('latest')}
                 >
                   Latest
+                </button>
+                <button 
+                  className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
+                  onClick={() => setSortMode('top')}
+                >
+                  Top
                 </button>
               </div>
             </div>
