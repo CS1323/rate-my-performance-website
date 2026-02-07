@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { connectDB, disconnectDB } from "./config/db.js";
 import { errorHandler, notFound } from "./src/middleware/error.middleware.js";
+import { corsMiddleware } from "./src/middleware/cors.middleware.js";
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -20,6 +21,9 @@ config();
 connectDB();
 
 const app = express();
+
+// CORS Middleware - Allow frontend domains specified in CORS_ORIGIN
+app.use(corsMiddleware);
 
 // Body parsing middlewares
 app.use(express.json());
