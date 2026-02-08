@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL, getImageUrl } from '../config/api';
 
 const AdsContext = createContext();
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 export function AdsProvider({ children }) {
   const [ads, setAds] = useState([]);
@@ -14,7 +14,14 @@ export function AdsProvider({ children }) {
       try {
         setLoading(true);
         const response = await axios.get(`${API_BASE_URL}/api/ads`);
-        setAds(response.data);
+        
+        // Construct full image URLs for ads
+        const adsWithFullUrls = response.data.map(ad => ({
+          ...ad,
+          imageUrl: getImageUrl(ad.imageUrl)
+        }));
+        
+        setAds(adsWithFullUrls);
         setError(null);
       } catch (err) {
         console.error('Error fetching ads:', err);

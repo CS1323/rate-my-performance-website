@@ -1,4 +1,5 @@
 import './InitialPost.css';
+import { getImageUrl } from '../../config/api';
 
 export function InitialPost({ post }) {
   // Safely handle null/undefined post
@@ -10,6 +11,8 @@ export function InitialPost({ post }) {
     );
   }
 
+  const imageUrl = getImageUrl(post.image);
+
   return (
     <section className="initial-post">
       <div className="initial-post-title">
@@ -18,7 +21,7 @@ export function InitialPost({ post }) {
 
       {post.image && (
         <div className="initial-post-image">
-          <img src={post.image} alt={post.title} />
+          <img src={imageUrl} alt={post.title} />
         </div>
       )}
 

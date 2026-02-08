@@ -8,11 +8,11 @@ import { InitialPost } from "./InitialPost";
 import { CommentForm } from "./CommentForm";
 import { Comment } from "./Comment";
 import { getUserIdentifier } from "../../utils/userIdentifier";
+import { API_BASE_URL } from "../../config/api";
 
 import './HomePage.css';
 
 const POST_SLUG = "drew-dumontier";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 export function HomePage() {
   const [post, setPost] = useState(null);
