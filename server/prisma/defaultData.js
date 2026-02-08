@@ -106,7 +106,7 @@ async function main() {
     where: { id: comment1.id },
     data: { 
       likeCount: 17,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
@@ -114,7 +114,7 @@ async function main() {
     where: { id: comment2.id },
     data: { 
       likeCount: 54,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
@@ -122,7 +122,7 @@ async function main() {
     where: { id: comment3.id },
     data: { 
       likeCount: 8,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
@@ -130,7 +130,7 @@ async function main() {
     where: { id: comment4.id },
     data: { 
       likeCount: 5,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
@@ -138,7 +138,7 @@ async function main() {
     where: { id: comment5.id },
     data: { 
       likeCount: 87,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
@@ -146,7 +146,7 @@ async function main() {
     where: { id: comment6.id },
     data: { 
       likeCount: 26,
-      createdAt: "2026-02-28 08:23:19.931"
+      createdAt: new Date('2026-02-28T08:23:19.931Z')
     },
   });
 
