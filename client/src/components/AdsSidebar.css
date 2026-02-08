@@ -1,6 +1,5 @@
 .right.sidebar {
   right: 0;
-  align-items: center;
   border-left-color: rgb(191, 191, 191);
   border-left-style: solid;
   border-left-width: 1px;
@@ -31,7 +30,6 @@
   }
 
   .inline-ad-mobile .ad-image {
-    height: 200px;
     width: 100%;
   }
 }
@@ -39,7 +37,6 @@
 /* Tablet: Show ads with narrower width on 768px-1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ad-image {
-    height: 180px;
     width: 100%;
   }
 
@@ -51,7 +48,6 @@
 /* Desktop: Full width ads on 1024px+ */
 @media (min-width: 1024px) {
   .ad-image {
-    height: 250px;
     width: 100%;
   }
 
