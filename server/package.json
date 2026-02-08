@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "build": "npm run prisma:migrate && node prisma/defaultData.js",
-    "prisma:migrate": "npm exec prisma migrate deploy",
+    "prisma:migrate": "npx prisma@6.19.2 migrate deploy",
     "seed:db": "node prisma/seed.js",
     "default:db": "node prisma/defaultData.js"
   },
@@ -17,16 +17,16 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@prisma/client": "6.19.2",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "openai": "^4.104.0",
+    "prisma": "6.19.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@prisma/client": "6.19.2",
     "dotenv": "^17.2.3",
-    "nodemon": "^3.1.11",
-    "prisma": "6.19.2"
+    "nodemon": "^3.1.11"
   }
 }
