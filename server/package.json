@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "build": "npm run prisma:migrate && node prisma/defaultData.js",
-    "prisma:migrate": "node ./node_modules/prisma/build/index.js migrate deploy",
+    "prisma:migrate": "npm exec prisma migrate deploy",
     "seed:db": "node prisma/seed.js",
     "default:db": "node prisma/defaultData.js"
   },
