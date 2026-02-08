@@ -39,7 +39,7 @@
 /* Tablet: Show ads with narrower width on 768px-1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ad-image {
-    /* height: 180px; */
+    height: 180px;
     width: 100%;
   }
 
@@ -51,7 +51,7 @@
 /* Desktop: Full width ads on 1024px+ */
 @media (min-width: 1024px) {
   .ad-image {
-    /* height: 250px; */
+    height: 250px;
     width: 100%;
   }
 
@@ -64,6 +64,7 @@
   padding: 10px;
   object-fit: contain;
   background: #fff;
+  aspect-ratio: 3 / 4;
 
   /* displays broken image if ad images don't load properly */
   font-family: 'Material Symbols Outlined'; 
