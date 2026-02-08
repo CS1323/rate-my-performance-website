@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AdsContext = createContext();
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 export function AdsProvider({ children }) {
   const [ads, setAds] = useState([]);
@@ -12,7 +13,7 @@ export function AdsProvider({ children }) {
     const fetchAds = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/ads');
+        const response = await axios.get(`${API_BASE_URL}/api/ads`);
         setAds(response.data);
         setError(null);
       } catch (err) {

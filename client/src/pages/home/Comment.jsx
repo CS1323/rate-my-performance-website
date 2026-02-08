@@ -20,6 +20,8 @@ const AVATAR_IMAGES = {
   4: HockeyPlayer,
 };
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+
 // Helper function to format relative time
 function formatTimeAgo(createdAt) {
   const now = new Date();
@@ -47,7 +49,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
           setReporting(false);
           return;
         }
-        await axios.post('/api/reports', {
+        await axios.post(`${API_BASE_URL}/api/reports`, {
           commentId: comment.id,
           reason,
         });

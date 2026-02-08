@@ -8,6 +8,8 @@ import HockeySkate from '../../assets/images/icons/avatars/hockey-skate.svg';
 import HockeyRink from '../../assets/images/icons/avatars/hockey-rink.svg';
 import HockeyPlayer from '../../assets/images/icons/avatars/hockey-player.svg';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+
 const AVATARS = [
   { id: 1, image: HockeyStickSvg, label: 'Hockey Stick' },
   { id: 2, image: HockeySkate, label: 'Hockey Skate' },
@@ -39,13 +41,13 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
       setLoading(true);
       setError(null);
       if (mode === 'reply' && parentCommentId) {
-        await axios.post(`/api/comments/${parentCommentId}/reply`, {
+        await axios.post(`${API_BASE_URL}/api/comments/${parentCommentId}/reply`, {
           authorName: username,
           avatarId: parseInt(avatarId),
           content: content,
         });
       } else if (postId) {
-        await axios.post(`/api/comments/post/${postId}`, {
+        await axios.post(`${API_BASE_URL}/api/comments/post/${postId}`, {
           authorName: username,
           avatarId: parseInt(avatarId),
           content: content,

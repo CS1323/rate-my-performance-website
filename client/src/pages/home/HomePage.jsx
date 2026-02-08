@@ -12,6 +12,7 @@ import { getUserIdentifier } from "../../utils/userIdentifier";
 import './HomePage.css';
 
 const POST_SLUG = "drew-dumontier";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 export function HomePage() {
   const [post, setPost] = useState(null);
@@ -35,12 +36,12 @@ export function HomePage() {
         setError(null);
 
         // Fetch post
-        const postRes = await axios.get(`/api/posts/${POST_SLUG}`);
+        const postRes = await axios.get(`${API_BASE_URL}/api/posts/${POST_SLUG}`);
         setPost(postRes.data);
 
         // Fetch initial comments (page 1, with sort mode)
         const commentsRes = await axios.get(
-          `/api/comments/post/${postRes.data.id}?sort=${sortMode}&page=1&limit=10`
+          `${API_BASE_URL}/api/comments/post/${postRes.data.id}?sort=${sortMode}&page=1&limit=10`
         );
         setComments(commentsRes.data.comments || []);
         setPaginationMeta(commentsRes.data.pagination || null);
@@ -48,7 +49,7 @@ export function HomePage() {
 
         // Fetch user's votes for this post
         const userIdentifier = getUserIdentifier();
-        const votesRes = await axios.get(`/api/votes/${postRes.data.id}?ipHash=${userIdentifier}`);
+        const votesRes = await axios.get(`${API_BASE_URL}/api/votes/${postRes.data.id}?ipHash=${userIdentifier}`);
         setUserVotes(votesRes.data || {});
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -68,7 +69,7 @@ export function HomePage() {
       const userIdentifier = getUserIdentifier();
 
       // Post vote to backend
-      await axios.post("/api/votes", {
+      await axios.post(`${API_BASE_URL}/api/votes`, {
         commentId,
         type: voteType,
         ipHash: userIdentifier,
@@ -77,8 +78,8 @@ export function HomePage() {
       // Always re-fetch comments and userVotes to ensure correct counts
       if (post) {
         const [commentsRes, votesRes] = await Promise.all([
-          axios.get(`/api/comments/post/${post.id}?sort=${sortMode}&page=${currentPage}&limit=10`),
-          axios.get(`/api/votes/${post.id}?ipHash=${userIdentifier}`)
+          axios.get(`${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=${currentPage}&limit=10`),
+          axios.get(`${API_BASE_URL}/api/votes/${post.id}?ipHash=${userIdentifier}`)
         ]);
         setComments(commentsRes.data.comments || []);
         setPaginationMeta(commentsRes.data.pagination || null);
@@ -96,7 +97,7 @@ export function HomePage() {
       const nextPage = currentPage + 1;
 
       const commentsRes = await axios.get(
-        `/api/comments/post/${post.id}?sort=${sortMode}&page=${nextPage}&limit=10`
+        `${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=${nextPage}&limit=10`
       );
       
       // Append new comments to existing ones
@@ -166,7 +167,7 @@ export function HomePage() {
     // Refresh comments after a new one is posted, reset to page 1
     if (post) {
       axios
-        .get(`/api/comments/post/${post.id}?sort=${sortMode}&page=1&limit=10`)
+        .get(`${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=1&limit=10`)
         .then((res) => {
           setComments(res.data.comments || []);
           setPaginationMeta(res.data.pagination || null);
