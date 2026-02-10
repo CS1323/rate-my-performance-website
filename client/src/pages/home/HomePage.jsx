@@ -181,7 +181,7 @@ export function HomePage() {
     return (
       <>
         <title>Rate My Performance</title>
-        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
@@ -197,7 +197,7 @@ export function HomePage() {
     return (
       <>
         <title>Rate My Performance</title>
-        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
@@ -214,7 +214,7 @@ export function HomePage() {
   return (
     <>
       <title>Rate My Performance</title>
-      <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+      <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
 
       <div className="layout" style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}>
         <NavSidebar />

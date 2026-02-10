@@ -64,8 +64,9 @@ header {
 }
 
 .puck-toggle-logo {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
 }
 
 /* Hide hamburger on tablet and desktop */

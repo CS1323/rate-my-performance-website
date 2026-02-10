@@ -1,9 +1,10 @@
 
 import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 import PuckLogo from '../assets/images/icons/cfu-puck.svg';
+import ListIcon from '../assets/images/icons/list.svg';
 import './Header.css';
 
-export function Header({ onToggleSidebar }) {
+export function Header({ onToggleSidebar, sidebarOpen }) {
   return (
     <header>
       <div className="header-left">
@@ -13,7 +14,7 @@ export function Header({ onToggleSidebar }) {
           aria-label="Toggle navigation"
           title="Toggle menu"
         >
-          <img src={PuckLogo} alt="Menu" className="puck-toggle-logo" />
+          <img src={ListIcon} alt="Menu" className="puck-toggle-logo" />
         </button>
         <img src={PuckLogo} alt="CFU puck logo" className="puck-logo-static" />
         <span className="header-title">RATE MY PERFORMANCE</span>
