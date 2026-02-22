@@ -6,7 +6,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localho
 
 /**
  * Construct a full image URL from a relative or absolute path
- * @param {string} imagePath - Image path from API (e.g., 'images/drew1.png' or '/images/drew1.png')
+ * @param {string} imagePath - Image path from API (e.g., 'images/name.png' or '/images/name.png')
  * @returns {string} Full absolute URL to the image
  */
 export function getImageUrl(imagePath) {

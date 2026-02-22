@@ -45,8 +45,7 @@
   display: flex;
 }
 
-/* Hide ads when sidebar is open on mobile */
-.layout[style*="flex"] .inline-ad-mobile,
+/* Hide sidebar ads when sidebar is open on mobile */
 .layout[style*="flex"] .sidebar-ad {
   display: none;
 }
@@ -69,22 +68,6 @@
   .right.sidebar {
     width: clamp(140px, 18vw, 220px);
   }
-
-  /* Hide inline ads when right sidebar is visible */
-  .inline-ad-mobile {
-    display: none;
-  }
-}
-
-/* Tablet middle (768px): Adjust scaling range */
-@media (min-width: 768px) {
-  .left.sidebar {
-    width: clamp(80px, 12vw, 120px);
-  }
-
-  .right.sidebar {
-    width: clamp(160px, 22vw, 250px);
-  }
 }
 
 /* Tablet-Desktop transition (900px) */
@@ -95,6 +78,11 @@
 
   .right.sidebar {
     width: clamp(240px, 32vw, 350px);
+  }
+
+  /* Hide inline ads when right sidebar is visible at 900px+ */
+  .inline-ad-mobile {
+    display: none;
   }
 }
 

@@ -12,9 +12,21 @@ const getAds = async (req, res) => {
     const ads = [
       {
         id: 1,
-        imageUrl: "/images/dukes-ad.png",
+        imageUrl: "/images/ad-dukes-bar-grill.png",
         link: "",
-        alt: "Duke's Ad"
+        alt: "Duke's Bar & Grill Ad"
+      },
+      {
+        id: 2,
+        imageUrl: "/images/ad-grindhouse-coffee-shop.png",
+        link: "",
+        alt: "The Grindhouse Coffee Shop Ad"
+      },
+      {
+        id: 3,
+        imageUrl: "/images/ad-la-wolves-football.png",
+        link: "",
+        alt: "LA Wolves Football Ad"
       }
     ];
 

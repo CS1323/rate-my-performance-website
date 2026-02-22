@@ -3,11 +3,13 @@
   border-left-color: rgb(191, 191, 191);
   border-left-style: solid;
   border-left-width: 1px;
+  padding-top: 20px;
 }
 
 /* Mobile: Show ads inline within comments section */
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .right.sidebar {
+    padding: 0;
     display: none;
   }
 
@@ -29,26 +31,31 @@
     top: auto;
   }
 
+  .inline-ad-mobile .right.sidebar > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .inline-ad-mobile .ad-image {
-    width: 100%;
+    width: 70%;
   }
 }
 
-/* Tablet: Show ads with narrower width on 768px-1023px */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .ad-image {
+/* Tablet/Desktop: Full width ads on 1024px+ */
+@media (min-width: 900px) {
+  .right.sidebar > a {
+    display: flex;
+    justify-content: center;
     width: 100%;
+
+    /* fill sidebar height */
+    align-items: center;
+    flex: 1;
   }
 
-  .inline-ad-mobile {
-    display: none;
-  }
-}
-
-/* Desktop: Full width ads on 1024px+ */
-@media (min-width: 1024px) {
   .ad-image {
-    width: 100%;
+    width: clamp(150px, 100%, 320px);
   }
 
   .inline-ad-mobile {
@@ -57,10 +64,9 @@
 }
 
 .ad-image {
-  padding: 10px;
   object-fit: contain;
   background: #fff;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 5 / 3;
 
   /* displays broken image if ad images don't load properly */
   font-family: 'Material Symbols Outlined'; 

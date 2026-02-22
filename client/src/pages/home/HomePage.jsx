@@ -259,10 +259,10 @@ export function HomePage() {
                         userVoteState={userVotes}
                         onReplyPosted={handleCommentPosted}
                       />
-                      {/* Intersperse ads on mobile every 2 comments */}
+                      {/* Intersperse ads on mobile every 2 comments, rotating through all 3 ads */}
                       {(index + 1) % 2 === 0 && (
                         <div className="inline-ad-mobile">
-                          <AdsSidebar />
+                          <AdsSidebar adIndex={Math.floor(index / 2) % 3} />
                         </div>
                       )}
                     </div>
