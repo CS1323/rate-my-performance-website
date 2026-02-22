@@ -10,7 +10,7 @@ async function main() {
     data: {
       title: "Thinking About Hooking Up With Drew Dumontier?",
       slug: "drew-dumontier",
-      image: "images/drew1.png",
+      image: "images/post-drew2.png",
       content: "Check the reviews first. Spoiler alert: 2.3 stars.",
     },
   });
