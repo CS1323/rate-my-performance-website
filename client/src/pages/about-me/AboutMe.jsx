@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
+import AuthorPhoto from '../../assets/images/author-cadence-keys.jpg';
 import './AboutMe.css';
-
-// Placeholder for author photo - replace with actual image path
-import AuthorPhoto from '../../assets/images/dukes-ad.png';
 
 export function AboutMe() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -51,36 +49,16 @@ export function AboutMe() {
 
               <div className="about-text">
                 <p>
-                  Welcome! I'm Cadence Keys, and I write sports romance novels that bring together 
-                  the thrill of professional hockey with the heart-pounding excitement of finding 
-                  your perfect match.
+                  Welcome! I'm Cadence, your friendly, neighborhood romance writer. 
                 </p>
 
                 <p>
-                  My CFU (Cascade Falls University) hockey series follows the lives, loves, and 
-                  victories of an elite college hockey team. Each book dives deep into the world 
-                  of competitive athletics while exploring the passionate relationships that develop 
-                  both on and off the ice.
-                </p>
-
-                <p>
-                  When I'm not writing about power plays and penalty shots, you can find me 
-                  researching hockey statistics, attending games, or getting lost in the dynamics 
-                  of team chemistry. I believe that the best sports romances capture not just the 
-                  individual journey of finding love, but the way that love can elevate an entire 
-                  team's performance.
-                </p>
-
-                <p>
-                  The CFU series is close to my heart because it explores themes of ambition, 
-                  teamwork, and the courage it takes to pursue both your dreams and your heart. 
-                  Whether you're a lifelong hockey fan or new to the sport, I hope these stories 
-                  bring you the same joy and excitement they've brought me to write.
+                  By day, I look like an average frazzled mom of two toddlers who rarely does her hair (a mom bun totally counts, right?). By night, I let my imagination fly and write steamy scenes that have taken several of my closest friends by major surprise. I love writing heartfelt stories with relatable characters and a guaranteed happily ever after.
                 </p>
 
                 <p>
                   Thank you for visiting, and I hope you enjoy getting to know the players 
-                  of Cascade Falls University hockey as much as I do.
+                  of Cascade Falls University hockey as much as I do!
                 </p>
               </div>
             </div>
