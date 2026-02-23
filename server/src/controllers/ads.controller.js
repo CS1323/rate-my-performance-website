@@ -13,19 +13,19 @@ const getAds = async (req, res) => {
       {
         id: 1,
         imageUrl: "/images/ad-dukes-bar-grill.png",
-        link: "",
+        link: "https://geni.us/oneweekendmontana",
         alt: "Duke's Bar & Grill Ad"
       },
       {
         id: 2,
         imageUrl: "/images/ad-grindhouse-coffee-shop.png",
-        link: "",
+        link: "https://geni.us/campuscrush",
         alt: "The Grindhouse Coffee Shop Ad"
       },
       {
         id: 3,
         imageUrl: "/images/ad-la-wolves-football.png",
-        link: "",
+        link: "https://geni.us/defendingthebackfield",
         alt: "LA Wolves Football Ad"
       }
     ];
