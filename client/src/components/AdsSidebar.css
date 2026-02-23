@@ -39,6 +39,8 @@
 
   .inline-ad-mobile .ad-image {
     width: 70%;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 }
 
