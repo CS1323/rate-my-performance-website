@@ -1,6 +1,7 @@
 import ThumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
 import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
 import FlagIcon from '../../assets/images/icons/flag.svg';
+import MessageSquareIcon from '../../assets/images/icons/message-square.svg';
 import { useState } from 'react';
 import axios from 'axios';
 import { getUserIdentifier } from '../../utils/userIdentifier';
@@ -152,6 +153,10 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
         <div className="comment-body">{comment.content}</div>
 
         <div className="comment-actions">
+          <button className="reply" onClick={handleReplyClick}>
+            <img src={MessageSquareIcon} alt="Reply" />
+            Reply
+          </button>
           <button 
             className={`vote up ${currentUserVote === 'LIKE' ? 'voted' : ''}`} 
             onClick={() => handleVoteClick('LIKE')}
@@ -166,9 +171,8 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
             <img src={ThumbsDownIcon} alt="Dislike" />
           </button>
           <button className="flag" title="Report this comment" onClick={handleFlagClick}>
-            <img src={FlagIcon} alt="Flag" style={{ width: 20, height: 20 }} />
+            <img src={FlagIcon} alt="Flag" />
           </button>
-          <button className="reply" onClick={handleReplyClick}>Reply</button>
         </div>
 
         {showReplyForm && (

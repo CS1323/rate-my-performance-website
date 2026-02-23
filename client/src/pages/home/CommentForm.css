@@ -6,7 +6,7 @@
   border: 3px solid #5c0700;
   padding: 14px 12px 10px 12px;
   border-radius: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
   box-shadow: 0 1px 6px 0 rgba(92,7,0,0.04);
 }
 
@@ -18,7 +18,7 @@
 @media (min-width: 768px) {
   .comment-form {
     padding: 18px 16px 12px 16px;
-    margin-bottom: 18px;
+    margin-bottom: 40px;
   }
 
   .comment-form .form-row {
@@ -30,7 +30,7 @@
 @media (min-width: 1024px) {
   .comment-form {
     padding: 22px 20px 16px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
 
   .comment-form .form-row {
@@ -301,9 +301,9 @@
 }
 
 .reply-form .avatar-preview {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   padding: 6px;
 }
