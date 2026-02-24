@@ -87,7 +87,8 @@ export const quizData = {
         "Never a dull moment with his adventurous spirit",
         "He's confident enough to handle your strong personality",
         "Social events are always more fun when he's your plus one"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     },
     {
       id: "marcus_torres",
@@ -101,7 +102,8 @@ export const quizData = {
         "He's a natural leader who will support your goals",
         "Competition brings out the best in both of you",
         "He's as committed to the relationship as he is to winning"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     },
     {
       id: "ethan_brooks",
@@ -115,7 +117,8 @@ export const quizData = {
         "Deep conversations come naturally with him",
         "He's your rock during stressful times",
         "He remembers all the little details that matter to you"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     },
     {
       id: "ryan_davidson",
@@ -129,7 +132,8 @@ export const quizData = {
         "Reliability is his middle name - he never lets you down",
         "He protects what matters most to him (especially you)",
         "He's already thinking about your future together"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     },
     {
       id: "alex_martinez",
@@ -143,7 +147,8 @@ export const quizData = {
         "His positive energy is absolutely contagious",
         "He encourages you to step out of your comfort zone",
         "Life with him is full of surprises and excitement"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     },
     {
       id: "connor_hayes",
@@ -157,7 +162,8 @@ export const quizData = {
         "Emotional connection comes first for both of you",
         "He appreciates the finer things in life, just like you",
         "His passion for you burns as bright as his passion for hockey"
-      ]
+      ],
+      bookQuote: "I've known you long enough to know the difference."
     }
   ]
 };

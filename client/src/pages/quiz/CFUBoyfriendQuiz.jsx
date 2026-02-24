@@ -149,6 +149,11 @@ export function CFUBoyfriendQuiz() {
                         ))}
                       </ul>
                     </div>
+                    {result.bookQuote && (
+                      <div className="book-quote">
+                        <p className="quote-text">"{result.bookQuote}"</p>
+                      </div>
+                    )}
                   </div>
                   <button className="restart-button" onClick={restartQuiz}>
                     Take Quiz Again

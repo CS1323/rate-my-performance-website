@@ -466,6 +466,52 @@
   }
 }
 
+/* --- Book Quote --- */
+.book-quote {
+  text-align: center;
+  background: #f0e8e0;
+  border-left: 4px solid #5c0700;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0 12px 0;
+}
+
+@media (min-width: 768px) {
+  .book-quote {
+    padding: 18px;
+    margin: 18px 0 14px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .book-quote {
+    padding: 20px;
+    margin: 20px 0 16px 0;
+  }
+}
+
+.book-quote .quote-text {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  color: #5c0700;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+@media (min-width: 768px) {
+  .book-quote .quote-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .book-quote .quote-text {
+    font-size: 1.15rem;
+  }
+}
+
 /* --- Restart Button --- */
 .restart-button {
   background: #5c0700;
