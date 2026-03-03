@@ -50,8 +50,8 @@
   display: none;
 }
 
-/* Tablet (640px+): Start showing sidebars with scaling widths */
-@media (min-width: 640px) {
+/* Tablet (768px+): Start showing sidebars with scaling widths */
+@media (min-width: 768px) {
   .layout {
     flex-direction: row;
   }
@@ -60,7 +60,7 @@
     display: flex;
   }
 
-  /* Gradually scale widths from 640px to 768px */
+  /* Gradually scale widths from 768px+ */
   .left.sidebar {
     width: clamp(60px, 15vw, 100px);
   }

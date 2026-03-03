@@ -31,17 +31,18 @@ header {
   min-width: 0;
 }
 
-/* Puck logo - always visible */
+/* Puck logo - hidden on mobile, shown on tablet+ */
 .puck-logo-static {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
+  display: none; /* default: hidden */
 }
 
-/* Hide puck on mobile, show on tablet+ */
-@media (max-width: 767px) {
+/* Show puck on tablet and desktop (768px and above) */
+@media (min-width: 768px) {
   .puck-logo-static {
-    display: none;
+    display: block;
   }
 }
 
@@ -110,7 +111,7 @@ header {
 }
 
 .socials {
-  display: flex;
+  display: none; /* Hidden by default (mobile) */
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -129,9 +130,10 @@ header {
   height: 24px;
 }
 
-/* Tablet+: Larger gap between icons */
+/* Tablet+: Show socials and larger gap between icons */
 @media (min-width: 768px) {
   .socials {
+    display: flex;
     gap: 12px;
   }
 

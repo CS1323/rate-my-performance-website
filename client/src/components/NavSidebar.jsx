@@ -7,6 +7,9 @@ import UserIcon from '../assets/images/icons/user.svg';
 import BookOpenIcon from '../assets/images/icons/book-open.svg';
 import ClipboardIcon from '../assets/images/icons/clipboard.svg';
 
+// Social Icons
+import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
+
 import './NavSidebar.css';
 
 export function NavSidebar() {
@@ -47,6 +50,21 @@ export function NavSidebar() {
           </span>
           <div>Accessibility</div>
         </NavLink>
+        {/* <!-- social media icons (mobile only) --> */}
+        <div className="sidebar-socials">
+          <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer">
+            <FacebookIcon size={24} color="#222" />
+          </a>
+          <a href="https://www.instagram.com/cadencekeysauthor/" target="_blank" rel="noopener noreferrer">
+            <InstagramIcon size={24} color="#222" />
+          </a>
+          <a href="https://www.tiktok.com/@cadencekeysauthor" target="_blank" rel="noopener noreferrer">
+            <TikTokIcon size={24} color="#222" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCR2EQ8F1x3olZDs1JrE7z4g" target="_blank" rel="noopener noreferrer">
+            <YouTubeIcon size={24} color="#222" playButtonColor="white" />
+          </a>
+        </div>
         {/* <!-- copyright --> */}
         <p className="copyright">
           &copy; 2025 Cadence Keys
