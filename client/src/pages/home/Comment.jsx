@@ -39,8 +39,9 @@ function formatTimeAgo(createdAt) {
   return created.toLocaleDateString();
 }
 
-export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted }) {
+export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
     const [reporting, setReporting] = useState(false);
+    const [expandedReplyCount, setExpandedReplyCount] = useState(3);
 
     const handleFlagClick = async () => {
       setReporting(true);
@@ -122,6 +123,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
                   onReply={onReply}
                   userVoteState={userVoteState}
                   onReplyPosted={onReplyPosted}
+                  depth={depth + 1}
                 />
               ))}
             </div>
@@ -145,8 +147,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
             />
           </span>
           <div className="meta">
-            <div className="username">{comment.authorName}</div>
-            <div className="time">{formatTimeAgo(comment.createdAt)}</div>
+            <div className="username">{comment.authorName} <span className="time-separator">·</span> <span className="time-inline">{formatTimeAgo(comment.createdAt)}</span></div>
           </div>
         </div>
 
@@ -186,16 +187,40 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
 
         {comment.replies && comment.replies.length > 0 && (
           <div className="replies">
-            {comment.replies.map((reply) => (
-              <Comment
-                key={reply.id}
-                comment={reply}
-                onVote={onVote}
-                onReply={onReply}
-                userVoteState={userVoteState}
-                onReplyPosted={onReplyPosted}
-              />
-            ))}
+            {(() => {
+              // For nested replies (depth >= 1), paginate children
+              const shouldPaginate = depth >= 1;
+              const visibleReplies = shouldPaginate 
+                ? comment.replies.slice(0, expandedReplyCount)
+                : comment.replies;
+              const hiddenCount = shouldPaginate
+                ? Math.max(0, comment.replies.length - expandedReplyCount)
+                : 0;
+
+              return (
+                <>
+                  {visibleReplies.map((reply) => (
+                    <Comment
+                      key={reply.id}
+                      comment={reply}
+                      onVote={onVote}
+                      onReply={onReply}
+                      userVoteState={userVoteState}
+                      onReplyPosted={onReplyPosted}
+                      depth={depth + 1}
+                    />
+                  ))}
+                  {hiddenCount > 0 && (
+                    <button 
+                      className="load-more-replies"
+                      onClick={() => setExpandedReplyCount(comment.replies.length)}
+                    >
+                      Load {hiddenCount} more {hiddenCount === 1 ? 'reply' : 'replies'}
+                    </button>
+                  )}
+                </>
+              );
+            })()}
           </div>
         )}
       </article>

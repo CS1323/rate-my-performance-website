@@ -5,7 +5,7 @@
   background: #fff;
   border: 2px solid #5c0700;
   border-left: 6px solid #5c0700;
-  padding: 15px 10px 6px 20px;
+  padding: 15px 10px 6px 10px;
   border-radius: 10px;
   margin-bottom: 20px;
   word-wrap: break-word;
@@ -22,7 +22,7 @@
 
 /* --- Nested Replies Indentation --- */
 .replies {
-  margin-left: 40px;
+  margin-left: 30px;
   margin-right: 20px;
   margin-top: 10px;
 }
@@ -30,7 +30,7 @@
 /* Tablet: Increase reply indentation */
 @media (min-width: 768px) {
   .replies {
-    margin-left: 50px;
+    margin-left: 40px;
   }
 }
 
@@ -71,14 +71,14 @@
 }
 
 .avatar-preview {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  min-height: 35px;
   border-radius: 50%;
   border: 2.5px solid #e0d6ce;
   background: rgba(255, 255, 255, 0.1);
-  padding: 6px;
+  padding: 5px;
   transition: all 0.2s;
   cursor: pointer;
   box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
@@ -127,10 +127,16 @@
   line-height: 1.1;
 }
 
-.comment .meta .time {
-  font-size: 0.75rem;
+.time-separator {
+  margin: 0 3px;
+  color: #999;
+  font-weight: 400;
+}
+
+.time-inline {
   color: #666;
-  margin-top: 1px;
+  font-weight: 400;
+  font-size: 0.75rem;
 }
 
 /* Tablet+: Increase meta sizes */
@@ -144,9 +150,8 @@
     line-height: 1.15;
   }
 
-  .comment .meta .time {
+  .time-inline {
     font-size: 0.8rem;
-    margin-top: 2px;
   }
 }
 
@@ -161,9 +166,8 @@
     line-height: 1.2;
   }
 
-  .comment .meta .time {
+  .time-inline {
     font-size: 0.85rem;
-    margin-top: 2px;
   }
 }
 
@@ -172,7 +176,7 @@
   font-size: 1.2rem;
   font-weight: 500;
   color: #222;
-  margin: 4px 0 18px 52px;
+  margin: 4px 0 18px 32px;
   line-height: 1.38;
 }
 
@@ -180,7 +184,7 @@
 @media (min-width: 768px) {
   .comment-body {
     font-size: 1.3rem;
-    margin: 4px 0 18px 56px;
+    margin: 4px 0 18px 40px;
   }
 }
 
@@ -188,27 +192,28 @@
 @media (min-width: 1024px) {
   .comment-body {
     font-size: 1.45rem;
-    margin: 4px 0 18px 60px;
+    margin: 4px 0 18px 45px;
   }
 }
 
 /* --- Comment Action Buttons --- */
 .comment-actions {
   display: flex;
-  gap: 4px;
+  flex-wrap: nowrap;
+  gap: 2px;
   align-items: center;
   margin-top: 0;
   margin-bottom: 4px;
-  margin-left: 52px;
+  margin-left: 32px;
   font-size: 0.8rem;
 }
 
 /* Tablet+: Increase gap and margin */
 @media (min-width: 768px) {
   .comment-actions {
-    gap: 5px;
+    gap: 4px;
     margin-bottom: 6px;
-    margin-left: 56px;
+    margin-left: 40px;
     font-size: 0.85rem;
   }
 }
@@ -218,7 +223,7 @@
   .comment-actions {
     gap: 5px;
     margin-bottom: 10px;
-    margin-left: 60px;
+    margin-left: 45px;
     font-size: 0.89rem;
   }
 }
@@ -275,7 +280,7 @@
 }
 
 .vote.up img {
-  margin-right: 5px;
+  margin-right: 3px;
 }
 
 /* Tablet+: Scale up vote images */
@@ -286,7 +291,7 @@
   }
 
   .vote.up img {
-    margin-right: 6px;
+    margin-right: 4px;
   }
 }
 
@@ -338,7 +343,6 @@
   height: 22px;
   width: auto;
   min-width: 36px;
-  margin-left: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,7 +358,6 @@
     padding: 0 10px;
     height: 24px;
     min-width: 40px;
-    margin-left: 14px;
   }
 }
 
@@ -366,7 +369,6 @@
     padding: 0 12px;
     height: 28px;
     min-width: 44px;
-    margin-left: 16px;
   }
 }
 
@@ -374,7 +376,6 @@
 .flag img {
   width: 14px;
   height: 14px;
-  margin-right: 0;
   transition: filter 0.2s;
   display: block;
 }
@@ -399,7 +400,14 @@
 
 .flag-btn:hover:not(:disabled),
 .flag:hover:not(:disabled) {
-  background: rgba(92,7,0,0.1);
+  background: #5c0700;
+  color: #fff;
+  border-color: #222;
+}
+
+.flag-btn:hover:not(:disabled) img,
+.flag:hover:not(:disabled) img {
+  filter: brightness(0) invert(1);
 }
 
 .flag-btn:active,
@@ -491,6 +499,44 @@
   border-color: #bdbdbd;
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* --- Load More Replies Button --- */
+.load-more-replies {
+  background: #f7f5f2;
+  border: 1px dashed #999;
+  color: #5c0700;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 8px 0 12px 32px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.load-more-replies:hover {
+  background: rgba(92,7,0,0.08);
+}
+
+.load-more-replies:active {
+  background: rgba(92,7,0,0.12);
+}
+
+@media (min-width: 768px) {
+  .load-more-replies {
+    margin-left: 40px;
+    font-size: 0.8rem;
+    padding: 10px 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .load-more-replies {
+    margin-left: 45px;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+  }
 }
 
 /* --- Loading/Error States --- */

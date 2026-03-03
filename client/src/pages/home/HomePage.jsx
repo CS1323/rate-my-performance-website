@@ -258,6 +258,7 @@ export function HomePage() {
                         onReply={handleReply}
                         userVoteState={userVotes}
                         onReplyPosted={handleCommentPosted}
+                        depth={0}
                       />
                       {/* Intersperse ads on mobile every 2 comments, rotating through all 3 ads */}
                       {(index + 1) % 2 === 0 && (
