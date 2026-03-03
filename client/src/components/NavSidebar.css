@@ -6,6 +6,7 @@
   border-right-width: 1px;
   overflow-y: auto;
   overflow-x: hidden;
+  min-width: 120px;
 }
 
 .sidebar-link {
@@ -14,7 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 5px;
+  padding: 8px 12px;
   cursor: pointer;
   color: #222;
   text-decoration: none;
@@ -51,6 +52,7 @@
 .sidebar-link div {
   font-size: 14px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .copyright {
@@ -95,6 +97,13 @@
 @media (min-width: 768px) {
   .sidebar-socials {
     display: none;
+  }
+}
+
+/* Tablet: Adjust sidebar width for longer button text (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .left.sidebar {
+    min-width: 165px;
   }
 }
 
