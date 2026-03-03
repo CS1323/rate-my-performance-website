@@ -131,10 +131,6 @@ export function PrivacyPolicy() {
               </div>
             </div>
           </div>
-
-          <div className="inline-ad-mobile">
-            <AdsSidebar />
-          </div>
         </main>
 
         <AdsSidebar />

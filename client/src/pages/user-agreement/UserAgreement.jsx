@@ -148,10 +148,6 @@ export function UserAgreement() {
               </div>
             </div>
           </div>
-
-          <div className="inline-ad-mobile">
-            <AdsSidebar />
-          </div>
         </main>
 
         <AdsSidebar />

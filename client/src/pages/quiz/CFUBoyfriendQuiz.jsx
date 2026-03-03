@@ -162,11 +162,6 @@ export function CFUBoyfriendQuiz() {
               </div>
             )}
           </div>
-
-          {/* Inline ads for mobile (same pattern as HomePage) */}
-          <div className="inline-ad-mobile">
-            <AdsSidebar />
-          </div>
         </main>
 
         <AdsSidebar />

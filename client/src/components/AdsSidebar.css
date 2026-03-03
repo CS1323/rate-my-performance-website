@@ -4,6 +4,7 @@
   border-left-style: solid;
   border-left-width: 1px;
   padding-top: 20px;
+  z-index: 10;
 }
 
 /* Mobile: Show ads inline within comments section */

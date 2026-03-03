@@ -63,11 +63,6 @@ export function AboutMe() {
               </div>
             </div>
           </div>
-
-          {/* Inline ads for mobile (same pattern as other pages) */}
-          <div className="inline-ad-mobile">
-            <AdsSidebar />
-          </div>
         </main>
 
         <AdsSidebar />
