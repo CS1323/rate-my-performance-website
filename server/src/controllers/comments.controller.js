@@ -156,6 +156,26 @@ const replyToComment = async (req, res) => {
 }
 
 /**
+ * Recursively fetch all nested replies for a comment
+ */
+const fetchNestedReplies = async (commentId) => {
+  const replies = await prisma.comment.findMany({
+    where: { parentCommentId: commentId },
+    orderBy: [{ createdAt: "asc" }],
+  });
+
+  // Recursively fetch replies of replies
+  const repliesWithNested = await Promise.all(
+    replies.map(async (reply) => {
+      const nestedReplies = await fetchNestedReplies(reply.id);
+      return { ...reply, replies: nestedReplies };
+    })
+  );
+
+  return repliesWithNested;
+};
+
+/**
  * Get all comments for a post with pagination and sorting
  */
 const getCommentsByPost = async (req, res) => {
@@ -175,13 +195,10 @@ const getCommentsByPost = async (req, res) => {
       orderBy: [{ createdAt: "asc" }],
     });
 
-    // For each top-level comment, fetch all its replies
+    // For each top-level comment, recursively fetch all nested replies
     const commentsWithReplies = await Promise.all(
       topLevelComments.map(async (comment) => {
-        const replies = await prisma.comment.findMany({
-          where: { parentCommentId: comment.id },
-          orderBy: [{ createdAt: "asc" }],
-        });
+        const replies = await fetchNestedReplies(comment.id);
         return { ...comment, replies };
       })
     );
