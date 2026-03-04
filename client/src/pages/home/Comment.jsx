@@ -24,7 +24,7 @@ const AVATAR_IMAGES = {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 // Helper function to format relative time
-function formatTimeAgo(createdAt) {
+function formatTimeAgo(createdAt, isMobile = false) {
   const now = new Date();
   const created = new Date(createdAt);
   const diffMs = now - created;
@@ -32,16 +32,31 @@ function formatTimeAgo(createdAt) {
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
 
-  if (diffMins < 60) return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
-  if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
-  if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
-  
-  return created.toLocaleDateString();
+  if (isMobile) {
+    // Mobile: abbreviated format (1m, 2h, 3d)
+    if (diffMins < 60) return diffMins <= 0 ? 'now' : `${diffMins}m`;
+    if (diffHours < 24) return `${diffHours}h`;
+    if (diffDays < 365) return `${diffDays}d`;
+    return created.toLocaleDateString();
+  } else {
+    // Desktop: full format
+    if (diffMins < 60) return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
+    if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+    if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+    return created.toLocaleDateString();
+  }
+}
+
+// Helper function to check if screen is mobile
+function isMobileScreen() {
+  return typeof window !== 'undefined' && window.innerWidth < 480;
 }
 
 export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
     const [reporting, setReporting] = useState(false);
     const [expandedReplyCount, setExpandedReplyCount] = useState(3);
+    const [isExpanded, setIsExpanded] = useState(depth < 2); // Default expanded for levels 0-1, collapsed for level 2+
+    const isMobile = isMobileScreen();
 
     const handleFlagClick = async () => {
       setReporting(true);
@@ -147,7 +162,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
             />
           </span>
           <div className="meta">
-            <div className="username">{comment.authorName} <span className="time-separator">·</span> <span className="time-inline">{formatTimeAgo(comment.createdAt)}</span></div>
+            <div className="username">{comment.authorName} <span className="time-separator">·</span> <span className="time-inline">{formatTimeAgo(comment.createdAt, isMobile)}</span></div>
           </div>
         </div>
 
@@ -186,20 +201,21 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
         )}
 
         {comment.replies && comment.replies.length > 0 && (
-          <div className="replies">
+          <div className="replies" data-depth={depth + 1}>
             {(() => {
-              // For nested replies (depth >= 1), paginate children
-              const shouldPaginate = depth >= 1;
-              const visibleReplies = shouldPaginate 
-                ? comment.replies.slice(0, expandedReplyCount)
-                : comment.replies;
-              const hiddenCount = shouldPaginate
+              // For nested replies at depth >= 2, paginate children and allow collapse
+              const shouldPaginate = depth >= 2;
+              const visibleReplies = isExpanded
+                ? (shouldPaginate ? comment.replies.slice(0, expandedReplyCount) : comment.replies)
+                : [];
+              const hiddenCount = isExpanded
                 ? Math.max(0, comment.replies.length - expandedReplyCount)
-                : 0;
+                : comment.replies.length;
+              const totalReplies = comment.replies.length;
 
               return (
                 <>
-                  {visibleReplies.map((reply) => (
+                  {isExpanded && visibleReplies.map((reply) => (
                     <Comment
                       key={reply.id}
                       comment={reply}
@@ -210,12 +226,31 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
                       depth={depth + 1}
                     />
                   ))}
-                  {hiddenCount > 0 && (
+                  {shouldPaginate && (
+                    <div className="reply-controls">
+                      {isExpanded && hiddenCount > 0 && (
+                        <button 
+                          className="load-more-replies"
+                          onClick={() => setExpandedReplyCount(comment.replies.length)}
+                        >
+                          + Load {hiddenCount} {hiddenCount === 1 ? 'reply' : 'replies'}
+                        </button>
+                      )}
+                      <button
+                        className={`collapse-replies ${isExpanded ? 'expanded' : 'collapsed'}`}
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        title={isExpanded ? 'Collapse replies' : 'Expand replies'}
+                      >
+                        {isExpanded ? '−' : '+'} {isExpanded ? 'Hide' : 'Load'} {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
+                      </button>
+                    </div>
+                  )}
+                  {!shouldPaginate && hiddenCount > 0 && (
                     <button 
                       className="load-more-replies"
                       onClick={() => setExpandedReplyCount(comment.replies.length)}
                     >
-                      Load {hiddenCount} more {hiddenCount === 1 ? 'reply' : 'replies'}
+                      + Load {hiddenCount} {hiddenCount === 1 ? 'reply' : 'replies'}
                     </button>
                   )}
                 </>

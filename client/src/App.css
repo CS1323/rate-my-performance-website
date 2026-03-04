@@ -77,7 +77,7 @@
   }
 
   .right.sidebar {
-    width: clamp(240px, 32vw, 350px);
+    width: clamp(120px, 14vw, 220px);
   }
 
   /* Hide inline ads when right sidebar is visible at 900px+ */

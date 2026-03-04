@@ -9,6 +9,13 @@
   margin: 0;
 }
 
+/* Small mobile: Reduce padding */
+@media (max-width: 479px) {
+  .comments-section {
+    padding: 12px 6px;
+  }
+}
+
 /* Tablet: Add max-width constraint and center */
 @media (min-width: 768px) {
   .comments-section {

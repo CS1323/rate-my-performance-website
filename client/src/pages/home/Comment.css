@@ -10,6 +10,20 @@
   margin-bottom: 20px;
   word-wrap: break-word;
   box-shadow: 0 1px 4px 0 rgba(92,7,0,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left indent border line for nesting hierarchy */
+.comment::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(92,7,0,0.3) 0%, rgba(92,7,0,0.1) 100%);
+  border-radius: 2px 0 0 2px;
 }
 
 /* Placeholder for hidden/deleted comments */
@@ -27,12 +41,34 @@
   margin-top: 10px;
 }
 
+/* Mobile: Reduce reply indentation */
+@media (max-width: 479px) {
+  .replies {
+    margin-left: 16px;
+    margin-right: -10px;
+  }
+}
+
 /* Tablet: Increase reply indentation */
 @media (min-width: 768px) {
   .replies {
     margin-left: 40px;
     margin-right: -10px;
   }
+}
+
+/* Deep nesting (depth 4+): Enable horizontal scrolling */
+.replies[data-depth="4"],
+.replies[data-depth="5"],
+.replies[data-depth="6"],
+.replies[data-depth="7"],
+.replies[data-depth="8"],
+.replies[data-depth="9"],
+.replies[data-depth="10"] {
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .comment-placeholder-text {
@@ -72,18 +108,30 @@
 }
 
 .avatar-preview {
-  width: 35px;
-  height: 35px;
-  min-width: 35px;
-  min-height: 35px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 50%;
-  border: 2.5px solid #e0d6ce;
+  border: 2px solid #e0d6ce;
   background: rgba(255, 255, 255, 0.1);
-  padding: 5px;
+  padding: 4px;
   transition: all 0.2s;
   cursor: pointer;
   box-shadow: 0 1px 4px 0 rgba(92,7,0,0.08);
   align-self: flex-start;
+}
+
+/* Mobile: Reduce avatar size */
+@media (max-width: 479px) {
+  .avatar-preview {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    padding: 3px;
+    border: 2px solid #e0d6ce;
+  }
 }
 
 .avatar-preview:hover {
@@ -91,25 +139,25 @@
   transform: scale(1.02);
 }
 
-/* Tablet: Increase avatar size */
+/* Tablet: Reduce avatar size */
 @media (min-width: 768px) {
   .avatar-preview {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    min-height: 48px;
-    padding: 7px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 5px;
   }
 }
 
-/* Desktop: Original avatar size */
+/* Desktop: Reduce avatar size */
 @media (min-width: 1024px) {
   .avatar-preview {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
-    min-height: 52px;
-    padding: 8px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px;
   }
 }
 
@@ -124,8 +172,17 @@
 .comment .meta .username {
   font-size: 0.9rem;
   font-weight: 800;
-  color: #222;
+  color: #5c0700;
   line-height: 1.1;
+}
+
+/* Mobile: Reduce username font size */
+@media (max-width: 479px) {
+  .comment .meta .username {
+    font-size: 0.85rem;
+    color: #5c0700;
+    line-height: 1.1;
+  }
 }
 
 .time-separator {
@@ -176,9 +233,19 @@
 .comment-body {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #222;
+  color: #333;
   margin: 4px 0 18px 32px;
   line-height: 1.38;
+}
+
+/* Mobile: Reduce font size and indentation */
+@media (max-width: 479px) {
+  .comment-body {
+    font-size: 1rem;
+    margin: 4px 0 18px 16px;
+    color: #333;
+    line-height: 1.35;
+  }
 }
 
 /* Tablet: Increase font size and adjust indentation */
@@ -203,10 +270,22 @@
   flex-wrap: nowrap;
   gap: 2px;
   align-items: center;
+  justify-content: flex-start;
   margin-top: 0;
   margin-bottom: 4px;
   margin-left: 32px;
   font-size: 0.8rem;
+  min-width: max-content;
+}
+
+/* Mobile: Reduce margin and gap */
+@media (max-width: 479px) {
+  .comment-actions {
+    gap: 2px;
+    margin-bottom: 6px;
+    margin-left: 16px;
+    font-size: 0.75rem;
+  }
 }
 
 /* Tablet+: Increase gap and margin */
@@ -248,6 +327,16 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
+/* Mobile: Smaller vote buttons */
+@media (max-width: 479px) {
+  .vote {
+    font-size: 0.65rem;
+    padding: 0 6px;
+    height: 18px;
+    min-width: 28px;
+  }
+}
+
 /* Tablet+: Larger vote buttons */
 @media (min-width: 768px) {
   .vote {
@@ -282,6 +371,18 @@
 
 .vote.up img {
   margin-right: 3px;
+}
+
+/* Mobile: Smaller vote images */
+@media (max-width: 479px) {
+  .vote img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .vote.up img {
+    margin-right: 2px;
+  }
 }
 
 /* Tablet+: Scale up vote images */
@@ -351,6 +452,17 @@
   transition: background 0.15s, border 0.15s, color 0.15s;
 }
 
+/* Mobile: Smaller flag buttons */
+@media (max-width: 479px) {
+  .flag-btn,
+  .flag {
+    font-size: 0.65rem;
+    padding: 0 6px;
+    height: 18px;
+    min-width: 28px;
+  }
+}
+
 /* Tablet+: Larger flag buttons */
 @media (min-width: 768px) {
   .flag-btn,
@@ -379,6 +491,15 @@
   height: 14px;
   transition: filter 0.2s;
   display: block;
+}
+
+/* Mobile: Smaller flag images */
+@media (max-width: 479px) {
+  .flag-btn img,
+  .flag img {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* Tablet+: Scale up flag images */
@@ -454,6 +575,21 @@
   display: block;
 }
 
+/* Mobile: Smaller reply button */
+@media (max-width: 479px) {
+  .reply {
+    font-size: 0.65rem;
+    padding: 1px 10px;
+    height: 18px;
+    gap: 3px;
+  }
+
+  .reply img {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 /* Tablet+: Larger reply button */
 @media (min-width: 768px) {
   .reply {
@@ -516,6 +652,15 @@
   transition: background 0.15s, color 0.15s;
 }
 
+/* Mobile: Reduce margin */
+@media (max-width: 479px) {
+  .load-more-replies {
+    margin-left: 16px;
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+
 .load-more-replies:hover {
   background: rgba(92,7,0,0.08);
 }
@@ -538,6 +683,51 @@
     font-size: 0.85rem;
     padding: 10px 16px;
   }
+}
+
+/* --- Collapse/Expand Replies Button (All Sizes) --- */
+.reply-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.collapse-replies {
+  background: transparent;
+  border: none;
+  color: #888;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .collapse-replies {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .collapse-replies {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+}
+
+.collapse-replies:hover {
+  background: rgba(136,136,136,0.1);
+  color: #666;
+}
+
+.collapse-replies:active {
+  background: rgba(136,136,136,0.15);
 }
 
 /* --- Loading/Error States --- */
