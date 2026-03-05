@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
-import { quizData } from "../../data/quizData";
+import { quizData2 as quizData } from "../../data/quizData";
 import './CFUBoyfriendQuiz.css';
 
 export function CFUBoyfriendQuiz() {
@@ -39,18 +39,12 @@ export function CFUBoyfriendQuiz() {
       scores[boyfriend.id] = 0;
     });
 
-    // Calculate scores based on answers
+    // Calculate scores based on character votes
     quizData.questions.forEach((question, questionIndex) => {
       const answerIndex = finalAnswers[questionIndex];
       if (answerIndex !== undefined) {
-        const selectedAnswer = question.answers[answerIndex];
-        selectedAnswer.traits.forEach(trait => {
-          quizData.boyfriends.forEach(boyfriend => {
-            if (boyfriend.traits.includes(trait)) {
-              scores[boyfriend.id]++;
-            }
-          });
-        });
+        const selectedCharacter = question.answers[answerIndex].character;
+        scores[selectedCharacter]++;
       }
     });
 
@@ -138,20 +132,23 @@ export function CFUBoyfriendQuiz() {
                 <div className="result-card">
                   <h1>Your CFU Boyfriend is...</h1>
                   <div className="boyfriend-result">
+                    <div className="boyfriend-emoji">{result.emoji}</div>
                     <h2 className="boyfriend-name">{result.name}</h2>
                     <p className="boyfriend-position">{result.position} • #{result.number}</p>
                     <p className="boyfriend-description">{result.description}</p>
+                    
                     <div className="boyfriend-traits">
-                      <h3>Why you're perfect together:</h3>
-                      <ul>
-                        {result.compatibility.map((trait, index) => (
-                          <li key={index}>{trait}</li>
+                      <div className="traits-list">
+                        {result.traits.map((trait, index) => (
+                          <span key={index} className="trait-badge">{trait}</span>
                         ))}
-                      </ul>
+                      </div>
                     </div>
+                    
                     {result.bookQuote && (
                       <div className="book-quote">
                         <p className="quote-text">"{result.bookQuote}"</p>
+                        <p className="quote-attribution">— {result.name}, <em>{result.book}</em></p>
                       </div>
                     )}
                   </div>

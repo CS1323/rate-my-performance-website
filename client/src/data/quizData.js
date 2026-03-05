@@ -1,168 +1,144 @@
-export const quizData = {
+export const quizData2 = {
   questions: [
     {
-      question: "What's your ideal first date?",
+      question: "It's Friday night. What's your ideal date?",
       answers: [
-        { text: "Cozy coffee shop conversation", traits: ["intellectual", "calm", "thoughtful"] },
-        { text: "Adventure sports or outdoor activity", traits: ["adventurous", "energetic", "competitive"] },
-        { text: "Fancy dinner at an upscale restaurant", traits: ["sophisticated", "romantic", "confident"] },
-        { text: "Low-key movie night at home", traits: ["laid-back", "loyal", "comfortable"] }
+        { text: "Cozy night in playing video games together with homemade snacks", character: "foster" },
+        { text: "A rowdy bar with karaoke, darts, and way too many stories", character: "drew" },
+        { text: "A secret midnight swim under the stars", character: "liam" },
+        { text: "Cooking dinner together while he roasts you with the driest humor you've ever heard", character: "gordy" }
       ]
     },
     {
-      question: "Which quality do you value most in a partner?",
+      question: "You're having a terrible day. What do you need most from your person?",
       answers: [
-        { text: "Sense of humor and ability to make me laugh", traits: ["funny", "charming", "playful"] },
-        { text: "Ambition and drive to succeed", traits: ["ambitious", "leader", "competitive"] },
-        { text: "Emotional intelligence and empathy", traits: ["caring", "thoughtful", "supportive"] },
-        { text: "Reliability and being there when needed", traits: ["loyal", "dependable", "steady"] }
+        { text: "He shows up with your exact coffee order and doesn't even need to ask what's wrong—he just knows", character: "foster" },
+        { text: "He makes you laugh so hard you forget why you were upset in the first place", character: "drew" },
+        { text: "He pulls you into his arms without a word and holds you until the world stops spinning", character: "liam" },
+        { text: "He sits with you in comfortable silence, then says the one brutally honest thing you needed to hear", character: "gordy" }
       ]
     },
     {
-      question: "How do you handle conflict?",
+      question: "What's your biggest weakness when it comes to guys?",
       answers: [
-        { text: "Talk it out immediately and directly", traits: ["honest", "confident", "straightforward"] },
-        { text: "Take time to cool down, then discuss calmly", traits: ["thoughtful", "calm", "mature"] },
-        { text: "Use humor to defuse the tension", traits: ["funny", "charming", "easy-going"] },
-        { text: "Focus on finding a compromise", traits: ["diplomatic", "caring", "flexible"] }
+        { text: "The ones who remember every little thing about you—your favorite flower, how you take your coffee, that story you told once at 2 AM", character: "foster" },
+        { text: "The cocky ones with a sharp tongue who turn out to be absolute marshmallows underneath", character: "drew" },
+        { text: "The ones who look at you like you're the only person in the room and aren't afraid to burn the world down for you", character: "liam" },
+        { text: "The quiet ones who see right through you—the ones nobody else seems to notice until it's too late", character: "gordy" }
       ]
     },
     {
-      question: "What's your favorite way to spend a weekend?",
+      question: "Pick a love language:",
       answers: [
-        { text: "Trying a new restaurant or exploring the city", traits: ["adventurous", "curious", "social"] },
-        { text: "Attending a sports game or competitive event", traits: ["competitive", "energetic", "passionate"] },
-        { text: "Reading a book or working on a creative project", traits: ["intellectual", "creative", "independent"] },
-        { text: "Hanging out with close friends and family", traits: ["social", "loyal", "family-oriented"] }
+        { text: "Thoughtful, handmade gifts that prove he's been paying attention", character: "foster" },
+        { text: "Quality time—he drops everything and shows up every single day, no matter how chaotic life gets", character: "drew" },
+        { text: "Physical touch—his hand always finding yours like it's instinct", character: "liam" },
+        { text: "Acts of service—he quietly takes care of things before you even realize you needed help", character: "gordy" }
       ]
     },
     {
-      question: "What type of communication style do you prefer?",
+      question: "What's your favorite trope?",
       answers: [
-        { text: "Deep, meaningful conversations about life", traits: ["intellectual", "thoughtful", "introspective"] },
-        { text: "Playful banter and teasing", traits: ["funny", "charming", "flirtatious"] },
-        { text: "Straightforward and honest, no games", traits: ["honest", "direct", "authentic"] },
-        { text: "Supportive and encouraging words", traits: ["caring", "supportive", "nurturing"] }
+        { text: "Secret identity / online romance that turns real", character: "foster" },
+        { text: "Enemies-to-lovers with a baby (yes, really)", character: "drew" },
+        { text: "Forbidden love / best friend's sibling", character: "liam" },
+        { text: "Fake dating that becomes very, very real", character: "gordy" }
       ]
     },
     {
-      question: "What's most important to you in a relationship?",
+      question: "Your friends would describe your ideal guy as:",
       answers: [
-        { text: "Having fun and enjoying life together", traits: ["playful", "optimistic", "adventurous"] },
-        { text: "Building something meaningful for the future", traits: ["ambitious", "committed", "goal-oriented"] },
-        { text: "Feeling understood and accepted for who I am", traits: ["authentic", "accepting", "deep"] },
-        { text: "Having a reliable partner I can count on", traits: ["dependable", "loyal", "steady"] }
+        { text: "A golden retriever with a plan—sweet, steady, and endlessly patient", character: "foster" },
+        { text: "The human equivalent of a firework—chaotic, loud, and impossible not to watch", character: "drew" },
+        { text: "Dangerously charming with an accent that comes out when he's emotional", character: "liam" },
+        { text: "A locked diary—mysterious, brilliant, and only soft for the right person", character: "gordy" }
       ]
     },
     {
-      question: "How do you show affection?",
+      question: "Pick the gesture that would absolutely wreck you:",
       answers: [
-        { text: "Through words of affirmation and compliments", traits: ["expressive", "romantic", "verbal"] },
-        { text: "Through acts of service and thoughtful gestures", traits: ["caring", "thoughtful", "practical"] },
-        { text: "Through physical touch and closeness", traits: ["affectionate", "warm", "intimate"] },
-        { text: "Through shared experiences and quality time", traits: ["present", "attentive", "devoted"] }
+        { text: "He builds you a handmade diorama of your favorite fictional world because he remembered every detail you ever mentioned", character: "foster" },
+        { text: "He names his daughter something beautiful and becomes the kind of man she deserves—right before your eyes", character: "drew" },
+        { text: "He stands up in front of everyone and declares his love for you after months of keeping it secret, accent thick and voice shaking", character: "liam" },
+        { text: "He steps in to protect you from someone who hurt you, no questions asked, because he reads you better than anyone", character: "gordy" }
       ]
     },
     {
-      question: "What's your biggest relationship deal-breaker?",
+      question: "What's a dealbreaker for you?",
       answers: [
-        { text: "Dishonesty or playing games", traits: ["honest", "direct", "authentic"] },
-        { text: "Lack of ambition or motivation", traits: ["driven", "goal-oriented", "successful"] },
-        { text: "Being emotionally unavailable", traits: ["emotional", "connected", "open"] },
-        { text: "Not making time for the relationship", traits: ["devoted", "prioritizing", "committed"] }
+        { text: "Someone who can't be vulnerable—I need a guy who'll sing badly in front of a crowd just to make me smile", character: "foster" },
+        { text: "Someone who can't grow—I need to see him become a better person, not just stay the same", character: "drew" },
+        { text: "Someone who holds back—if he's all in, I need to feel it in every look and touch", character: "liam" },
+        { text: "Someone who can't handle the real me—I need a guy who sees through the act and stays anyway", character: "gordy" }
+      ]
+    },
+    {
+      question: "You're stuck in a snowstorm with your CFU boy. What happens?",
+      answers: [
+        { text: "He already packed extra blankets, snacks, and a fully charged Switch because he planned for everything", character: "foster" },
+        { text: "He dramatically declares it the \"best worst night ever\" and somehow makes the whole thing an adventure", character: "drew" },
+        { text: "He pulls you close, traces circles on your skin, and tells you stories about his childhood in that low, quiet voice", character: "liam" },
+        { text: "He builds a fire without saying a word, makes you the best hot chocolate you've ever had, and lets the silence say everything", character: "gordy" }
+      ]
+    },
+    {
+      question: "Finally—pick a quote that makes your heart skip:",
+      answers: [
+        { text: "\"I would've waited for however long it took. You are worth it.\"", character: "foster" },
+        { text: "\"What kind of man do I want to be for her? Not the one I've been.\"", character: "drew" },
+        { text: "\"You're not a secret. You should've never been a secret. You're the best thing that's ever happened to me.\"", character: "liam" },
+        { text: "\"I've known you long enough to know the difference.\"", character: "gordy" }
       ]
     }
   ],
-  
+
   boyfriends: [
     {
-      id: "jake_miller",
-      name: "Jake Miller",
-      number: "19",
-      position: "Right Wing",
-      traits: ["funny", "charming", "playful", "confident", "flirtatious", "social"],
-      description: "The team's comedian and social butterfly. Jake lights up every room he enters and knows how to make you feel like the only person in the world.",
-      compatibility: [
-        "He'll keep you laughing with his quick wit and endless charm",
-        "Never a dull moment with his adventurous spirit",
-        "He's confident enough to handle your strong personality",
-        "Social events are always more fun when he's your plus one"
-      ],
-      bookQuote: "I've known you long enough to know the difference."
-    },
-    {
-      id: "marcus_torres",
-      name: "Marcus Torres",
-      number: "7",
+      id: "foster",
+      name: "Foster Kane",
+      number: "88",
       position: "Center",
-      traits: ["ambitious", "leader", "competitive", "driven", "goal-oriented", "confident"],
-      description: "The natural-born leader and team captain. Marcus is driven, focused, and always striving for greatness both on and off the ice.",
-      compatibility: [
-        "His ambition matches your drive for success",
-        "He's a natural leader who will support your goals",
-        "Competition brings out the best in both of you",
-        "He's as committed to the relationship as he is to winning"
-      ],
-      bookQuote: "I've known you long enough to know the difference."
+      emoji: "🐻",
+      title: "The Devoted Captain",
+      book: "Campus Crush",
+      traits: ["Patient", "Thoughtful", "Devoted", "Steady"],
+      description: "Your perfect CFU boyfriend is the team captain himself. Foster is the kind of guy who remembers your coffee order after hearing it once, builds you handmade gifts that reference inside jokes from months ago, and would sing Taylor Swift karaoke in front of a packed bar just to see you smile—even though he sounds like a dying cat. He's patient, thoughtful, and once he's yours, he's ALL in. He's the golden retriever boyfriend who also happens to have a multi-phase plan to win your heart.",
+      bookQuote: "I would've waited for however long it took. You are worth it."
     },
     {
-      id: "ethan_brooks",
-      name: "Ethan Brooks",
-      number: "23",
+      id: "drew",
+      name: "Drew Dumontier",
+      number: "3",
       position: "Defenseman",
-      traits: ["thoughtful", "calm", "intellectual", "caring", "supportive", "steady"],
-      description: "The quiet intellectual who observes everything. Ethan is thoughtful, emotionally intelligent, and always knows the right thing to say.",
-      compatibility: [
-        "He listens to understand, not just to respond",
-        "Deep conversations come naturally with him",
-        "He's your rock during stressful times",
-        "He remembers all the little details that matter to you"
-      ],
-      bookQuote: "I've known you long enough to know the difference."
+      emoji: "🔥",
+      title: "The Redeemed Heartbreaker",
+      book: "Campus Rival",
+      traits: ["Bold", "Funny", "Protective", "Fearless"],
+      description: "Your CFU match is the bold, chaotic, utterly shameless Drew Dumontier. Sure, he used to go through girls like socks and his pranks were legendary (or criminal, depending on who you ask). But then a baby girl showed up and cracked his whole world open. Drew is the guy who'll make you laugh until you can't breathe, fight for you when the world is against you, and love you so fiercely it's almost scary—once he figures out how to stop being his own worst enemy. He's proof that the best love stories start with two people who can't stand each other.",
+      bookQuote: "What kind of man do I want to be for her? Not the one I've been."
     },
     {
-      id: "ryan_davidson",
-      name: "Ryan Davidson",
-      number: "12",
+      id: "liam",
+      name: "Liam Farrell",
+      number: "27",
+      position: "Defenseman",
+      emoji: "🌙",
+      title: "The Passionate Protector",
+      book: "Campus Secret",
+      traits: ["Intense", "Loyal", "Romantic", "Passionate"],
+      description: "You got the Hot Irishman, and honestly? Lucky you. Liam Farrell is intense, fiercely loyal, and the kind of guy whose accent thickens when he's emotional—which is more often than he'd ever admit. He'll fight his own demons to be the man you deserve, quote poetry when he's drunk, and hold your hand in public like he's making up for every moment he ever held back. Liam loves HARD, and once he stops running from his feelings, there's no one on earth more devoted. He's the passionate, all-consuming love you didn't know you needed.",
+      bookQuote: "You're not a secret. You should've never been a secret. You're the best thing that's ever happened to me."
+    },
+    {
+      id: "gordy",
+      name: "Harrison \"Gordy\" Gordon",
+      number: "32",
       position: "Goalie",
-      traits: ["loyal", "dependable", "protective", "steady", "committed", "family-oriented"],
-      description: "The steadfast goalie who never lets anything get past him. Ryan is loyal, reliable, and the kind of guy who's in it for the long haul.",
-      compatibility: [
-        "He's your biggest supporter through thick and thin",
-        "Reliability is his middle name - he never lets you down",
-        "He protects what matters most to him (especially you)",
-        "He's already thinking about your future together"
-      ],
-      bookQuote: "I've known you long enough to know the difference."
-    },
-    {
-      id: "alex_martinez",
-      name: "Alex Martinez",
-      number: "8",
-      position: "Left Wing",
-      traits: ["adventurous", "energetic", "optimistic", "spontaneous", "passionate", "free-spirited"],
-      description: "The free spirit who lives life to the fullest. Alex is spontaneous, energetic, and always ready for the next adventure.",
-      compatibility: [
-        "Every day is a new adventure with him by your side",
-        "His positive energy is absolutely contagious",
-        "He encourages you to step out of your comfort zone",
-        "Life with him is full of surprises and excitement"
-      ],
-      bookQuote: "I've known you long enough to know the difference."
-    },
-    {
-      id: "connor_hayes",
-      name: "Connor Hayes",
-      number: "16",
-      position: "Right Wing",
-      traits: ["romantic", "sophisticated", "expressive", "artistic", "passionate", "intense"],
-      description: "The hopeless romantic with an artistic soul. Connor feels everything deeply and isn't afraid to show his emotions.",
-      compatibility: [
-        "He writes you poetry and remembers every anniversary",
-        "Emotional connection comes first for both of you",
-        "He appreciates the finer things in life, just like you",
-        "His passion for you burns as bright as his passion for hockey"
-      ],
+      emoji: "🧊",
+      title: "The Silent Guardian",
+      book: "Campus Fake",
+      traits: ["Perceptive", "Steady", "Protective", "Witty"],
+      description: "Your CFU boyfriend is the one nobody saw coming—including you. Gordy is the strong, silent type who reads people the way he reads shooters on the ice: every micro-expression, every tell, every thing you're trying to hide. He won't chase you. He won't perform. But he will show up when it matters, say the one thing no one else had the guts to say, and make mashed potatoes so good they'll ruin you for all other mashed potatoes. He's the still lake with hidden depths, and the only person he'll let call him Harry is you.",
       bookQuote: "I've known you long enough to know the difference."
     }
   ]
