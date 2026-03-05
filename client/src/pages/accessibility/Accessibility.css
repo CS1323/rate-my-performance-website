@@ -196,40 +196,23 @@
 }
 
 .accessibility-footer {
-  background: #e8f5e8;
-  border: 1px solid #c3e6c3;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 28px 0 0 0;
-}
-
-@media (min-width: 768px) {
-  .accessibility-footer {
-    padding: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .accessibility-footer {
-    padding: 24px;
-  }
-}
-
-.accessibility-footer h2 {
-  font-family: 'Oswald', Arial, sans-serif;
-  font-weight: 600;
-  font-size: 1.3rem;
-  color: #2d5a2d;
-  margin: 0 0 12px 0;
+  margin-top: 24px;
 }
 
 .accessibility-footer p {
   font-size: 1rem;
-  color: #2d5a2d;
+  color: #333;
   line-height: 1.6;
-  margin: 0 0 12px 0;
+  margin: 0;
 }
 
-.accessibility-footer p:last-child {
-  margin-bottom: 0;
+.accessibility-footer .contact-email {
+  color: #8b3a3a;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.accessibility-footer .contact-email:hover {
+  text-decoration: underline;
 }

@@ -43,58 +43,92 @@ export function Accessibility() {
 
               <section className="accessibility-section">
                 <h2>Current Features</h2>
-                <h3>Navigation</h3>
+                <h3>Navigation & Keyboard Access</h3>
                 <ul>
                   <li>Keyboard navigation support for all interactive elements</li>
-                  <li>Skip links to jump to main content</li>
-                  <li>Consistent navigation structure across pages</li>
-                  <li>Clear focus indicators on interactive elements</li>
+                  <li>Skip link to jump directly to main content (visible when focused)</li>
+                  <li>Consistent navigation structure across all pages</li>
+                  <li>Clear focus indicators on buttons, links, and form inputs</li>
+                  <li>Proper heading hierarchy (h1, h2, h3) for logical page structure</li>
                 </ul>
                 
                 <h3>Text and Reading</h3>
                 <ul>
-                  <li>Readable fonts and sufficient color contrast</li>
-                  <li>Text that scales with browser zoom</li>
-                  <li>Logical heading structure for screen readers</li>
-                  <li>Alt text for images where appropriate</li>
+                  <li>Readable sans-serif fonts with sufficient line height</li>
+                  <li>Dark text (#333) on light backgrounds meets WCAG AA color contrast (7:1 ratio)</li>
+                  <li>Text scales properly with browser zoom up to 200%</li>
+                  <li>Alt text on all images and icons that convey meaning</li>
+                </ul>
+
+                <h3>Screen Readers & Assistive Technology</h3>
+                <ul>
+                  <li>ARIA labels on buttons to describe their function (e.g., "Like this comment")</li>
+                  <li>ARIA alerts for error messages with role="alert" and aria-live="assertive"</li>
+                  <li>ARIA status regions for vote announcements</li>
+                  <li>Proper form structure with fieldset/legend for grouped controls (avatar selector)</li>
+                  <li>aria-describedby and aria-invalid attributes on form fields</li>
+                  <li>Dialog and modal windows with proper aria-labelledby and aria-describedby</li>
                 </ul>
 
                 <h3>Mobile Experience</h3>
                 <ul>
-                  <li>Touch-friendly button sizes</li>
-                  <li>Responsive design that works on various screen sizes</li>
-                  <li>Simplified navigation on smaller screens</li>
+                  <li>Touch-friendly button sizes (minimum 44x44px)</li>
+                  <li>Responsive design that adapts to mobile, tablet, and desktop screens</li>
+                  <li>Hamburger menu for mobile navigation with aria-label</li>
+                  <li>Simplified layouts on smaller screens without loss of functionality</li>
                 </ul>
               </section>
 
               <section className="accessibility-section">
-                <h2>Known Issues</h2>
+                <h2>Known Issues & Ongoing Improvements</h2>
                 <p>
-                  We're aware of some accessibility challenges we're still working on:
+                  We're actively working on these areas to improve accessibility:
                 </p>
                 <ul>
-                  <li>Some quiz interactions could be clearer for screen reader users</li>
-                  <li>Color-only information in a few places (we're adding text alternatives)</li>
-                  <li>Form error messages could be more descriptive</li>
+                  <li><strong>Quiz interactions:</strong> Answer options need explicit aria-labels to clarify what character each answer represents</li>
+                  <li><strong>Quiz progress announcements:</strong> Adding live region updates so screen reader users are notified when answers are submitted and progress changes</li>
+                  <li><strong>Emoji as content:</strong> Result emojis are decorative; we're adding descriptive labels to prevent redundant screen reader announcements</li>
+                  <li><strong>Avatar visual feedback:</strong> We're enhancing the visual and textual feedback for avatar selection on the comment form</li>
+                  <li><strong>Form success messages:</strong> Adding live region announcements when comments or replies are posted successfully</li>
                 </ul>
                 <p>
-                  If you encounter accessibility barriers not mentioned here, please let us know.
+                  If you encounter accessibility barriers not mentioned here, or have suggestions for improvements, please contact us.
                 </p>
               </section>
 
               <section className="accessibility-section">
                 <h2>Browser and Technology Support</h2>
-                <p>This site works best with:</p>
+                <p>We test and support accessibility with:</p>
                 <ul>
-                  <li>Modern browsers (Chrome, Firefox, Safari, Edge)</li>
-                  <li>Screen readers like NVDA, JAWS, or VoiceOver</li>
-                  <li>Browser zoom up to 200%</li>
-                  <li>Keyboard-only navigation</li>
+                  <li><strong>Browsers:</strong> Chrome, Firefox, Safari (desktop and mobile), and Edge (latest versions)</li>
+                  <li><strong>Screen readers:</strong> NVDA (Windows), JAWS (Windows), and VoiceOver (macOS/iOS)</li>
+                  <li><strong>Keyboard navigation:</strong> Full support for Tab, Enter, Spacebar, and Arrow keys</li>
+                  <li><strong>Browser zoom:</strong> Responsive layouts at zoom levels from 80% to 200%</li>
+                  <li><strong>High contrast mode:</strong> Windows High Contrast Mode support</li>
+                  <li><strong>Mobile assistive tech:</strong> TalkBack (Android) and VoiceOver (iOS)</li>
                 </ul>
                 <p>
-                  If you're using assistive technology and something isn't working, 
-                  the problem might be on our end. Please contact us with details 
-                  about what you're trying to do and what's not working.
+                  If you're using assistive technology and something isn't working as expected, 
+                  please let us know. Sometimes the issue may be specific to a combination of 
+                  browser + screen reader + operating system, and we want to help troubleshoot.
+                </p>
+              </section>
+
+              <section className="accessibility-section">
+                <h2>Accessibility Standards</h2>
+                <p>
+                  We aim to meet WCAG 2.1 Level AA standards across the site. This means:
+                </p>
+                <ul>
+                  <li>Color contrast ratios of at least 4.5:1 for normal text</li>
+                  <li>Keyboard accessibility for all functionality</li>
+                  <li>Proper use of semantic HTML and ARIA attributes</li>
+                  <li>Descriptive labels and instructions for form controls</li>
+                  <li>Sufficient time for users to read and interact with content</li>
+                </ul>
+                <p>
+                  WCAG 2.1 Level AA is the gold standard for web accessibility and ensures that 
+                  most users with disabilities can navigate and use the site effectively.
                 </p>
               </section>
 
@@ -109,35 +143,30 @@ export function Accessibility() {
                   When reporting accessibility issues, it helps if you can tell us:
                 </p>
                 <ul>
-                  <li>What browser and assistive technology you're using</li>
+                  <li>What browser and assistive technology you're using (e.g., NVDA, JAWS, VoiceOver)</li>
                   <li>What page or feature you're trying to use</li>
                   <li>What happened vs. what you expected</li>
+                  <li>Whether the issue affects core functionality (e.g., commenting) or secondary features (e.g., animations)</li>
                 </ul>
               </section>
 
               <section className="accessibility-section">
-                <h2>Third-Party Content</h2>
+                <h2>Third-Party Content & Limitations</h2>
                 <p>
-                  Some features (like ads or embedded content) come from third parties 
-                  and may not meet the same accessibility standards. We try to choose 
-                  accessible options when possible, but we can't control everything.
+                  Some features on this site (such as ads or embedded content) come from third parties 
+                  and may not meet the same accessibility standards that we maintain. We do our best 
+                  to choose accessible third-party providers, but we can't control everything.
                 </p>
                 <p>
-                  If third-party content is blocking your access to important site 
-                  features, let us know and we'll see what alternatives we can provide.
+                  If third-party content is blocking your access to core site features 
+                  (commenting, voting, navigation), please contact us and we'll look for alternatives 
+                  or provide workarounds to ensure you can use the site fully.
                 </p>
               </section>
 
               <div className="accessibility-footer">
-                <h2>Feedback Welcome</h2>
                 <p>
-                  Accessibility is an ongoing process, and feedback from actual users 
-                  is invaluable. Whether you've found a problem, have a suggestion, 
-                  or just want to let us know what's working well, we'd love to hear from you.
-                </p>
-                <p>
-                  We're committed to making improvements based on user needs, not just 
-                  checking boxes on compliance checklists.
+                  <strong>Contact:</strong> If you encounter accessibility barriers or have feedback, you can reach out at <a href="mailto:cadence@cadencekeys.com" className="contact-email">cadence@cadencekeys.com</a>. We are real humans and will try to give you real answers.
                 </p>
               </div>
             </div>
