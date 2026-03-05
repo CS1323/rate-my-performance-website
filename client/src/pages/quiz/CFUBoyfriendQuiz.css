@@ -437,7 +437,7 @@
 .traits-list {
   display: flex;
   flex-wrap: wrap;
-  /* gap: 2px; */
+  gap: 6px;
   justify-content: center;
 }
 
@@ -458,8 +458,8 @@
   background: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 20px;
-  padding: 6px 12px;
-  font-size: 1rem;
+  padding: 5px 10px;
+  font-size: 0.85rem;
   color: #5c0700;
   font-weight: 500;
   white-space: nowrap;
