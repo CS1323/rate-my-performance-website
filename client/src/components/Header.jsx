@@ -6,7 +6,9 @@ import './Header.css';
 
 export function Header({ onToggleSidebar, sidebarOpen }) {
   return (
-    <header>
+    <>
+      <a href="#main" className="skip-link">Skip to main content</a>
+      <header>
       <div className="header-left">
         <button 
           className="hamburger-btn" 
@@ -34,5 +36,6 @@ export function Header({ onToggleSidebar, sidebarOpen }) {
         </a>
       </div>
     </header>
+    </>
   );
 }

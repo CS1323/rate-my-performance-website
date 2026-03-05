@@ -1,0 +1,131 @@
+/* ReportModal.css - Styling for accessible report modal dialog */
+
+.report-modal {
+  width: 90%;
+  max-width: 500px;
+  padding: 0;
+  border: 2px solid #5c0700;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: #f7f5f2;
+}
+
+.report-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.report-modal-content {
+  padding: 24px;
+}
+
+.report-modal h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.5rem;
+  color: #5c0700;
+  font-family: 'Oswald', Arial, sans-serif;
+  font-weight: 700;
+}
+
+.report-modal p {
+  margin: 0 0 20px 0;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.report-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-modal label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5c0700;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.report-modal textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.report-modal textarea:focus {
+  outline: 2px solid #5c0700;
+  outline-offset: 0;
+  border-color: #5c0700;
+  box-shadow: 0 0 4px rgba(92, 7, 0, 0.2);
+}
+
+.report-modal textarea:disabled {
+  background-color: #e8e8e8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.report-modal button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel {
+  background-color: #e8e8e8;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #d3d3d3;
+}
+
+.btn-cancel:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
+}
+
+.btn-submit {
+  background-color: #5c0700;
+  color: white;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #4a0500;
+  box-shadow: 0 2px 8px rgba(92, 7, 0, 0.3);
+}
+
+.btn-submit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px #5c0700;
+}
+
+.btn-submit:disabled,
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -33,8 +33,12 @@
 .sidebar-link:focus {
   color: #222;
   background: none;
-  outline: none;
   box-shadow: none;
+}
+
+.sidebar-link:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
 }
 
 .sidebar-link:hover {

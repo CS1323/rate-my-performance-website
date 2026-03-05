@@ -219,7 +219,7 @@ export function HomePage() {
       <div className="layout" style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}>
         <NavSidebar />
 
-        <main className="content">
+        <main id="main" className="content">
           <InitialPost post={post} />
 
           {/* Comments section: comment form + list */}

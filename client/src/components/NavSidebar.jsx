@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { useLocation } from 'react-router';
 
 // Navigation Icons
 import HomeIcon from '../assets/images/icons/home.svg';
@@ -12,39 +13,45 @@ import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 
 import './NavSidebar.css';
 
+// Helper component for accessible NavLink with aria-current
+function AccessibleNavLink({ to, children, icon }) {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+  
+  return (
+    <NavLink 
+      to={to}
+      className={`sidebar-link${isActive ? ' active' : ''}`}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      <img src={icon} alt="" />
+      <div>{children}</div>
+    </NavLink>
+  );
+}
+
 export function NavSidebar() {
+  const location = useLocation();
+  const isAccessibilityActive = location.pathname === '/accessibility';
+  
   return (
     <nav className="left sidebar">
       {/* <!-- top section: navigation--> */}
       <div>
-        <NavLink to="/" className="sidebar-link">
-          <img src={HomeIcon} />
-            <div>Home</div>
-        </NavLink>
-        <NavLink to="/cfu-boyfriend-quiz" className="sidebar-link">
-          <img src={FileTextIcon} />
-            <div>CFU Boyfriend Quiz</div>
-        </NavLink>
-        <NavLink to="/about-me" className="sidebar-link">
-          <img src={UserIcon} />
-            <div>About Me</div>
-        </NavLink>
+        <AccessibleNavLink to="/" icon={HomeIcon}>Home</AccessibleNavLink>
+        <AccessibleNavLink to="/cfu-boyfriend-quiz" icon={FileTextIcon}>CFU Boyfriend Quiz</AccessibleNavLink>
+        <AccessibleNavLink to="/about-me" icon={UserIcon}>About Me</AccessibleNavLink>
       </div>
       {/* <!-- bottom section: website compliance --> */}
       <div>
-        <NavLink to="/rules" className="sidebar-link">
-          <img src={BookOpenIcon} />
-            <div>Rules</div>
-        </NavLink>
-        <NavLink to="/privacy-policy" className="sidebar-link">
-          <img src={ClipboardIcon} />
-            <div>Privacy Policy</div>
-        </NavLink>
-        <NavLink to="/user-agreement" className="sidebar-link">
-          <img src={ClipboardIcon} />
-            <div>User Agreement</div>
-        </NavLink>
-        <NavLink to="/accessibility" className="sidebar-link">
+        <AccessibleNavLink to="/rules" icon={BookOpenIcon}>Rules</AccessibleNavLink>
+        <AccessibleNavLink to="/privacy-policy" icon={ClipboardIcon}>Privacy Policy</AccessibleNavLink>
+        <AccessibleNavLink to="/user-agreement" icon={ClipboardIcon}>User Agreement</AccessibleNavLink>
+        <NavLink 
+          to="/accessibility" 
+          className={`sidebar-link${isAccessibilityActive ? ' active' : ''}`}
+          aria-current={isAccessibilityActive ? 'page' : undefined}
+        >
           <span className="material-symbols-outlined">
             settings_accessibility
           </span>

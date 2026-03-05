@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 
 import './CommentForm.css';
@@ -24,16 +24,21 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const usernameRef = useRef(null);
+  const contentRef = useRef(null);
+  const errorRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!username.trim()) {
       setError('Please enter a display name');
+      usernameRef.current?.focus();
       return;
     }
     if (!content.trim()) {
       setError(`Please enter a ${mode === 'reply' ? 'reply' : 'comment'}`);
+      contentRef.current?.focus();
       return;
     }
 
@@ -70,9 +75,22 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
 
   return (
     <form className={`comment-form${mode === 'reply' ? ' reply-form' : ''}`} onSubmit={handleSubmit}>
+      {error && (
+        <div 
+          ref={errorRef}
+          className="form-error" 
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          {error}
+        </div>
+      )}
+      
       <div className="form-row">
         <label htmlFor={mode + "-username"}>Display name</label>
         <input
+          ref={usernameRef}
           id={mode + "-username"}
           type="text"
           placeholder="Your name"
@@ -80,11 +98,13 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           disabled={loading}
+          aria-invalid={error && error.includes('display name') ? 'true' : 'false'}
+          aria-describedby={error && error.includes('display name') ? 'error-message' : undefined}
         />
       </div>
       
-      <div className="form-row avatar-picker">
-        <div className="label">Choose an avatar</div>
+      <fieldset className="form-row avatar-picker">
+        <legend>Choose an avatar</legend>
         <div className="avatars">
           {AVATARS.map((avatar) => {
             return (
@@ -107,21 +127,26 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
             );
           })}
         </div>
-      </div>
+      </fieldset>
 
       <div className="form-row">
         <label htmlFor={mode + "-content"}>{mode === 'reply' ? 'Reply' : 'Comment'}</label>
         <textarea
+          ref={contentRef}
           id={mode + "-content"}
           rows={mode === 'reply' ? 3 : 4}
           placeholder={mode === 'reply' ? 'Write your reply...' : 'Write your comment...'}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           disabled={loading}
+          aria-invalid={error && !error.includes('display name') ? 'true' : 'false'}
+          aria-describedby={error && !error.includes('display name') ? 'error-message' : undefined}
         />
       </div>
 
-      {error && <div className="form-error">{error}</div>}
+      <div id="error-message" style={{ display: 'none' }}>
+        {error}
+      </div>
 
       <div className="form-row form-actions">
         <button type="submit" className="btn-post" disabled={loading}>

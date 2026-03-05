@@ -1,3 +1,21 @@
+/* Skip-to-Main-Content link - hidden by default, visible on focus */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #5c0700;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  z-index: 200;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 @font-face {
   font-family: 'SF Collegiate';
   src: url('/fonts/SF_Collegiate_Solid.ttf') format('truetype');

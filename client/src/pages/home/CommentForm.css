@@ -96,12 +96,53 @@
 
 .comment-form input[type="text"]:focus,
 .comment-form textarea:focus {
-  outline: none;
   border-color: #5c0700;
-  box-shadow: 0 0 4px rgba(92,7,0,0.2);
+  box-shadow: 0 0 4px rgba(92,7,0,0.2), 0 0 0 2px rgba(92,7,0,0.15);
+  outline: 2px solid #5c0700;
+  outline-offset: 0;
 }
 
 /* --- Avatar Picker Styles --- */
+.avatar-picker {
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 14px;
+}
+
+.avatar-picker legend {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #5c0700;
+  margin-bottom: 6px;
+  display: block;
+  padding: 0;
+}
+
+/* Tablet+: Increase legend size */
+@media (min-width: 768px) {
+  .avatar-picker {
+    margin-bottom: 18px;
+  }
+  
+  .avatar-picker legend {
+    font-size: 1rem;
+    margin-bottom: 7px;
+  }
+}
+
+/* Desktop: Original legend size */
+@media (min-width: 1024px) {
+  .avatar-picker {
+    margin-bottom: 22px;
+  }
+  
+  .avatar-picker legend {
+    font-size: 1.13rem;
+    margin-bottom: 8px;
+  }
+}
+
 .avatar-picker .avatars {
   display: flex;
   gap: 12px;

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
+import { ReportModal } from './ReportModal';
 
 import './Comment.css';
 
@@ -54,29 +55,38 @@ function isMobileScreen() {
 
 export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
     const [reporting, setReporting] = useState(false);
+    const [reportModalOpen, setReportModalOpen] = useState(false);
+    const [reportStatus, setReportStatus] = useState('');
     const [expandedReplyCount, setExpandedReplyCount] = useState(3);
     const [isExpanded, setIsExpanded] = useState(depth < 2); // Default expanded for levels 0-1, collapsed for level 2+
+    const [voteAnnouncementMessage, setVoteAnnouncementMessage] = useState('');
     const isMobile = isMobileScreen();
 
-    const handleFlagClick = async () => {
+    const handleFlagClick = () => {
+      setReportModalOpen(true);
+    };
+
+    const handleReportSubmit = async (reason) => {
       setReporting(true);
       try {
-        const reason = window.prompt('Why are you reporting this comment? (optional)', '');
-        if (reason === null) {
-          setReporting(false);
-          return;
-        }
         await axios.post(`${API_BASE_URL}/api/reports`, {
           commentId: comment.id,
-          reason,
+          reason: reason || '',
         });
-        window.alert('Thank you for your report. Our moderators will review this comment.');
+        setReportStatus('Thank you for your report. Our moderators will review this comment.');
+        setReportModalOpen(false);
+        // Clear the status message after 5 seconds
+        setTimeout(() => setReportStatus(''), 5000);
       } catch (err) {
-        window.alert('Failed to report comment. Please try again later.');
+        setReportStatus('Failed to report comment. Please try again later.');
         console.error('Report error:', err);
       } finally {
         setReporting(false);
       }
+    };
+
+    const handleReportClose = () => {
+      setReportModalOpen(false);
     };
   const [showReplyForm, setShowReplyForm] = useState(false);
   if (!comment) return null;
@@ -89,6 +99,10 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
   const handleVoteClick = (voteType) => {
     if (onVote && isVisible) {
       onVote(comment.id, voteType);
+      // Announce vote to screen readers
+      const voteLabel = voteType === 'LIKE' ? 'liked' : 'disliked';
+      setVoteAnnouncementMessage(`You ${voteLabel} this comment`);
+      setTimeout(() => setVoteAnnouncementMessage(''), 3000); // Clear after 3 seconds
     }
   };
 
@@ -113,7 +127,11 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
   if (isHidden || isDeleted) {
     return (
       <>
-        <article className="comment comment-placeholder" data-id={comment.id}>
+        <article 
+          className="comment comment-placeholder" 
+          data-id={comment.id}
+          aria-level={depth + 2}
+        >
           <div className="comment-body comment-placeholder-text">
             {isHidden ? (
               <>
@@ -150,7 +168,19 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
 
   return (
     <>
-      <article className="comment" data-id={comment.id}>
+      <article 
+        className="comment" 
+        data-id={comment.id}
+        aria-level={depth + 2}
+      >
+        {/* Live region for vote announcements */}
+        <div 
+          className="sr-only" 
+          aria-live="polite" 
+          aria-atomic="true"
+        >
+          {voteAnnouncementMessage}
+        </div>
 
         <div className="comment-header">
           <span className="avatar">
@@ -169,25 +199,38 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
         <div className="comment-body">{comment.content}</div>
 
         <div className="comment-actions">
-          <button className="reply" onClick={handleReplyClick}>
+          <button 
+            className="reply" 
+            onClick={handleReplyClick}
+            aria-label="Reply to this comment"
+          >
             <img src={MessageSquareIcon} alt="Reply" />
             Reply
           </button>
           <button 
             className={`vote up ${currentUserVote === 'LIKE' ? 'voted' : ''}`} 
             onClick={() => handleVoteClick('LIKE')}
+            aria-label={`Like this comment, ${comment.likeCount || 0} likes`}
+            aria-pressed={currentUserVote === 'LIKE'}
           >
-            <img src={ThumbsUpIcon} alt="Like" />
+            <img src={ThumbsUpIcon} alt="" />
             <span className="count">{comment.likeCount || 0}</span>
           </button>
           <button 
             className={`vote down ${currentUserVote === 'DISLIKE' ? 'voted' : ''}`}
             onClick={() => handleVoteClick('DISLIKE')}
+            aria-label={`Dislike this comment, ${comment.dislikeCount || 0} dislikes`}
+            aria-pressed={currentUserVote === 'DISLIKE'}
           >
-            <img src={ThumbsDownIcon} alt="Dislike" />
+            <img src={ThumbsDownIcon} alt="" />
+            <span className="count" style={{ display: 'none' }}>{comment.dislikeCount || 0}</span>
           </button>
-          <button className="flag" title="Report this comment" onClick={handleFlagClick}>
-            <img src={FlagIcon} alt="Flag" />
+          <button 
+            className="flag" 
+            aria-label="Report this comment as inappropriate"
+            onClick={handleFlagClick}
+          >
+            <img src={FlagIcon} alt="" />
           </button>
         </div>
 
@@ -231,6 +274,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
                       {isExpanded && hiddenCount > 0 && (
                         <button 
                           className="load-more-replies"
+                          aria-label={`Load ${hiddenCount} more ${hiddenCount === 1 ? 'reply' : 'replies'}`}
                           onClick={() => setExpandedReplyCount(comment.replies.length)}
                         >
                           + Load {hiddenCount} {hiddenCount === 1 ? 'reply' : 'replies'}
@@ -239,7 +283,8 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
                       <button
                         className={`collapse-replies ${isExpanded ? 'expanded' : 'collapsed'}`}
                         onClick={() => setIsExpanded(!isExpanded)}
-                        title={isExpanded ? 'Collapse replies' : 'Expand replies'}
+                        aria-expanded={isExpanded}
+                        aria-label={isExpanded ? `Hide ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}` : `Load ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`}
                       >
                         {isExpanded ? '−' : '+'} {isExpanded ? 'Hide' : 'Load'} {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
                       </button>
@@ -259,6 +304,24 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
           </div>
         )}
       </article>
+      
+      {reportStatus && (
+        <div 
+          className="sr-only" 
+          role="status"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          {reportStatus}
+        </div>
+      )}
+      
+      <ReportModal 
+        isOpen={reportModalOpen}
+        onClose={handleReportClose}
+        onSubmit={handleReportSubmit}
+        isLoading={reporting}
+      />
     </>
   );
 }
