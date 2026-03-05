@@ -16,7 +16,7 @@ export const reportComment = async (req, res) => {
     // Auto-hide if reports exceed threshold
     const reportCount = await prisma.report.count({ where: { commentId } });
     
-    if (reportCount >= 5) {
+    if (reportCount >= 1) {
       await prisma.comment.update({
         where: { id: commentId },
         data: { status: "HIDDEN" },
