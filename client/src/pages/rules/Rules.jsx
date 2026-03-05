@@ -11,6 +11,14 @@ export function Rules() {
     setSidebarOpen(prev => !prev);
   };
 
+  const handleCopyEmail = (email) => {
+    navigator.clipboard.writeText(email).then(() => {
+      alert('Email copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy email');
+    });
+  };
+
   return (
     <>
       <title>RMP Rules</title>
@@ -99,6 +107,7 @@ export function Rules() {
 
               <div className="rules-footer">
                 <p><strong>Questions?</strong> These rules might seem like common sense, but we've learned that spelling things out helps everyone stay on the same page. When in doubt, just be kind.</p>
+                <p><strong>Contact:</strong> <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span></p>
               </div>
             </div>
           </div>

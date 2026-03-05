@@ -12,6 +12,14 @@ export function PrivacyPolicy() {
     setSidebarOpen(prev => !prev);
   };
 
+  const handleCopyEmail = (email) => {
+    navigator.clipboard.writeText(email).then(() => {
+      alert('Email copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy email');
+    });
+  };
+
   return (
     <>
       <title>RMP Privacy Policy</title>
@@ -124,9 +132,7 @@ export function PrivacyPolicy() {
 
               <div className="privacy-footer">
                 <p>
-                  <strong>Contact:</strong> If you have privacy-related questions or concerns, 
-                  you can reach out through our contact information. We are real humans and will 
-                  try to give you real answers.
+                  <strong>Contact:</strong> If you have privacy-related questions or concerns, you can reach out at <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
                 </p>
               </div>
             </div>

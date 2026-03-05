@@ -186,18 +186,25 @@
 }
 
 .rules-footer {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 8px;
-  padding: 16px;
   margin-top: 24px;
 }
 
 .rules-footer p {
   font-size: 0.95rem;
-  color: #856404;
+  color: #333;
   line-height: 1.6;
   margin: 0;
+}
+
+.rules-footer .contact-email {
+  color: #8b3a3a;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.rules-footer .contact-email:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 768px) {

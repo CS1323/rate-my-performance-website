@@ -11,6 +11,14 @@ export function UserAgreement() {
     setSidebarOpen(prev => !prev);
   };
 
+  const handleCopyEmail = (email) => {
+    navigator.clipboard.writeText(email).then(() => {
+      alert('Email copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy email');
+    });
+  };
+
   return (
     <>
       <title>RMP User Agreement</title>
@@ -145,6 +153,7 @@ export function UserAgreement() {
                   feel free to reach out. We're happy to explain our thinking or address 
                   reasonable concerns.
                 </p>
+                <p><strong>Contact:</strong> <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span></p>
               </div>
             </div>
           </div>

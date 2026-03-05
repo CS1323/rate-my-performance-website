@@ -146,22 +146,7 @@
 }
 
 .agreement-footer {
-  background: #f8f8f8;
-  border-radius: 8px;
-  padding: 16px;
   margin: 28px 0 0 0;
-}
-
-@media (min-width: 768px) {
-  .agreement-footer {
-    padding: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .agreement-footer {
-    padding: 24px;
-  }
 }
 
 .agreement-footer h2 {
@@ -177,6 +162,17 @@
   color: #333;
   line-height: 1.6;
   margin: 0 0 12px 0;
+}
+
+.agreement-footer .contact-email {
+  color: #8b3a3a;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.agreement-footer .contact-email:hover {
+  text-decoration: underline;
 }
 
 .agreement-footer p:last-child {

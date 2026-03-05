@@ -202,3 +202,24 @@
   line-height: 1.6;
   margin: 0;
 }
+
+.privacy-footer {
+  margin-top: 24px;
+}
+
+.privacy-footer p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.privacy-footer .contact-email {
+  color: #8b3a3a;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.privacy-footer .contact-email:hover {
+  text-decoration: underline;
+}
