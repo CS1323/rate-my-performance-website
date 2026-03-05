@@ -94,3 +94,74 @@
     padding: 0 20px;
   }
 }
+
+/* --- Initial Post Instructions --- */
+.initial-post-instructions {
+  margin-top: 20px;
+  padding: 16px 8px;
+  background-color: #faf8f5;
+  border-left: 4px solid #5c0700;
+  border-radius: 8px;
+}
+
+.initial-post-instructions h3 {
+  font-family: 'Oswald', Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5c0700;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.initial-post-instructions p {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+.initial-post-instructions p:last-child {
+  margin-bottom: 0;
+}
+
+.initial-post-instructions strong {
+  color: #5c0700;
+  font-weight: 700;
+}
+
+.initial-post-instructions em {
+  font-style: italic;
+  color: #6b3d34;
+}
+
+/* Tablet: Increase padding and font size */
+@media (min-width: 768px) {
+  .initial-post-instructions {
+    margin-top: 24px;
+    padding: 20px 12px;
+  }
+
+  .initial-post-instructions h3 {
+    font-size: 1.35rem;
+  }
+
+  .initial-post-instructions p {
+    font-size: 1rem;
+  }
+}
+
+/* Desktop: Original sizing */
+@media (min-width: 1024px) {
+  .initial-post-instructions {
+    margin-top: 28px;
+    padding: 24px 20px;
+  }
+
+  .initial-post-instructions h3 {
+    font-size: 1.5rem;
+  }
+
+  .initial-post-instructions p {
+    font-size: 1.1rem;
+  }
+}
