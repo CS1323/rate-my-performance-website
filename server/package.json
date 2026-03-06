@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "dev": "nodemon server.js",
     "start": "node server.js",
     "build": "npm run prisma:migrate",
@@ -14,23 +15,24 @@
     "seed:test": "dotenv -e .env.test node prisma/seed.js",
     "default:db": "node prisma/defaultData.js",
     "default:test": "dotenv -e .env.test node prisma/defaultData.js"
-},
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@google/generative-ai": "^0.3.0",
     "@prisma/client": "6.19.2",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "openai": "^4.104.0",
     "prisma": "6.19.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",
     "dotenv-cli": "^11.0.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.11"
   }
 }

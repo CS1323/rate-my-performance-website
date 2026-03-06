@@ -1,5 +1,5 @@
 import { prisma } from "../../config/db.js";
-import OpenAI from "openai";
+import { moderateContent } from "../utils/moderateContent.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,31 +17,7 @@ const createComment = async (req, res) => {
     }
 
     // LLM moderation: score the comment content
-    let score = 0;
-    let status = "VISIBLE";
-    try {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const prompt = `Rate the following comment for toxicity, threats, or inappropriate content on a scale from 0 (safe) to 10 (extremely unsafe):\n"""${content}"""\nScore:`;
-      const response = await openai.completions.create({
-        model: "gpt-3.5-turbo-instruct",
-        prompt,
-        max_tokens: 1,
-        temperature: 0.0,
-        n: 1,
-        stop: ["\n"]
-      });
-      const raw = response.choices[0].text.trim();
-      const parsed = parseInt(raw, 10);
-      if (!isNaN(parsed)) score = parsed;
-
-      // Hide if score >= 7 (threshold)
-      if (score >= 7) status = "HIDDEN";
-
-    } catch (llmErr) {
-      console.error("LLM moderation failed:", llmErr);
-      score = 0;
-      status = "VISIBLE";
-    }
+    const { score, status } = await moderateContent(content);
 
     const comment = await prisma.comment.create({
       data: {
@@ -95,31 +71,7 @@ const replyToComment = async (req, res) => {
 
 
     // LLM moderation: score the reply content
-    let score = 0;
-    let status = "VISIBLE";
-    try {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const prompt = `Rate the following comment for toxicity, threats, or inappropriate content on a scale from 0 (safe) to 10 (extremely unsafe):\n"""${content}"""\nScore:`;
-
-      const response = await openai.completions.create({
-        model: "gpt-3.5-turbo-instruct",
-        prompt,
-        max_tokens: 1,
-        temperature: 0.0,
-        n: 1,
-        stop: ["\n"]
-      });
-
-      const raw = response.choices[0].text.trim();
-      const parsed = parseInt(raw, 10);
-      if (!isNaN(parsed)) score = parsed;
-      if (score >= 7) status = "HIDDEN";
-
-    } catch (llmErr) {
-      console.error("LLM moderation failed:", llmErr);
-      score = 0;
-      status = "VISIBLE";
-    }
+    const { score, status } = await moderateContent(content);
 
     const reply = await prisma.comment.create({
       data: {
