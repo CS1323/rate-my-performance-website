@@ -153,7 +153,19 @@ export function UserAgreement() {
                   feel free to reach out. We're happy to explain our thinking or address 
                   reasonable concerns.
                 </p>
-                <p><strong>Contact:</strong> <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span></p>
+                <p><strong>Contact:</strong> <span 
+                    className="contact-email" 
+                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopyEmail('cadence@cadencekeys.com');
+                      }
+                    }}
+                  >cadence@cadencekeys.com</span></p>
               </div>
             </div>
           </div>

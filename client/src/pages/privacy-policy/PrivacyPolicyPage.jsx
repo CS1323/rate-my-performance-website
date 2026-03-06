@@ -132,7 +132,19 @@ export function PrivacyPolicy() {
 
               <div className="privacy-footer">
                 <p>
-                  <strong>Contact:</strong> If you have privacy-related questions or concerns, you can reach out at <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
+                  <strong>Contact:</strong> If you have privacy-related questions or concerns, you can reach out at <span 
+                    className="contact-email" 
+                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopyEmail('cadence@cadencekeys.com');
+                      }
+                    }}
+                  >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
                 </p>
               </div>
             </div>

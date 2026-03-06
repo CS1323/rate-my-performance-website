@@ -107,7 +107,19 @@ export function Rules() {
 
               <div className="rules-footer">
                 <p><strong>Questions?</strong> These rules might seem like common sense, but we've learned that spelling things out helps everyone stay on the same page. When in doubt, just be kind.</p>
-                <p><strong>Contact:</strong> <span className="contact-email" onClick={() => handleCopyEmail('cadence@cadencekeys.com')}>cadence@cadencekeys.com</span></p>
+                <p><strong>Contact:</strong> <span 
+                    className="contact-email" 
+                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopyEmail('cadence@cadencekeys.com');
+                      }
+                    }}
+                  >cadence@cadencekeys.com</span></p>
               </div>
             </div>
           </div>

@@ -11,6 +11,14 @@ export function Accessibility() {
     setSidebarOpen(prev => !prev);
   };
 
+  const handleCopyEmail = (email) => {
+    navigator.clipboard.writeText(email).then(() => {
+      alert('Email copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy email');
+    });
+  };
+
   return (
     <>
       <title>Accessibility - RMP</title>
@@ -166,7 +174,19 @@ export function Accessibility() {
 
               <div className="accessibility-footer">
                 <p>
-                  <strong>Contact:</strong> If you encounter accessibility barriers or have feedback, you can reach out at <a href="mailto:cadence@cadencekeys.com" className="contact-email">cadence@cadencekeys.com</a>. We are real humans and will try to give you real answers.
+                  <strong>Contact:</strong> If you encounter accessibility barriers or have feedback, you can reach out at <span 
+                    className="contact-email" 
+                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopyEmail('cadence@cadencekeys.com');
+                      }
+                    }}
+                  >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
                 </p>
               </div>
             </div>
