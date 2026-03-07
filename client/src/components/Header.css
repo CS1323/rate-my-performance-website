@@ -17,8 +17,8 @@
 }
 
 @font-face {
-  font-family: 'SF Collegiate';
-  src: url('/fonts/SF_Collegiate_Solid.ttf') format('truetype');
+  font-family: 'SportsWorldRegular';
+  src: url('../assets/fonts/Sports\ World-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -100,7 +100,7 @@ header {
 }
 
 .header-title {
-  font-family: 'SF Collegiate', 'Oswald', Arial, sans-serif;
+  font-family: 'SportsWorldRegular', 'Oswald', Arial, sans-serif;
   font-size: 2.1rem;
   font-weight: normal;
   color: #fff;
