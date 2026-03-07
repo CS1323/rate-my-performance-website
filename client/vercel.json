@@ -1,6 +1,8 @@
 {
+  "redirects": [
+    { "source": "/drew", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/drew", "destination": "/" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
