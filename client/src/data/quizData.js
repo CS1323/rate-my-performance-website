@@ -110,33 +110,33 @@ export const quizData2 = {
       name: "Drew Dumontier",
       number: "3",
       position: "Defenseman",
-      emoji: "🔥",
+      emoji: "🍼",
       title: "The Redeemed Heartbreaker",
       book: "Campus Rival",
       traits: ["Bold", "Funny", "Protective", "Fearless"],
       description: "Your CFU match is the bold, chaotic, utterly shameless Drew Dumontier. Sure, he used to go through girls like socks and his pranks were legendary (or criminal, depending on who you ask). But then a baby girl showed up and cracked his whole world open. Drew is the guy who'll make you laugh until you can't breathe, fight for you when the world is against you, and love you so fiercely it's almost scary—once he figures out how to stop being his own worst enemy. He's proof that the best love stories start with two people who can't stand each other.",
-      bookQuote: "What kind of man do I want to be for her? Not the one I've been."
+      bookQuote: "I'm completely gone for you."
     },
     {
       id: "liam",
       name: "Liam Farrell",
       number: "27",
       position: "Defenseman",
-      emoji: "🌙",
+      emoji: "📓",
       title: "The Passionate Protector",
-      book: "Campus Secret",
+      book: "",
       traits: ["Intense", "Loyal", "Romantic", "Passionate"],
       description: "You got the Hot Irishman, and honestly? Lucky you. Liam Farrell is intense, fiercely loyal, and the kind of guy whose accent thickens when he's emotional—which is more often than he'd ever admit. He'll fight his own demons to be the man you deserve, quote poetry when he's drunk, and hold your hand in public like he's making up for every moment he ever held back. Liam loves HARD, and once he stops running from his feelings, there's no one on earth more devoted. He's the passionate, all-consuming love you didn't know you needed.",
-      bookQuote: "You're not a secret. You should've never been a secret. You're the best thing that's ever happened to me."
+      bookQuote: "Every time I look at you, I forget how to breathe."
     },
     {
       id: "gordy",
       name: "Harrison \"Gordy\" Gordon",
       number: "32",
       position: "Goalie",
-      emoji: "🧊",
+      emoji: "🍳",
       title: "The Silent Guardian",
-      book: "Campus Fake",
+      book: "",
       traits: ["Perceptive", "Steady", "Protective", "Witty"],
       description: "Your CFU boyfriend is the one nobody saw coming—including you. Gordy is the strong, silent type who reads people the way he reads shooters on the ice: every micro-expression, every tell, every thing you're trying to hide. He won't chase you. He won't perform. But he will show up when it matters, say the one thing no one else had the guts to say, and make mashed potatoes so good they'll ruin you for all other mashed potatoes. He's the still lake with hidden depths, and the only person he'll let call him Harry is you.",
       bookQuote: "I've known you long enough to know the difference."
