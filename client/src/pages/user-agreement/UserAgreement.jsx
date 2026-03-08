@@ -35,7 +35,7 @@ export function UserAgreement() {
           <div className="agreement-container">
             <div className="agreement-header">
               <h1>User Agreement</h1>
-              <p className="agreement-subtitle">Effective Date: February 1, 2026</p>
+              <p className="agreement-subtitle">Effective Date: February 28, 2026</p>
             </div>
 
             <div className="agreement-content">

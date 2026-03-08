@@ -74,7 +74,7 @@ export function NavSidebar() {
         </div>
         {/* <!-- copyright --> */}
         <p className="copyright">
-          &copy; 2025 Cadence Keys
+          &copy; 2026 Cadence Keys
         </p>
       </div>
     </nav>
