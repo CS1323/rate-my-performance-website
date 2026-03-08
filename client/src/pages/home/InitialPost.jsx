@@ -26,13 +26,15 @@ export function InitialPost({ post }) {
       )}
 
       <div className="initial-post-comment">
-        {post.content}
+        {post.content.split('\n').filter(Boolean).map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
       </div>
 
       <div className="initial-post-instructions">
         <h3>How to Join the Discussion</h3>
-        <p>Welcome to the unofficial Drew Dumontier reality check! This is an anonymous space where YOU can share the truth—why you should avoid him and what went wrong (or what you've heard about him). Whether you're venting about an experience with this <em>Campus Rival</em> character or just warning others to steer clear, this is your chance to speak up. Every honest comment helps readers make better choices!</p>
-        <p>Ready to jump in? Fill out the form below with a nickname, pick your avatar, and drop your comment. Want to reply directly to someone? Just click the <strong>Reply</strong> button under their comment. You can also like or dislike comments and flag anything that seems off.</p>
+        <p>Think of this as your open mic. You can write a real review for whoever deserves it, make up a fictional one just like Harper did, or jump into the comments to react to everyone else's. However you participate — keep it funny, not cruel. Make Harper proud!</p>
+        <p>Scroll down below to create a nickname, pick your avatar, and drop your comment. Want to reply directly to someone? Just click the <strong>Reply</strong> button under their comment. You can also like or dislike comments and flag anything that seems off.</p>
       </div>
     </section>
   );
