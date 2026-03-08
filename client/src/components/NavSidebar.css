@@ -10,7 +10,7 @@
 }
 
 .sidebar-link {
-  height: 60px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,7 +64,7 @@
   font-size: 12px;
   text-align: center;
   color: #666;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   line-height: 1.2;
 }
 
@@ -76,7 +76,7 @@
   align-items: center;
   gap: 16px;
   margin-top: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
@@ -113,6 +113,10 @@
 
 /* Desktop: Original size */
 @media (min-width: 1200px) {  
+  .copyright {
+    padding-bottom: 10px;
+  }
+
   .sidebar-link {
     height: 60px;
     flex-direction: row;
