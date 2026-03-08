@@ -58,7 +58,12 @@ export function AboutMe() {
 
                 <p>
                   Thank you for visiting, and I hope you enjoy getting to know the players 
-                  of Cascade Falls University hockey as much as I do!
+                  of Clark Fork University hockey as much as I do!
+                </p>
+
+                <p>Find out more about my books at <a href="https://cadencekeys.com/" target="_blank" rel="noopener noreferrer" className="contact-email">
+                    cadencekeys.com
+                  </a>
                 </p>
               </div>
             </div>

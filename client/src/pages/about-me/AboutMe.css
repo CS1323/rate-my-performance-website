@@ -199,3 +199,15 @@
     font-size: 1.15rem;
   }
 }
+
+/* Contact email link styling */
+.about-text .contact-email {
+  color: #8b3a3a;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.about-text .contact-email:hover {
+  text-decoration: underline;
+}
