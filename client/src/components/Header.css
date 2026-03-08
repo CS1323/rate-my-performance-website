@@ -51,9 +51,10 @@ header {
 
 /* Puck logo - hidden on mobile, shown on tablet+ */
 .puck-logo-static {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   flex-shrink: 0;
+  padding-top: 5px;
   display: none; /* default: hidden */
 }
 
@@ -101,7 +102,7 @@ header {
 
 .header-title {
   font-family: 'SportsWorldRegular', 'Oswald', Arial, sans-serif;
-  font-size: 2.1rem;
+  font-size: 1.45rem;
   font-weight: normal;
   color: #fff;
   letter-spacing: 0.2px;
@@ -115,7 +116,7 @@ header {
 /* Tablet: Medium title size */
 @media (min-width: 768px) {
   .header-title {
-    /* font-size: 1.4rem; */
+    font-size: 2rem;
     letter-spacing: 0.4px;
   }
 }
