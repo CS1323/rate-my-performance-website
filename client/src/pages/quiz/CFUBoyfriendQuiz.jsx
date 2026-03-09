@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -11,15 +11,30 @@ export function CFUBoyfriendQuiz() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [result, setResult] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
   const handleToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
   };
 
-  const handleAnswerSelect = (answerIndex) => {
+  // Shuffle answers when question changes
+  useEffect(() => {
+    const currentQuestion = quizData.questions[currentQuestionIndex];
+    const shuffled = [...currentQuestion.answers];
+    
+    // Fisher-Yates shuffle
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    setShuffledAnswers(shuffled);
+  }, [currentQuestionIndex]);
+
+  const handleAnswerSelect = (selectedAnswer) => {
     const newAnswers = {
       ...answers,
-      [currentQuestionIndex]: answerIndex
+      [currentQuestionIndex]: selectedAnswer.character
     };
     setAnswers(newAnswers);
 
@@ -41,9 +56,8 @@ export function CFUBoyfriendQuiz() {
 
     // Calculate scores based on character votes
     quizData.questions.forEach((question, questionIndex) => {
-      const answerIndex = finalAnswers[questionIndex];
-      if (answerIndex !== undefined) {
-        const selectedCharacter = question.answers[answerIndex].character;
+      const selectedCharacter = finalAnswers[questionIndex];
+      if (selectedCharacter !== undefined) {
         scores[selectedCharacter]++;
       }
     });
@@ -107,11 +121,11 @@ export function CFUBoyfriendQuiz() {
                 <div className="question-card">
                   <h2 className="question-title">{currentQuestion.question}</h2>
                   <div className="answers-list">
-                    {currentQuestion.answers.map((answer, index) => (
+                    {shuffledAnswers.map((answer, index) => (
                       <button
                         key={index}
                         className="answer-button"
-                        onClick={() => handleAnswerSelect(index)}
+                        onClick={() => handleAnswerSelect(answer)}
                       >
                         {answer.text}
                       </button>
