@@ -3,7 +3,7 @@
   flex-direction: column;
   margin-top: 75px;
   min-width: 0;
-  min-height: calc(100vh - 75px); /* full viewport minus header */
+  min-height: calc(100dvh - 75px); /* dynamic viewport minus header */
 }
 
 .content {
@@ -35,7 +35,7 @@
   align-items: stretch;
   position: sticky;
   top: 75px;
-  height: calc(100vh - 75px);
+  height: calc(100dvh - 75px);
   background-color: white;
   z-index: 50;
 }

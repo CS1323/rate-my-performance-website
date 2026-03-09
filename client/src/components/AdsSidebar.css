@@ -58,7 +58,7 @@
   }
 
   .ad-image {
-    width: clamp(145px, 100%, 300px);
+    width: clamp(145px, 100%, 320px);
     box-sizing: border-box;
   }
 

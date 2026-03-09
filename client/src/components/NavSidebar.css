@@ -64,7 +64,7 @@
   font-size: 12px;
   text-align: center;
   color: #666;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   line-height: 1.2;
 }
 
@@ -112,11 +112,7 @@
 }
 
 /* Desktop: Original size */
-@media (min-width: 1200px) {  
-  .copyright {
-    padding-bottom: 10px;
-  }
-
+@media (min-width: 1200px) {
   .sidebar-link {
     height: 60px;
     flex-direction: row;
