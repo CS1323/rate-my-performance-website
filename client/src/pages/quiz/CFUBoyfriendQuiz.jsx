@@ -148,7 +148,10 @@ export function CFUBoyfriendQuiz() {
                     {result.bookQuote && (
                       <div className="book-quote">
                         <p className="quote-text">"{result.bookQuote}"</p>
-                        <p className="quote-attribution">— {result.name}, <em>{result.book}</em></p>
+                        <p className="quote-attribution">
+                          — {result.name}
+                          {result.book && <>, <em>{result.book}</em></>}
+                        </p>
                       </div>
                     )}
                   </div>

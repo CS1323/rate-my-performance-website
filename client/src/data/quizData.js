@@ -124,7 +124,7 @@ export const quizData2 = {
       position: "Defenseman",
       emoji: "📓",
       title: "The Passionate Protector",
-      book: "",
+      // TBA => book: "",
       traits: ["Intense", "Loyal", "Romantic", "Passionate"],
       description: "You got the Hot Irishman, and honestly? Lucky you. Liam Farrell is intense, fiercely loyal, and the kind of guy whose accent thickens when he's emotional—which is more often than he'd ever admit. He'll fight his own demons to be the man you deserve, quote poetry when he's drunk, and hold your hand in public like he's making up for every moment he ever held back. Liam loves HARD, and once he stops running from his feelings, there's no one on earth more devoted. He's the passionate, all-consuming love you didn't know you needed.",
       bookQuote: "Every time I look at you, I forget how to breathe."
@@ -136,7 +136,7 @@ export const quizData2 = {
       position: "Goalie",
       emoji: "🍳",
       title: "The Silent Guardian",
-      book: "",
+      // TBA => book: "",
       traits: ["Perceptive", "Steady", "Protective", "Witty"],
       description: "Your CFU boyfriend is the one nobody saw coming—including you. Gordy is the strong, silent type who reads people the way he reads shooters on the ice: every micro-expression, every tell, every thing you're trying to hide. He won't chase you. He won't perform. But he will show up when it matters, say the one thing no one else had the guts to say, and make mashed potatoes so good they'll ruin you for all other mashed potatoes. He's the still lake with hidden depths, and the only person he'll let call him Harry is you.",
       bookQuote: "I've known you long enough to know the difference."
