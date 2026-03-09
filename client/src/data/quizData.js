@@ -85,8 +85,8 @@ export const quizData2 = {
       question: "Finally—pick a quote that makes your heart skip:",
       answers: [
         { text: "\"I would've waited for however long it took. You are worth it.\"", character: "foster" },
-        { text: "\"What kind of man do I want to be for her? Not the one I've been.\"", character: "drew" },
-        { text: "\"You're not a secret. You should've never been a secret. You're the best thing that's ever happened to me.\"", character: "liam" },
+        { text: "\"I'm completely gone for you.\"", character: "drew" },
+        { text: "\"Every time I look at you, I forget how to breathe.\"", character: "liam" },
         { text: "\"I've known you long enough to know the difference.\"", character: "gordy" }
       ]
     }
