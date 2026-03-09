@@ -58,7 +58,8 @@
   }
 
   .ad-image {
-    width: clamp(150px, 100%, 320px);
+    width: clamp(145px, 100%, 300px);
+    box-sizing: border-box;
   }
 
   .inline-ad-mobile {
