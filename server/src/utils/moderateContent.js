@@ -61,8 +61,8 @@ Respond with ONLY a single digit (0-10):`;
       score = 0; // Default to safe if no number found
     }
 
-    // Hide if score >= 7 (threshold)
-    if (score >= 7) {
+    // Hide if score >= 6 (threshold)
+    if (score >= 6) {
       status = "HIDDEN";
     }
 
