@@ -259,9 +259,11 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
               const visibleReplies = isExpanded
                 ? (shouldPaginate ? comment.replies.slice(0, expandedReplyCount) : comment.replies)
                 : [];
-              const hiddenCount = isExpanded && shouldPaginate
-                ? Math.max(0, comment.replies.length - expandedReplyCount)
-                : (isExpanded ? 0 : comment.replies.length);
+              // Count hidden replies recursively (including their descendants)
+              const hiddenReplies = isExpanded && shouldPaginate
+                ? comment.replies.slice(expandedReplyCount)
+                : (isExpanded ? [] : comment.replies);
+              const hiddenCount = countAllReplies(hiddenReplies);
               // Count all nested replies recursively (Reddit-style)
               const totalReplies = countAllReplies(comment.replies);
 
@@ -287,6 +289,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
                             setExpandedReplyCount(comment.replies.length);
                             return;
                           }
+                          setExpandedReplyCount(10); // Reset to initial value when toggling
                           setIsExpanded(!isExpanded);
                         }}
                         aria-expanded={isExpanded && hiddenCount === 0}
