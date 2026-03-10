@@ -61,8 +61,18 @@
 /* Sort controls - mobile optimized */
 .sort-controls {
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-right: 4px;
 }
 
 .sort-btn {

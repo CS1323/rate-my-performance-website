@@ -226,25 +226,26 @@ export function HomePage() {
           <section className="comments-section">
             <div className="comments-header">
               <h2>Comments</h2>
-              
-              {/* Sort controls - mobile optimized */}
-              <div className="sort-controls">
-                <button 
-                  className={`sort-btn ${sortMode === 'latest' ? 'active' : ''}`}
-                  onClick={() => setSortMode('latest')}
-                >
-                  Latest
-                </button>
-                <button 
-                  className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
-                  onClick={() => setSortMode('top')}
-                >
-                  Top
-                </button>
-              </div>
             </div>
 
             <CommentForm postId={post?.id} onCommentPosted={handleCommentPosted} />
+
+            {/* Sort controls - positioned above comments list */}
+            <div className="sort-controls">
+              <span className="sort-label">Order by:</span>
+              <button 
+                className={`sort-btn ${sortMode === 'latest' ? 'active' : ''}`}
+                onClick={() => setSortMode('latest')}
+              >
+                Latest
+              </button>
+              <button 
+                className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
+                onClick={() => setSortMode('top')}
+              >
+                Top
+              </button>
+            </div>
 
             {/* Dynamic comments from API */}
             <div className="comments-list">
