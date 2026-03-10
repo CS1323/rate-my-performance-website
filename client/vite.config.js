@@ -4,6 +4,22 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separate vendor libraries for better caching
+          'react-vendor': ['react', 'react-dom', 'react-router'],
+          // Shared UI components that rarely change
+          'ui-components': [
+            './src/components/Header',
+            './src/components/NavSidebar',
+            './src/components/AdsSidebar'
+          ]
+        }
+      }
+    }
+  },
   server: {
     // Proxy API requests to backend during development (npm run dev)
     // In production, requests go directly to the backend URL
