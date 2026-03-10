@@ -108,27 +108,22 @@ const replyToComment = async (req, res) => {
 }
 
 /**
- * Recursively fetch all nested replies for a comment
+ * Build nested reply tree from flat comment array in memory
+ * Avoids N+1 queries by fetching all descendants upfront
  */
-const fetchNestedReplies = async (commentId) => {
-  const replies = await prisma.comment.findMany({
-    where: { parentCommentId: commentId },
-    orderBy: [{ createdAt: "asc" }],
-  });
-
-  // Recursively fetch replies of replies
-  const repliesWithNested = await Promise.all(
-    replies.map(async (reply) => {
-      const nestedReplies = await fetchNestedReplies(reply.id);
-      return { ...reply, replies: nestedReplies };
-    })
-  );
-
-  return repliesWithNested;
+const buildReplyTree = (comments, parentId = null) => {
+  return comments
+    .filter(c => c.parentCommentId === parentId)
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    .map(comment => ({
+      ...comment,
+      replies: buildReplyTree(comments, comment.id)
+    }));
 };
 
 /**
  * Get all comments for a post with pagination and sorting
+ * Optimized: Fetch top-level comments + all descendants in 2 queries, build tree in memory
  */
 const getCommentsByPost = async (req, res) => {
   try {
@@ -139,21 +134,43 @@ const getCommentsByPost = async (req, res) => {
     const pageSize = Math.max(1, Math.min(50, parseInt(limit, 10) || 10)); // Cap at 50
     const skip = (pageNum - 1) * pageSize;
 
-    // Fetch top-level comments only (no parentCommentId)
+    // Query 1: Fetch top-level comments only (apply pagination here)
     const topLevelComments = await prisma.comment.findMany({
       where: { postId, parentCommentId: null },
       skip,
       take: pageSize,
-      orderBy: [{ createdAt: "asc" }],
     });
 
-    // For each top-level comment, recursively fetch all nested replies
-    const commentsWithReplies = await Promise.all(
-      topLevelComments.map(async (comment) => {
-        const replies = await fetchNestedReplies(comment.id);
-        return { ...comment, replies };
-      })
-    );
+    // If no top-level comments, return early
+    if (topLevelComments.length === 0) {
+      const totalCount = await prisma.comment.count({
+        where: { postId, parentCommentId: null },
+      });
+      const totalPages = Math.ceil(totalCount / pageSize);
+      return res.status(200).json({
+        comments: [],
+        pagination: {
+          currentPage: pageNum,
+          pageSize,
+          totalCount,
+          totalPages,
+          hasNextPage: pageNum < totalPages,
+        }
+      });
+    }
+
+    // Query 2: Fetch ALL comments for this post (top-level + all descendants)
+    // This is efficient because it's a single database query, not N+1
+    const allCommentsForPost = await prisma.comment.findMany({
+      where: { postId },
+    });
+
+    // Build nested reply tree in memory from flat array
+    // For each top-level comment on this page, get all its descendants
+    const commentsWithReplies = topLevelComments.map(comment => ({
+      ...comment,
+      replies: buildReplyTree(allCommentsForPost, comment.id)
+    }));
 
     // Sort top-level comments by requested sort mode
     if (sort === 'latest') {
@@ -161,7 +178,7 @@ const getCommentsByPost = async (req, res) => {
         new Date(b.createdAt) - new Date(a.createdAt)
       );
     } else {
-      // Default: 'top' sorting by score
+      // Default: 'top' sorting by vote score
       commentsWithReplies.sort((a, b) => {
         const scoreA = (a.likeCount || 0) - (a.dislikeCount || 0);
         const scoreB = (b.likeCount || 0) - (b.dislikeCount || 0);
