@@ -196,6 +196,8 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
               src={AVATAR_IMAGES[comment.avatarId] || HockeyStickSvg}
               alt={`Avatar ${comment.avatarId}`}
               className="avatar-preview"
+              loading="lazy"
+              decoding="async"
               title={`Avatar ${comment.avatarId}`}
             />
           </span>
