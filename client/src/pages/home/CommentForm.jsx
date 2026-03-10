@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, memo } from 'react';
 import axios from 'axios';
 
 import './CommentForm.css';
@@ -18,7 +18,7 @@ const AVATARS = [
 ];
 
 
-export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel, mode = 'comment' }) {
+function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCancel, mode = 'comment' }) {
   const [username, setUsername] = useState('');
   const [avatarId, setAvatarId] = useState(1);
   const [content, setContent] = useState('');
@@ -28,7 +28,7 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
   const contentRef = useRef(null);
   const errorRef = useRef(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     if (!username.trim()) {
@@ -71,7 +71,7 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
     } finally {
       setLoading(false);
     }
-  };
+  }, [mode, parentCommentId, postId, username, avatarId, content, onSubmitSuccess, onCancel]);
 
   return (
     <form className={`comment-form${mode === 'reply' ? ' reply-form' : ''}`} onSubmit={handleSubmit}>
@@ -159,3 +159,15 @@ export function CommentForm({ postId, parentCommentId, onSubmitSuccess, onCancel
     </form>
   );
 }
+
+// Memoize CommentForm component
+export const CommentForm = memo(CommentFormComponent, (prevProps, nextProps) => {
+  // Only re-render if props change
+  return (
+    prevProps.postId === nextProps.postId &&
+    prevProps.parentCommentId === nextProps.parentCommentId &&
+    prevProps.mode === nextProps.mode &&
+    prevProps.onSubmitSuccess === nextProps.onSubmitSuccess &&
+    prevProps.onCancel === nextProps.onCancel
+  );
+});

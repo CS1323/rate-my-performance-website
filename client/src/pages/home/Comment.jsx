@@ -2,7 +2,7 @@ import ThumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
 import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
 import FlagIcon from '../../assets/images/icons/flag.svg';
 import MessageSquareIcon from '../../assets/images/icons/message-square.svg';
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import axios from 'axios';
 import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
@@ -53,20 +53,28 @@ function isMobileScreen() {
   return typeof window !== 'undefined' && window.innerWidth < 480;
 }
 
-export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
+// Helper to recursively count all nested replies (including descendants)
+function countAllReplies(replies) {
+  if (!replies || replies.length === 0) return 0;
+  return replies.reduce((count, reply) => {
+    return count + 1 + countAllReplies(reply.replies);
+  }, 0);
+}
+
+function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
     const [reporting, setReporting] = useState(false);
     const [reportModalOpen, setReportModalOpen] = useState(false);
     const [reportStatus, setReportStatus] = useState('');
-    const [expandedReplyCount, setExpandedReplyCount] = useState(3);
+    const [expandedReplyCount, setExpandedReplyCount] = useState(10);
     const [isExpanded, setIsExpanded] = useState(depth < 2); // Default expanded for levels 0-1, collapsed for level 2+
     const [voteAnnouncementMessage, setVoteAnnouncementMessage] = useState('');
     const isMobile = isMobileScreen();
 
-    const handleFlagClick = () => {
+    const handleFlagClick = useCallback(() => {
       setReportModalOpen(true);
-    };
+    }, []);
 
-    const handleReportSubmit = async (reason) => {
+    const handleReportSubmit = useCallback(async (reason) => {
       setReporting(true);
       try {
         await axios.post(`${API_BASE_URL}/api/reports`, {
@@ -83,11 +91,11 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
       } finally {
         setReporting(false);
       }
-    };
+    }, [comment.id]);
 
-    const handleReportClose = () => {
+    const handleReportClose = useCallback(() => {
       setReportModalOpen(false);
-    };
+    }, []);
   const [showReplyForm, setShowReplyForm] = useState(false);
   if (!comment) return null;
 
@@ -96,7 +104,7 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
   const isDeleted = comment.status === 'DELETED';
   const isVisible = comment.status === 'VISIBLE';
 
-  const handleVoteClick = (voteType) => {
+  const handleVoteClick = useCallback((voteType) => {
     if (onVote && isVisible) {
       onVote(comment.id, voteType);
       // Announce vote to screen readers
@@ -104,22 +112,22 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
       setVoteAnnouncementMessage(`You ${voteLabel} this comment`);
       setTimeout(() => setVoteAnnouncementMessage(''), 3000); // Clear after 3 seconds
     }
-  };
+  }, [onVote, isVisible, comment.id]);
 
-  const handleReplyClick = () => {
+  const handleReplyClick = useCallback(() => {
     if (isVisible) {
       setShowReplyForm(true);
     }
-  };
+  }, [isVisible]);
 
-  const handleReplyCancel = () => {
+  const handleReplyCancel = useCallback(() => {
     setShowReplyForm(false);
-  };
+  }, []);
 
-  const handleReplySuccess = () => {
+  const handleReplySuccess = useCallback(() => {
     setShowReplyForm(false);
     if (onReplyPosted) onReplyPosted();
-  };
+  }, [onReplyPosted]);
 
   const currentUserVote = userVoteState?.[comment.id];
 
@@ -246,15 +254,16 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
         {comment.replies && comment.replies.length > 0 && (
           <div className="replies" data-depth={depth + 1}>
             {(() => {
-              // For nested replies at depth >= 2, paginate children and allow collapse
-              const shouldPaginate = depth >= 2;
+              // Paginate if depth >= 2 OR if more than 10 direct replies
+              const shouldPaginate = depth >= 2 || comment.replies.length > 10;
               const visibleReplies = isExpanded
                 ? (shouldPaginate ? comment.replies.slice(0, expandedReplyCount) : comment.replies)
                 : [];
-              const hiddenCount = isExpanded
+              const hiddenCount = isExpanded && shouldPaginate
                 ? Math.max(0, comment.replies.length - expandedReplyCount)
-                : comment.replies.length;
-              const totalReplies = comment.replies.length;
+                : (isExpanded ? 0 : comment.replies.length);
+              // Count all nested replies recursively (Reddit-style)
+              const totalReplies = countAllReplies(comment.replies);
 
               return (
                 <>
@@ -271,32 +280,29 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
                   ))}
                   {shouldPaginate && (
                     <div className="reply-controls">
-                      {isExpanded && hiddenCount > 0 && (
-                        <button 
-                          className="load-more-replies"
-                          aria-label={`Load ${hiddenCount} more ${hiddenCount === 1 ? 'reply' : 'replies'}`}
-                          onClick={() => setExpandedReplyCount(comment.replies.length)}
-                        >
-                          + Load {hiddenCount} {hiddenCount === 1 ? 'reply' : 'replies'}
-                        </button>
-                      )}
                       <button
                         className={`collapse-replies ${isExpanded ? 'expanded' : 'collapsed'}`}
-                        onClick={() => setIsExpanded(!isExpanded)}
-                        aria-expanded={isExpanded}
-                        aria-label={isExpanded ? `Hide ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}` : `Load ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`}
+                        onClick={() => {
+                          if (isExpanded && hiddenCount > 0) {
+                            setExpandedReplyCount(comment.replies.length);
+                            return;
+                          }
+                          setIsExpanded(!isExpanded);
+                        }}
+                        aria-expanded={isExpanded && hiddenCount === 0}
+                        aria-label={
+                          isExpanded && hiddenCount > 0
+                            ? `Load ${hiddenCount} more ${hiddenCount === 1 ? 'reply' : 'replies'}`
+                            : isExpanded
+                              ? `Hide ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`
+                              : `Load ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`
+                        }
                       >
-                        {isExpanded ? '−' : '+'} {isExpanded ? 'Hide' : 'Load'} {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}
+                        {isExpanded && hiddenCount > 0
+                          ? `+ Load ${hiddenCount} ${hiddenCount === 1 ? 'reply' : 'replies'}`
+                          : `${isExpanded ? '−' : '+'} ${isExpanded ? 'Hide' : 'Load'} ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`}
                       </button>
                     </div>
-                  )}
-                  {!shouldPaginate && hiddenCount > 0 && (
-                    <button 
-                      className="load-more-replies"
-                      onClick={() => setExpandedReplyCount(comment.replies.length)}
-                    >
-                      + Load {hiddenCount} {hiddenCount === 1 ? 'reply' : 'replies'}
-                    </button>
                   )}
                 </>
               );
@@ -325,3 +331,5 @@ export function Comment({ comment, onVote, onReply, userVoteState, onReplyPosted
     </>
   );
 }
+
+export const Comment = memo(CommentComponent);

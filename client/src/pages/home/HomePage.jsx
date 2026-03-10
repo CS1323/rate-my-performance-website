@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
@@ -9,6 +9,7 @@ import { CommentForm } from "./CommentForm";
 import { Comment } from "./Comment";
 import { getUserIdentifier } from "../../utils/userIdentifier";
 import { API_BASE_URL } from "../../config/api";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 import './HomePage.css';
 
@@ -88,8 +89,53 @@ export function HomePage() {
     fetchCommentsAndVotes();
   }, [post?.id, sortMode]);
 
+  // Memoize updateCommentVoteCount helper function
+  const updateCommentVoteCount = useCallback((comment, commentId, voteType, currentUserVote) => {
+    if (comment.id === commentId) {
+      const newComment = { ...comment };
+
+      if (currentUserVote === voteType) {
+        // User is removing their vote
+        if (voteType === 'LIKE') {
+          newComment.likeCount = Math.max(0, newComment.likeCount - 1);
+        } else {
+          newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
+        }
+      } else {
+        // User is adding or changing their vote
+        if (currentUserVote) {
+          // Remove old vote
+          if (currentUserVote === 'LIKE') {
+            newComment.likeCount = Math.max(0, newComment.likeCount - 1);
+          } else {
+            newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
+          }
+        }
+        // Add new vote
+        if (voteType === 'LIKE') {
+          newComment.likeCount = (newComment.likeCount || 0) + 1;
+        } else {
+          newComment.dislikeCount = (newComment.dislikeCount || 0) + 1;
+        }
+      }
+      return newComment;
+    }
+
+    // Recursively update nested replies
+    if (comment.replies && comment.replies.length > 0) {
+      return {
+        ...comment,
+        replies: comment.replies.map((reply) =>
+          updateCommentVoteCount(reply, commentId, voteType, currentUserVote)
+        ),
+      };
+    }
+
+    return comment;
+  }, []);
+
   // Handle vote on a comment with optimistic updates
-  const handleVote = async (commentId, voteType) => {
+  const handleVote = useCallback(async (commentId, voteType) => {
     try {
       // Get unique user identifier
       const userIdentifier = getUserIdentifier();
@@ -133,10 +179,10 @@ export function HomePage() {
         }
       }
     }
-  };
+  }, [comments, post, sortMode, currentPage, userVotes, updateCommentVoteCount]);
 
   // Handle loading more comments
-  const handleLoadMore = async () => {
+  const handleLoadMore = useCallback(async () => {
     try {
       setLoadingMore(true);
       const nextPage = currentPage + 1;
@@ -154,61 +200,16 @@ export function HomePage() {
     } finally {
       setLoadingMore(false);
     }
-  };
-
-  // Helper function to update vote counts optimistically
-  const updateCommentVoteCount = (comment, commentId, voteType, currentUserVote) => {
-    if (comment.id === commentId) {
-      const newComment = { ...comment };
-
-      if (currentUserVote === voteType) {
-        // User is removing their vote
-        if (voteType === 'LIKE') {
-          newComment.likeCount = Math.max(0, newComment.likeCount - 1);
-        } else {
-          newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
-        }
-      } else {
-        // User is adding or changing their vote
-        if (currentUserVote) {
-          // Remove old vote
-          if (currentUserVote === 'LIKE') {
-            newComment.likeCount = Math.max(0, newComment.likeCount - 1);
-          } else {
-            newComment.dislikeCount = Math.max(0, newComment.dislikeCount - 1);
-          }
-        }
-        // Add new vote
-        if (voteType === 'LIKE') {
-          newComment.likeCount = (newComment.likeCount || 0) + 1;
-        } else {
-          newComment.dislikeCount = (newComment.dislikeCount || 0) + 1;
-        }
-      }
-      return newComment;
-    }
-
-    // Recursively update nested replies
-    if (comment.replies && comment.replies.length > 0) {
-      return {
-        ...comment,
-        replies: comment.replies.map((reply) =>
-          updateCommentVoteCount(reply, commentId, voteType, currentUserVote)
-        ),
-      };
-    }
-
-    return comment;
-  };
+  }, [post, sortMode, currentPage]);
 
   // Handle reply (shows reply form - to be implemented)
-  const handleReply = (commentId) => {
+  const handleReply = useCallback((commentId) => {
     console.log("Reply to comment:", commentId);
     // TODO: Show reply form modal or inline form
-  };
+  }, []);
 
   // Handle new comment posted - refresh from page 1
-  const handleCommentPosted = () => {
+  const handleCommentPosted = useCallback(() => {
     // Refresh comments after a new one is posted, reset to page 1
     if (post) {
       axios
@@ -220,7 +221,14 @@ export function HomePage() {
         })
         .catch(err => console.error("Error fetching updated comments:", err));
     }
-  };
+  }, [post, sortMode]);
+
+  // Use infinite scroll hook for automatic loading
+  const sentinelRef = useInfiniteScroll(
+    handleLoadMore,
+    paginationMeta?.hasNextPage || false,
+    loadingMore
+  );
 
   if (postLoading) {
     return (
@@ -273,7 +281,7 @@ export function HomePage() {
               <h2>Comments</h2>
             </div>
 
-            <CommentForm postId={post?.id} onCommentPosted={handleCommentPosted} />
+            <CommentForm postId={post?.id} onSubmitSuccess={handleCommentPosted} />
 
             {/* Sort controls - positioned above comments list */}
             <div className="sort-controls">
@@ -323,14 +331,24 @@ export function HomePage() {
                     </div>
                   ))}
                   
-                  {/* Load More button if there are more pages */}
+                  {/* Sentinel for infinite scroll */}
                   {paginationMeta?.hasNextPage && (
+                    <div ref={sentinelRef} className="scroll-sentinel" style={{ height: '20px', margin: '20px 0' }}>
+                      {loadingMore && (
+                        <p style={{ textAlign: 'center', color: '#999' }}>Loading more comments...</p>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Fallback Load More button */}
+                  {paginationMeta?.hasNextPage && !loadingMore && (
                     <button 
                       className="load-more-btn"
                       onClick={handleLoadMore}
                       disabled={loadingMore}
+                      style={{ marginTop: '10px' }}
                     >
-                      {loadingMore ? 'Loading...' : 'Load More Comments'}
+                      Load More Comments
                     </button>
                   )}
                 </>
