@@ -17,8 +17,10 @@ const POST_SLUG = "drew-dumontier";
 export function HomePage() {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [postLoading, setPostLoading] = useState(true);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [postError, setPostError] = useState(null);
+  const [commentsError, setCommentsError] = useState(null);
   const [userVotes, setUserVotes] = useState({}); // Track which comments user has voted on
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile sidebar toggle
   
@@ -28,41 +30,63 @@ export function HomePage() {
   const [paginationMeta, setPaginationMeta] = useState(null);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Fetch post and initial comments on mount
+  // Fetch post once on initial mount.
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPost = async () => {
       try {
-        setLoading(true);
-        setError(null);
-
-        // Fetch post first (need ID for subsequent calls)
+        setPostLoading(true);
+        setPostError(null);
         const postRes = await axios.get(`${API_BASE_URL}/api/posts/${POST_SLUG}`);
         setPost(postRes.data);
-        const postId = postRes.data.id;
+      } catch (err) {
+        console.error("Error fetching post:", err);
+        setPostError(err.message);
+      } finally {
+        setPostLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, []);
+
+  // Fetch comments/votes whenever post or sort mode changes.
+  useEffect(() => {
+    if (!post?.id) {
+      return;
+    }
+
+    const fetchCommentsAndVotes = async () => {
+      try {
+        setCommentsLoading(true);
+        setCommentsError(null);
 
         // Get user identifier
         const userIdentifier = getUserIdentifier();
 
-        // Parallelize comments and votes fetch
-        const [commentsRes, votesRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/api/comments/post/${postId}?sort=${sortMode}&page=1&limit=10`),
-          axios.get(`${API_BASE_URL}/api/votes/${postId}?ipHash=${userIdentifier}`)
-        ]);
+        const commentsPromise = axios.get(
+          `${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=1&limit=10`
+        );
+        const votesPromise = axios.get(`${API_BASE_URL}/api/votes/${post.id}?ipHash=${userIdentifier}`);
+
+        // Render comments as soon as possible; do not block on votes.
+        const commentsRes = await commentsPromise;
 
         setComments(commentsRes.data.comments || []);
         setPaginationMeta(commentsRes.data.pagination || null);
         setCurrentPage(1);
-        setUserVotes(votesRes.data || {});
+        votesPromise
+          .then((votesRes) => setUserVotes(votesRes.data || {}))
+          .catch((votesErr) => console.error("Error fetching votes:", votesErr));
       } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message);
+        console.error("Error fetching comments/votes:", err);
+        setCommentsError(err.message);
       } finally {
-        setLoading(false);
+        setCommentsLoading(false);
       }
     };
 
-    fetchData();
-  }, [sortMode]);
+    fetchCommentsAndVotes();
+  }, [post?.id, sortMode]);
 
   // Handle vote on a comment with optimistic updates
   const handleVote = async (commentId, voteType) => {
@@ -122,7 +146,7 @@ export function HomePage() {
       );
       
       // Append new comments to existing ones
-      setComments([...comments, ...(commentsRes.data.comments || [])]);
+      setComments((prevComments) => [...prevComments, ...(commentsRes.data.comments || [])]);
       setPaginationMeta(commentsRes.data.pagination || null);
       setCurrentPage(nextPage);
     } catch (err) {
@@ -198,7 +222,7 @@ export function HomePage() {
     }
   };
 
-  if (loading) {
+  if (postLoading) {
     return (
       <>
         <title>Rate My Performance</title>
@@ -214,7 +238,7 @@ export function HomePage() {
     );
   }
 
-  if (error) {
+  if (postError) {
     return (
       <>
         <title>Rate My Performance</title>
@@ -223,7 +247,7 @@ export function HomePage() {
           <NavSidebar />
           <main className="content">
             <div style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>
-              Error: {error}
+              Error: {postError}
             </div>
           </main>
           <AdsSidebar />
@@ -270,7 +294,15 @@ export function HomePage() {
 
             {/* Dynamic comments from API */}
             <div className="comments-list">
-              {comments.length > 0 ? (
+              {commentsError ? (
+                <p style={{ textAlign: 'center', color: 'red', padding: '1rem' }}>
+                  Could not load comments right now. Please refresh.
+                </p>
+              ) : commentsLoading && comments.length === 0 ? (
+                <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
+                  Loading comments...
+                </p>
+              ) : comments.length > 0 ? (
                 <>
                   {comments.map((comment, index) => (
                     <div key={comment.id}>
