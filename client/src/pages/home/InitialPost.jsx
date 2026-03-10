@@ -21,7 +21,12 @@ export function InitialPost({ post }) {
 
       {post.image && (
         <div className="initial-post-image">
-          <img src={imageUrl} alt={post.title} />
+          <img 
+            src={imageUrl} 
+            alt={post.title} 
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
       )}
 

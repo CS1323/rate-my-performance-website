@@ -27,7 +27,12 @@ export function AdsSidebar({ adIndex }) {
     return (
       <aside className="right sidebar">
         <a href={ad.link || '#'} target="_blank" rel="noopener noreferrer">
-          <img className="ad-image" src={ad.imageUrl} alt={ad.alt || 'Advertisement'} />
+          <img 
+            className="ad-image" 
+            src={ad.imageUrl} 
+            alt={ad.alt || 'Advertisement'} 
+            loading="lazy"
+          />
         </a>
       </aside>
     );
@@ -38,7 +43,12 @@ export function AdsSidebar({ adIndex }) {
     <aside className="right sidebar">
       {ads.map((ad) => (
         <a key={ad.id} href={ad.link || '#'} target="_blank" rel="noopener noreferrer">
-          <img className="ad-image" src={ad.imageUrl} alt={ad.alt || 'Advertisement'} />
+          <img 
+            className="ad-image" 
+            src={ad.imageUrl} 
+            alt={ad.alt || 'Advertisement'} 
+            loading="eager"
+          />
         </a>
       ))}
     </aside>
