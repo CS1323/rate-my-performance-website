@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
-import AuthorPhoto from '../../assets/images/author-cadence-keys.jpg';
+import AuthorPhoto from '../../assets/images/author-cadence-keys.webp';
 import './AboutMe.css';
 
 export function AboutMe() {
