@@ -36,7 +36,7 @@ export function PrivacyPolicy() {
           <div className="privacy-container">
             <div className="privacy-header">
               <h1>Privacy Policy</h1>
-              <p className="privacy-subtitle">Effective Date: February 1, 2026</p>
+              <p className="privacy-subtitle">Effective Date: February 28, 2026</p>
             </div>
 
             <div className="privacy-content">
