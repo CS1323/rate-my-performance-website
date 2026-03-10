@@ -1,4 +1,5 @@
 import express from "express";
+import compression from "compression";
 import { config } from "dotenv";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -25,12 +26,18 @@ const app = express();
 // CORS Middleware - Allow frontend domains specified in CORS_ORIGIN
 app.use(corsMiddleware);
 
+// Compression middleware - gzip/deflate responses
+app.use(compression());
+
 // Body parsing middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve images from /images
-app.use("/images", express.static(join(__dirname, "images")));
+// Serve images from /images with long-term caching
+app.use("/images", express.static(join(__dirname, "images"), {
+  maxAge: '365d',  // 1 year browser cache
+  immutable: true  // Cache won't change
+}));
 
 // API Routes
 app.use("/api/posts", postsRoutes)

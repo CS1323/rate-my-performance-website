@@ -35,21 +35,23 @@ export function HomePage() {
         setLoading(true);
         setError(null);
 
-        // Fetch post
+        // Fetch post first (need ID for subsequent calls)
         const postRes = await axios.get(`${API_BASE_URL}/api/posts/${POST_SLUG}`);
         setPost(postRes.data);
+        const postId = postRes.data.id;
 
-        // Fetch initial comments (page 1, with sort mode)
-        const commentsRes = await axios.get(
-          `${API_BASE_URL}/api/comments/post/${postRes.data.id}?sort=${sortMode}&page=1&limit=10`
-        );
+        // Get user identifier
+        const userIdentifier = getUserIdentifier();
+
+        // Parallelize comments and votes fetch
+        const [commentsRes, votesRes] = await Promise.all([
+          axios.get(`${API_BASE_URL}/api/comments/post/${postId}?sort=${sortMode}&page=1&limit=10`),
+          axios.get(`${API_BASE_URL}/api/votes/${postId}?ipHash=${userIdentifier}`)
+        ]);
+
         setComments(commentsRes.data.comments || []);
         setPaginationMeta(commentsRes.data.pagination || null);
         setCurrentPage(1);
-
-        // Fetch user's votes for this post
-        const userIdentifier = getUserIdentifier();
-        const votesRes = await axios.get(`${API_BASE_URL}/api/votes/${postRes.data.id}?ipHash=${userIdentifier}`);
         setUserVotes(votesRes.data || {});
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -62,31 +64,50 @@ export function HomePage() {
     fetchData();
   }, [sortMode]);
 
-  // Handle vote on a comment
+  // Handle vote on a comment with optimistic updates
   const handleVote = async (commentId, voteType) => {
     try {
       // Get unique user identifier
       const userIdentifier = getUserIdentifier();
+      const currentUserVote = userVotes?.[commentId];
 
-      // Post vote to backend
+      // Optimistically update comments using existing helper
+      const updatedComments = comments.map(comment => 
+        updateCommentVoteCount(comment, commentId, voteType, currentUserVote)
+      );
+      setComments(updatedComments);
+
+      // Optimistically update user vote state
+      const newVoteState = currentUserVote === voteType 
+        ? { ...userVotes, [commentId]: undefined }  // Remove vote
+        : { ...userVotes, [commentId]: voteType };   // Set/change vote
+      setUserVotes(newVoteState);
+
+      // Post vote to backend in background
       await axios.post(`${API_BASE_URL}/api/votes`, {
         commentId,
         type: voteType,
         ipHash: userIdentifier,
       });
 
-      // Always re-fetch comments and userVotes to ensure correct counts
-      if (post) {
-        const [commentsRes, votesRes] = await Promise.all([
-          axios.get(`${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=${currentPage}&limit=10`),
-          axios.get(`${API_BASE_URL}/api/votes/${post.id}?ipHash=${userIdentifier}`)
-        ]);
-        setComments(commentsRes.data.comments || []);
-        setPaginationMeta(commentsRes.data.pagination || null);
-        setUserVotes(votesRes.data || {});
-      }
     } catch (err) {
       console.error("Error voting:", err.response?.data || err.message);
+      // On error, refetch to sync state
+      if (post) {
+        try {
+          const userIdentifier = getUserIdentifier();
+          const votesRes = await axios.get(`${API_BASE_URL}/api/votes/${post.id}?ipHash=${userIdentifier}`);
+          setUserVotes(votesRes.data || {});
+          // Optionally refetch comments to get correct counts
+          const commentsRes = await axios.get(
+            `${API_BASE_URL}/api/comments/post/${post.id}?sort=${sortMode}&page=${currentPage}&limit=10`
+          );
+          setComments(commentsRes.data.comments || []);
+          setPaginationMeta(commentsRes.data.pagination || null);
+        } catch (refetchErr) {
+          console.error("Error refetching after vote failure:", refetchErr);
+        }
+      }
     }
   };
 
