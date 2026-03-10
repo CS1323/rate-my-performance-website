@@ -149,3 +149,6 @@ sketch
 
 
 /src/generated/prisma
+
+# performance metrics
+lighthouse-*.json
