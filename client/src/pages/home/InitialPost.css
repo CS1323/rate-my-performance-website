@@ -5,7 +5,7 @@
   padding: 16px 8px 12px 8px;
   max-width: none;
   width: 100%;
-  margin: 0 0 12px 0;
+  margin: 6px 0 12px 0;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 2px 12px 0 rgba(92,7,0,0.07);
@@ -16,7 +16,7 @@
   .initial-post {
     padding: 24px 12px 18px 12px;
     max-width: 600px;
-    margin: 0 auto 18px auto;
+    margin: 8px auto 16px auto;
   }
 }
 
@@ -25,7 +25,7 @@
   .initial-post {
     padding: 40px 0 28px 0;
     max-width: 700px;
-    margin: 0 auto 24px auto;
+    margin: 10px auto 20px auto;
   }
 }
 
