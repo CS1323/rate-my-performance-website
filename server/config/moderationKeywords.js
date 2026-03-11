@@ -54,5 +54,7 @@ export const AUTO_HIDE = {
     String.raw`(kill|hurt|destroy|attack)\s+you\b`,
     // "you … piece of crap/shit/waste of space"
     String.raw`\byou\b.{0,20}(piece\s+of\s+(crap|sh[i*]t)|waste\s+of\s+space)`,
+    // "you" near a standalone insult (e.g. "what are you doing? pathetic!")
+    String.raw`\byou\b.{0,50}\b(pathetic|worthless|disgusting|garbage|trash|horrible|useless|awful|terrible)\b`,
   ],
 };
