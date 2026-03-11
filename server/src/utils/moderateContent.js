@@ -1,13 +1,52 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { AUTO_HIDE } from "../../config/moderationKeywords.js";
+
+/**
+ * Scan comment text against the AUTO_HIDE keyword dictionary.
+ * Returns { autoHide: true, reason } if any rule matches, otherwise { autoHide: false }.
+ */
+const scanKeywords = (content) => {
+  const lower = content.toLowerCase();
+
+  for (const word of AUTO_HIDE.keywords) {
+    if (new RegExp(`\\b${word}\\b`, "i").test(content)) {
+      return { autoHide: true, reason: `Auto-moderated: keyword "${word}"` };
+    }
+  }
+
+  for (const phrase of AUTO_HIDE.phrases) {
+    if (lower.includes(phrase)) {
+      return { autoHide: true, reason: `Auto-moderated: phrase "${phrase}"` };
+    }
+  }
+
+  for (const pattern of AUTO_HIDE.patterns) {
+    if (new RegExp(pattern, "i").test(content)) {
+      return { autoHide: true, reason: `Auto-moderated: direct targeting` };
+    }
+  }
+
+  return { autoHide: false };
+};
 
 /**
  * Moderate comment content using Google Gemini AI
  * Scores toxicity/inappropriate content on a scale of 0-10
- * 
+ *
+ * Keyword scan runs first — if a match is found the comment is immediately
+ * set to score=10, status=HIDDEN and the LLM is NOT called.
+ *
  * @param {string} content - Comment text to moderate
- * @returns {Promise<{score: number, status: string}>} - Score (0-10) and status (VISIBLE or HIDDEN)
+ * @returns {Promise<{score: number, status: string, reason: string}>}
  */
 export const moderateContent = async (content) => {
+  // ── Keyword scan (runs before any LLM call) ────────────────────────────────
+  const keywordResult = scanKeywords(content);
+  if (keywordResult.autoHide) {
+    console.log(`[MODERATION KEYWORD] AUTO_HIDE triggered — ${keywordResult.reason}`);
+    return { score: 10, status: "HIDDEN", reason: keywordResult.reason };
+  }
+
   let score = 0;
   let status = "VISIBLE";
 
@@ -76,5 +115,5 @@ Respond with ONLY a single digit (0-10):`;
     status = "VISIBLE";
   }
 
-  return { score, status };
+  return { score, status, reason: "Auto-moderated by LLM" };
 };

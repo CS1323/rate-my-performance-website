@@ -17,7 +17,7 @@ const createComment = async (req, res) => {
     }
 
     // LLM moderation: score the comment content
-    const { score, status } = await moderateContent(content);
+    const { score, status, reason } = await moderateContent(content);
 
     const comment = await prisma.comment.create({
       data: {
@@ -37,7 +37,7 @@ const createComment = async (req, res) => {
         await prisma.report.create({
           data: {
             commentId: comment.id,
-            reason: "Auto-moderated by LLM",
+            reason: reason,
             ipHash: "system-llm"
           }
         });
@@ -71,7 +71,7 @@ const replyToComment = async (req, res) => {
 
 
     // LLM moderation: score the reply content
-    const { score, status } = await moderateContent(content);
+    const { score, status, reason } = await moderateContent(content);
 
     const reply = await prisma.comment.create({
       data: {
@@ -90,7 +90,7 @@ const replyToComment = async (req, res) => {
         await prisma.report.create({
           data: {
             commentId: reply.id,
-            reason: "Auto-moderated by LLM",
+            reason: reason,
             ipHash: "system-llm"
           }
         });
