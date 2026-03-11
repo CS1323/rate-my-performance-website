@@ -30,6 +30,24 @@ const scanKeywords = (content) => {
 };
 
 /**
+ * Build a concise LLM guidance section from the keyword dictionary.
+ * This gives the model extra sensitivity to known risky themes, including
+ * misspellings/slang variants, while still allowing normal semantic scoring.
+ */
+const buildSensitiveTopicGuidance = () => {
+  const keywordExamples = AUTO_HIDE.keywords.slice(0, 10).join(", ");
+  const phraseExamples = AUTO_HIDE.phrases.slice(0, 6).join(", ");
+
+  return `Pay special attention to comments involving these sensitive topics:
+- Political conflict or extremist references (examples: ${keywordExamples})
+- High-risk phrases (examples: ${phraseExamples})
+- Direct second-person targeting (especially insults/threats aimed at "you")
+
+Treat obvious misspellings, stretched words, and slang variants of these as equivalent.
+If a comment appears to target or harass someone directly, score at least 6.`;
+};
+
+/**
  * Moderate comment content using Google Gemini AI
  * Scores toxicity/inappropriate content on a scale of 0-10
  *
@@ -62,12 +80,15 @@ export const moderateContent = async (content) => {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // Create moderation prompt with detailed criteria
+    const sensitiveTopicGuidance = buildSensitiveTopicGuidance();
     const prompt = `You are a content moderator. Rate the following comment for toxicity, threats, or inappropriate content using these criteria:
 - 0-2: Safe, no concerns
 - 3-4: Mildly inappropriate but acceptable
 - 5-6: Concerning language (insults, mild threats)
 - 7-8: Dangerous content (threats of violence, self-harm mentions)
 - 9-10: Severe threats or graphic content
+
+  ${sensitiveTopicGuidance}
 
 Comment to rate:
 "${content}"
