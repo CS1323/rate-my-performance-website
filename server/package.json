@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "dev": "nodemon server.js",
     "start": "node server.js",
     "build": "npm run prisma:migrate",
@@ -33,7 +34,9 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "jest": "^30.2.0",
-    "nodemon": "^3.1.11"
+    "@vitest/coverage-v8": "^3.2.4",
+    "nodemon": "^3.1.11",
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
   }
 }
