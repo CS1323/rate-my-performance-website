@@ -211,4 +211,4 @@ const getCommentsByPost = async (req, res) => {
   }
 }
 
-export { createComment, replyToComment, getCommentsByPost };
+export { createComment, replyToComment, getCommentsByPost, buildReplyTree };
