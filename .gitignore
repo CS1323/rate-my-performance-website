@@ -133,6 +133,10 @@ dist-ssr
 .DS_*
 *.log
 logs
+
+# Playwright
+/playwright-report/
+/test-results/
 **/*.backup.*
 **/*.back.*
 
