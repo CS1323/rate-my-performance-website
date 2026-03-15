@@ -14,7 +14,7 @@ module.exports = defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://127.0.0.1:5173',
     trace: 'on-first-retry',
   },
 
@@ -32,14 +32,14 @@ module.exports = defineConfig({
     {
       command: 'npm run dev',
       cwd: './server',
-      url: 'http://localhost:5001/api/posts',
+      url: 'http://127.0.0.1:5001/api/posts/drew-dumontier',
       reuseExistingServer: !process.env.CI,
-      timeout: 30_000,
+      timeout: 90_000,
     },
     {
-      command: 'npm run dev',
+      command: 'npm run dev -- --host 127.0.0.1 --port 5173 --strictPort',
       cwd: './client',
-      url: 'http://localhost:5173',
+      url: 'http://127.0.0.1:5173',
       reuseExistingServer: !process.env.CI,
       timeout: 60_000,
     },
