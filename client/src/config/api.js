@@ -1,8 +1,11 @@
 /**
  * Centralized API configuration
+ * 
+ * During development: use empty string so requests go through Vite proxy at /api
+ * During production: set VITE_API_BASE_URL to the actual backend URL
  */
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 /**
  * Construct a full image URL from a relative or absolute path
