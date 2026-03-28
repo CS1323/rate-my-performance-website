@@ -19,7 +19,7 @@ async function main() {
     data: {
       title: "Thinking About Hooking Up With Drew Dumontier?",
       slug: "drew-dumontier",
-      image: "images/post-drew2.png",
+      image: "images/post-drew.webp",
       content: "This is the default post. Feel free to comment!",
     },
   });

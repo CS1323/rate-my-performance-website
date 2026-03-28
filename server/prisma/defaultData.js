@@ -10,8 +10,11 @@ async function main() {
     data: {
       title: "Thinking About Hooking Up With Drew Dumontier?",
       slug: "drew-dumontier",
-      image: "images/post-drew2.png",
-      content: "Check the reviews first. Spoiler alert: 2.3 stars.",
+      image: "images/post-drew.webp",
+      content: 
+        `Welcome to RateMyPerformanceCFU — the website that launched 83 bathroom posters and made one very smug hockey player question everything he thought he knew about himself.
+          
+        This space was built in the spirit of Harper Tinsley's most unhinged, most iconic act of revenge. We're not here to be mean. We're here to be creative. Think of it as a safe space for anyone who's ever dated a guy who needed a little humbling.`,
     },
   });
 
@@ -100,12 +103,12 @@ async function main() {
     },
   });
 
-  // Update comment likes & createdAt
+  // 4. Update comment likes & createdAt
   await prisma.comment.update({
     where: { id: comment1.id },
     data: { 
       likeCount: 17,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-02-28T10:25:16.931Z')
     },
   });
 
@@ -113,7 +116,7 @@ async function main() {
     where: { id: comment2.id },
     data: { 
       likeCount: 54,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-02-28T11:08:21.931Z')
     },
   });
 
@@ -121,7 +124,7 @@ async function main() {
     where: { id: comment3.id },
     data: { 
       likeCount: 8,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-03-02T13:00:09.931Z')
     },
   });
 
@@ -129,7 +132,7 @@ async function main() {
     where: { id: comment4.id },
     data: { 
       likeCount: 5,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-03-02T17:07:46.931Z')
     },
   });
 
@@ -137,7 +140,7 @@ async function main() {
     where: { id: comment5.id },
     data: { 
       likeCount: 87,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-03-03T10:51:32.931Z')
     },
   });
 
@@ -145,7 +148,22 @@ async function main() {
     where: { id: comment6.id },
     data: { 
       likeCount: 26,
-      createdAt: new Date('2026-02-28T08:23:19.931Z')
+      createdAt: new Date('2026-03-04T16:18:56.931Z')
+    },
+  });
+
+  // 5. Update replies' createdAt
+  await prisma.comment.update({
+    where: { id: reply1.id },
+    data: {
+      createdAt: new Date('2026-03-04T18:42:12.931Z')
+    },
+  });
+
+  await prisma.comment.update({
+    where: { id: reply2.id },
+    data: { 
+      createdAt: new Date('2026-03-04T04:26:37.931Z')
     },
   });
 
