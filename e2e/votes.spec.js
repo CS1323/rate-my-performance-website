@@ -2,10 +2,17 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Comment voting', () => {
+  const waitForHomePageReady = async (/** @type {any} */ page) => {
+    await page
+      .getByText('Thinking About Hooking Up With Drew Dumontier?')
+      .waitFor();
+  };
+
   test('increments like count optimistically when like is clicked', async ({ page }) => {
     await page.goto('/');
 
-    // Wait for seed comments to load
+    await waitForHomePageReady(page);
+    // Wait for dev-seeded comment to load
     await page.getByText('First comment! This site is awesome.').waitFor();
 
     const likeButton = page
@@ -29,6 +36,7 @@ test.describe('Comment voting', () => {
   test('removes like when the same button is clicked a second time', async ({ page }) => {
     await page.goto('/');
 
+    await waitForHomePageReady(page);
     await page.getByText('First comment! This site is awesome.').waitFor();
 
     const likeButton = page
