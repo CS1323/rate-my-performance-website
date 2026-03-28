@@ -8,6 +8,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "dev": "nodemon server.js",
+    "dev:test": "dotenv -e .env.test nodemon server.js",
     "start": "node server.js",
     "build": "npm run prisma:migrate",
     "prisma:migrate": "npx prisma@6.19.2 migrate deploy",
