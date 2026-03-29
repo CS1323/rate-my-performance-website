@@ -7,10 +7,26 @@ import App from './App.jsx'
 import './index.css'
 
 // Initialize Sentry for frontend error tracking
+const isDev = import.meta.env.MODE === 'development';
+
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   environment: import.meta.env.MODE,
-  tracesSampleRate: import.meta.env.MODE === 'production' ? 0.1 : 1.0,
+  
+  // Transaction and tracing configuration
+  tracesSampleRate: isDev ? 1.0 : 0.1, // 100% in dev, 10% in production
+  
+  // beforeSend hook to log captures in development
+  beforeSend(event, hint) {
+    if (isDev && event.level === 'error') {
+      console.log('[Sentry] Frontend error captured:', {
+        message: event.message,
+        level: event.level,
+        tags: event.tags,
+      });
+    }
+    return event;
+  },
 });
 
 createRoot(document.getElementById('root')).render(

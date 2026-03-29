@@ -1,9 +1,8 @@
-// IMPORTANT: Import Sentry instrument.js at the very top before any other imports
-import "./instrument.js";
+// Sentry is initialized via NODE_OPTIONS='--import ./instrument.js'
+// This is the recommended approach for ESM applications
 
 import express from "express";
 import compression from "compression";
-import { config } from "dotenv";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import * as Sentry from "@sentry/node";
@@ -23,8 +22,6 @@ import commentsRoutes from "./src/routes/comments.routes.js";
 import votesRoutes from "./src/routes/votes.routes.js";
 import reportsRoutes from "./src/routes/reports.routes.js";
 import adsRoutes from "./src/routes/ads.routes.js";
-
-config();
 
 connectDB();
 
