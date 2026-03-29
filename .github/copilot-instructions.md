@@ -21,25 +21,36 @@ Purpose
   - CFU Boyfriend Quiz
 - Frontend is a React SPA (Vite). Backend is Express + Prisma + PostgreSQL.
 
-## Current repo/project status (March 11, 2026)
+## Current repo/project status (March 28, 2026)
 
 Implemented now
 - Frontend routes and lazy loading are wired in `client/src/App.jsx`.
 - Core discussion flow exists: post display, comments/replies, voting/report UI, and moderation integration.
 - Backend API routes are live for posts, comments, votes, reports, and ads.
 - Local image serving is available from backend `/images`.
+- CORS middleware configured with environment variable control.
+- Database indexes on Comment(postId), Comment(parentCommentId), Vote(commentId, ipHash) for performance.
+- Zod validators for posts, comments, votes, reports in `server/src/validators/`.
+- Try-catch and error states in HomePage.jsx and CommentForm.jsx.
+- IP-based vote/report deduplication via hashIp utility.
 
 Partially complete / known risk areas
-- Deep comment thread readability on mobile still needs a more robust Reddit-like UX treatment.
-- Accessibility work is present (many ARIA attributes/components), but WCAG AA conformance is not yet fully validated end-to-end.
-- Jest is configured in backend scripts, but full automated coverage is not yet established.
+- **Pre-deployment (due 3/31)**: Rate limiting, structured logging, Sentry monitoring, error boundaries, XSS sanitization, authorization audit, rollback documentation
+- **Pre-launch features (due 3/31)**: Reddit-like mobile threading UX, legal pages refresh, Google Analytics setup, WCAG AA compliance
+- Deep comment thread readability on mobile still needs mobile-first collapse/indent treatment.
+- Accessibility work is present (many ARIA attributes) but WCAG AA end-to-end conformance not yet validated.
+- Testing setup with Vitest and Playwright mostly complete; coverage and integration tests in progress.
+- Error handling exists but no error boundary component; XSS sanitization not yet added.
 
 Not implemented yet
-- Production Google Analytics integration.
-- Translation framework and localized content.
-- Frontend unit test setup with Vitest.
+- Rate limiting middleware (express-rate-limit).
+- Structured logging (Winston).
+- Production error monitoring (Sentry).
+- Frontend ErrorBoundary component.
+- Input sanitization (dompurify for XSS prevention).
+- Translation framework and localized content (5+ languages).
 - Complete integration/system test matrix across frontend/backend.
-- Comprehensive README and supporting project documentation.
+- Comprehensive README with setup/deploy/contributor guides.
 
 ## Conventions and patterns
 
@@ -308,53 +319,78 @@ This checklist ensures the site is hardened for production launch. Each item has
 
 ### Deploy Blockers (Must Fix Before Tuesday 3/31)
 
-These 3 items **must** be addressed before production launch:
+These 7 items **must** be completed before production launch, alongside roadmap items 1–4. Critical blockers should be prioritized first.
 
-1. **Rate Limiting** — Without request throttling, site is vulnerable to spam/comment bombs. Add express-rate-limit middleware (1–2 hours)
-2. **Server Logging (Structured)** — Replace console.log with Winston; add logs/error.log to production. Enables debugging when production breaks (1–2 hours)
-3. **Monitoring & Alerts** — Integrate Sentry or equivalent to detect errors before users report them. Without this, you will be flying blind in production (1–3 hours depending on Sentry setup)
+**Hard Blockers (Security/Stability):**
+1. **Rate Limiting** — Without request throttling, site is vulnerable to spam/comment bombs. Add express-rate-limit middleware.
+2. **Server Logging (Structured)** — Replace console.log with Winston; structured logging enables production debugging and monitoring.
+3. **Monitoring & Alerts** — Integrate Sentry or equivalent to detect errors before users report them.
 
-All other items are either already done (✅) or acceptable as post-launch improvements (🟡).
+**High-Priority Gaps (Pre-Launch Risk Mitigation):**
+4. **Frontend Error Handling** — Add ErrorBoundary component and ensure all API calls have error handlers.
+5. **XSS Sanitization** — Add dompurify to prevent code injection attacks on user-submitted content.
+6. **Authorization Audit** — Verify no unprotected moderation endpoints; test delete/vote restrictions.
+7. **Rollback Strategy Doc** — Create .github/ROLLBACK.md with step-by-step recovery procedures.
+
+**Recommended Priority Order**: 
+1. Items 1–3 (hard blockers: rate limiting, logging, monitoring)
+2. Items 4–6 (gap mitigation: error handling, sanitization, auth audit)
+3. Item 7 (documentation: rollback procedures)
+4. Roadmap 1 & 4 (high user impact: Reddit threading, Google Analytics)
+5. Roadmap 3 (compliance/trust: legal pages)
+6. Roadmap 2 (defer to post-launch if time pressure: WCAG AA audit)
 
 ---
 
 ## TODO roadmap (pending work)
 
-Important
-- The items below are planned/pending and should not be assumed complete.
-- When implementing them, update this file and README to keep status accurate.
+### ⏰ Deadline Breakdown
+- **Items 1–4**: Due **3/31/2026** (pre-launch requirements; deploy blockers must complete first)
+- **Item 6**: ✅ **Mostly complete** (verify & finalize)
+- **Items 5, 7**: Due **4/16/2026** (post-launch sprints)
 
-1) Add Reddit-like threading to comments (especially for mobile screens)
-- Improve deep-thread readability on narrow viewports.
-- Reduce or eliminate forced horizontal scrolling for deep reply chains.
-- Define mobile-friendly indentation/collapse rules and branch loading behavior.
-- Keep accessibility semantics intact for nested discussions.
+### 🚀 Pre-Launch — Due 3/31/2026
 
-2) Make site meet WCAG AA accessibility standards
-- Perform and document a WCAG AA audit.
-- Ensure keyboard-only operability (navigation, forms, modal, thread controls).
-- Ensure visible focus states and compliant color contrast.
-- Validate semantic structure, labels, and screen-reader announcements.
+1) ❌ Add Reddit-like threading to comments (especially for mobile screens)
+- **Priority**: ⭐⭐⭐ User-facing impact, high priority
+- **Scope**: Improve deep-thread readability on narrow viewports
+  - Reduce or eliminate forced horizontal scrolling for deep reply chains
+  - Define mobile-friendly indentation/collapse rules and branch loading behavior
+  - Keep accessibility semantics intact for nested discussions
 
-3) Update legal pages (rules, privacy policy, user agreement, accessibility)
-- Refresh legal copy for production readiness.
-- Verify consistency of terms, moderation language, and contact information.
-- Ensure page content and effective-date formatting are uniform.
+2) 🟡 Make site meet WCAG AA accessibility standards
+- **Priority**: ⭐ Defer if time critical (lowest of pre-launch items)
+- **Scope**: Full WCAG AA audit and compliance
+  - Ensure keyboard-only operability (navigation, forms, modal, thread controls)
+  - Ensure visible focus states and compliant color contrast
+  - Validate semantic structure, labels, and screen-reader announcements
 
-4) Add Google Analytics to be used in production
-- Implement GA in a production-safe way (no noisy local/dev tracking by default).
-- Gate tracking by environment and consent requirements.
-- Document configuration steps and required environment variables.
+3) ❌ Update legal pages (rules, privacy policy, user agreement, accessibility)
+- **Priority**: ⭐⭐ Medium (compliance + user trust)
+- **Scope**: Production-ready legal content
+  - Refresh legal copy for production readiness
+  - Verify consistency of terms, moderation language, and contact information
+  - Ensure page content and effective-date formatting are uniform
+
+4) ❌ Add Google Analytics to be used in production
+- **Priority**: ⭐⭐⭐ User-flagged priority
+- **Scope**: Production-safe analytics integration
+  - Implement GA in production-safe way (no noisy local/dev tracking by default)
+  - Gate tracking by environment and consent requirements
+  - Document configuration steps and required environment variables
+
+### 📋 Post-Launch — Due 4/16/2026
 
 5) Add translations (include French, Italian, Dutch, German)
 - Add i18n framework and locale routing/selection strategy.
 - Localize core navigation, discussion UI, legal pages, and system messages.
 - Support at minimum: English, French, Italian, Dutch, German.
 
-6) Add unit, integrated, and system tests
-- Frontend: adopt Vitest and add component/unit coverage for home/thread/form flows.
-- Backend: use Jest for route/controller/validator coverage.
-- Add integration/system coverage for key user journeys.
+6) ✅ Add unit, integrated, and system tests
+- **Status**: Mostly complete—verify final coverage
+- Frontend: Vitest with component/unit coverage for home/thread/form flows.
+- Backend: Vitest for route/controller/validator coverage.
+- Playwright for e2e integration tests covering key user journeys.
 - Keep Lighthouse-based performance regression checks in the release workflow.
 
 7) Documentation (README)
