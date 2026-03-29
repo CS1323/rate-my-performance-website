@@ -25,7 +25,7 @@ export function InitialPost({ post }) {
             src={imageUrl} 
             alt={post.title} 
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
           />
         </div>
       )}

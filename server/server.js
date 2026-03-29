@@ -1,8 +1,12 @@
+// IMPORTANT: Import Sentry instrument.js at the very top before any other imports
+import "./instrument.js";
+
 import express from "express";
 import compression from "compression";
 import { config } from "dotenv";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import * as Sentry from "@sentry/node";
 import { connectDB, disconnectDB } from "./config/db.js";
 import { errorHandler, notFound } from "./src/middleware/error.middleware.js";
 import { corsMiddleware } from "./src/middleware/cors.middleware.js";
@@ -21,6 +25,7 @@ import reportsRoutes from "./src/routes/reports.routes.js";
 import adsRoutes from "./src/routes/ads.routes.js";
 
 config();
+
 connectDB();
 
 const app = express();
@@ -51,9 +56,29 @@ app.use("/api/votes", votesRoutes)
 app.use("/api/reports", reportsRoutes)
 app.use("/api/ads", adsRoutes)
 
+// Debug endpoint for testing logging
+app.get("/debug-log", (req, res) => {
+  logger.error("Test error log entry from /debug-log endpoint", {
+    timestamp: new Date().toISOString(),
+    testData: "Manual test"
+  });
+  res.json({ message: "Logged test error - check logs/error.log" });
+});
+
+// Debug endpoint for testing Sentry error capture
+app.get("/debug-sentry", (req, res) => {
+  logger.error("About to throw test error from /debug-sentry", {
+    timestamp: new Date().toISOString()
+  });
+  throw new Error("My first Sentry error!");
+});
+
 // Error middleware
 app.use(notFound);
 app.use(errorHandler);
+
+// Sentry error handler - must be after all routes and error middleware
+Sentry.setupExpressErrorHandler(app);
 
 const PORT = process.env.PORT || 5001;
 const server = app.listen(PORT, () => {
