@@ -53,23 +53,6 @@ app.use("/api/votes", votesRoutes)
 app.use("/api/reports", reportsRoutes)
 app.use("/api/ads", adsRoutes)
 
-// Debug endpoint for testing logging
-app.get("/debug-log", (req, res) => {
-  logger.error("Test error log entry from /debug-log endpoint", {
-    timestamp: new Date().toISOString(),
-    testData: "Manual test"
-  });
-  res.json({ message: "Logged test error - check logs/error.log" });
-});
-
-// Debug endpoint for testing Sentry error capture
-app.get("/debug-sentry", (req, res) => {
-  logger.error("About to throw test error from /debug-sentry", {
-    timestamp: new Date().toISOString()
-  });
-  throw new Error("My first Sentry error!");
-});
-
 // Error middleware
 app.use(notFound);
 app.use(errorHandler);
