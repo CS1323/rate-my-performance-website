@@ -196,7 +196,7 @@ This checklist ensures the site is hardened for production launch. Each item has
 
 #### 5. 🔵 Password Reset Link Expiration (NOT APPLICABLE)
 - **Reason**: Site is intentionally anonymous; no user accounts, no authentication, no password resets
-- **Design Choice**: Per [README.md](README.md), users enter a username/avatar without creating an account or logging in
+- **Design Choice**: Per [README.md](../README.md), users enter a username/avatar without creating an account or logging in
 - **No action needed**
 
 #### 6. 🟡 Frontend Error Handling (partially implemented)
