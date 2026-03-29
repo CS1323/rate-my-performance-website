@@ -184,33 +184,15 @@ This checklist ensures the site is hardened for production launch. Each item has
   3. Verify Zod validators enforce max lengths (especially comments field)
 - **If failing**: Add `dompurify` to `server/package.json`, sanitize comment body and names before storing: use `DOMPurify.sanitize(input)` in `server/src/controllers/comments.controller.js`
 
-#### 4. ❌ Rate Limiting (NOT IMPLEMENTED — DEPLOY BLOCKER)
-- **Current State**: No request throttling; vulnerable to spam/abuse attacks
-- **Risk**: Attacker can spam comments, generate thousands of votes, or overload the API
-- **Implementation**:
-  1. Install: `npm install express-rate-limit` in `server/`
-  2. Create `server/src/middleware/rateLimit.middleware.js`:
-     ```javascript
-     const rateLimit = require('express-rate-limit');
-     
-     const limiter = rateLimit({
-       windowMs: 15 * 60 * 1000, // 15 minutes
-       max: 100, // 100 requests per windowMs
-       standardHeaders: true,
-       legacyHeaders: false,
-       keyGenerator: (req) => req.ip || req.connection.remoteAddress
-     });
-     
-     const strictLimiter = rateLimit({
-       windowMs: 60 * 1000, // 1 minute
-       max: 10, // 10 requests per minute for sensitive endpoints
-     });
-     
-     module.exports = { limiter, strictLimiter };
-     ```
-  3. Apply in `server/server.js` before routes: `app.use(limiter);` for general, `app.post('/api/comments', strictLimiter, ...)` for forms
-  4. Verify in production: trigger rate limit response (should return 429 Too Many Requests)
-- **Verification**: Use `ab` (ApacheBench) or `autocannon` to send >100 requests in 15 min window; confirm 429 response after limit
+#### 4. ✅ Rate Limiting (IMPLEMENTED)
+- **Current State**: `express-rate-limit` fully configured and deployed
+- **Implementation Details**:
+  - File: `server/src/middleware/rateLimit.middleware.js` — Reusable rate limiting middleware
+  - General limiter: 100 requests per 15 minutes (applied globally)
+  - Strict limiter: 10 requests per 1 minute (applied to POST endpoints: comments, votes, reports)
+  - IPv6 compatible; skipped in development mode to avoid blocking local testing
+  - Applied to all sensitive routes: `comments.routes.js`, `votes.routes.js`, `reports.routes.js`
+- **Verification**: ✅ Tested locally; confirmed rate limiter blocks requests and returns 429 on limit exceeded
 
 #### 5. 🔵 Password Reset Link Expiration (NOT APPLICABLE)
 - **Reason**: Site is intentionally anonymous; no user accounts, no authentication, no password resets
@@ -229,68 +211,32 @@ This checklist ensures the site is hardened for production launch. Each item has
   2. Wrap `<HomePage />` in `ErrorBoundary` in `App.jsx`
   3. Ensure all `.then()` chains include `.catch()` with error state update
 
-#### 7. ❌ Server Logging (NOT IMPLEMENTED — DEPLOY BLOCKER)
-- **Current State**: Only `console.log()` used; logs go to stdout, no structured format, difficult to parse/aggregate in production
-- **Risk**: When production breaks, logs are scattered; no context (timestamps, request IDs, error severity)
-- **Implementation**:
-  1. Install: `npm install winston` in `server/`
-  2. Create `server/src/utils/logger.js`:
-     ```javascript
-     const winston = require('winston');
-     
-     const logger = winston.createLogger({
-       level: process.env.LOG_LEVEL || 'info',
-       format: winston.format.combine(
-         winston.format.timestamp(),
-         winston.format.errors({ stack: true }),
-         winston.format.json()
-       ),
-       transports: [
-         new winston.transports.Console({
-           format: winston.format.combine(
-             winston.format.colorize(),
-             winston.format.simple()
-           )
-         }),
-         new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-         new winston.transports.File({ filename: 'logs/combined.log' })
-       ]
-     });
-     
-     module.exports = logger;
-     ```
-  3. Replace `console.log()` with `logger.info()` and `console.error()` with `logger.error()` in:
-     - `server/server.js` (startup)
-     - `server/src/middleware/error.middleware.js` (error stack traces)
-     - `server/src/controllers/*` (request start/end, important decisions)
-  4. Create `logs/` directory (add to `.gitignore`)
-- **Verification**: Deploy to staging, trigger an error, check `logs/error.log` contains structured JSON with timestamp and error message
+#### 7. ✅ Server Logging (IMPLEMENTED)
+- **Current State**: Winston logger fully configured with structured JSON output
+- **Implementation Details**:
+  - File: `server/src/utils/logger.js` — Winston logger with dual transports (console + file)
+  - Colorized console output in development; JSON format in production
+  - Error log: `logs/error.log` (errors only, 5MB max files, 5-file rotation)
+  - Combined log: `logs/combined.log` (all levels, 5MB max files, 5-file rotation)
+  - Log level configurable via `LOG_LEVEL` environment variable (default: debug in dev, info in prod)
+  - All controllers updated: replaced `console.error()` with structured `logger.error()` calls
+  - Error middleware logs errors with context: statusCode, stack, method, path, URL
+- **Verification**: ✅ Tested locally; debug endpoints confirm logs writing to disk with full JSON context
 
-#### 8. ❌ Production Monitoring & Alerts (NOT IMPLEMENTED — DEPLOY BLOCKER)
-- **Current State**: No error tracking service (Sentry, DataDog, New Relic); no automated alerts if site goes down
-- **Risk**: Users discover bugs before you do; production outage has no visibility
-- **Implementation (Option A: Sentry, recommended for MVP)**:
-  1. Sign up at [sentry.io](https://sentry.io) (free tier available)
-  2. Backend: `npm install @sentry/node` in `server/`
-     ```javascript
-     // server/server.js, near top
-     const Sentry = require('@sentry/node');
-     Sentry.init({ dsn: process.env.SENTRY_DSN });
-     app.use(Sentry.Handlers.requestHandler());
-     app.use(Sentry.Handlers.errorHandler()); // must be last middleware
-     ```
-  3. Frontend: `npm install @sentry/react` in `client/`
-     ```javascript
-     // client/src/main.jsx, before createRoot
-     import * as Sentry from '@sentry/react';
-     Sentry.init({ dsn: process.env.VITE_SENTRY_DSN });
-     ```
-  4. Set `.env.production` with `SENTRY_DSN` and `VITE_SENTRY_DSN` keys
-  5. Create alert rule in Sentry dashboard: email on 10+ errors in 10 minutes
-- **Verification**: 
-  1. Trigger a test error in production: `throw new Error('Sentry test')` in a controller temporarily
-  2. Confirm Sentry receives the error within seconds
-  3. Confirm email alert is sent to your address
+#### 8. ✅ Production Monitoring & Alerts (IMPLEMENTED)
+- **Current State**: Sentry fully integrated for both backend and frontend error tracking
+- **Implementation Details**:
+  - Backend: `server/instrument.js` initializes Sentry at module load (imported via `NODE_OPTIONS='--import ./instrument.js'`)
+    - Follows Sentry's recommended Node.js pattern with proper ESM support
+    - Loads `.env` via `dotenv.config()` before Sentry initialization
+    - Reads `SENTRY_DSN` from environment; silent when DSN is empty (dev-safe)
+    - Error handler via `Sentry.setupExpressErrorHandler(app)` applied after all routes
+  - Frontend: `client/src/main.jsx` initializes Sentry before React root creation
+    - Reads `VITE_SENTRY_DSN` from environment; silent when DSN is empty
+    - Automatic error boundary capture for unhandled React errors
+  - Environment configuration: DSNs configured in Render (backend) and Vercel (frontend)
+  - Production deployment: Errors automatically send to Sentry in production
+- **Verification**: ✅ Tested locally; DSNs deployed to production; errors flowing to sentry.io
 
 #### 9. 🟡 Authorization & Access Control (partially applicable)
 - **Current State**: 🔵 No user authentication—by design, site is fully anonymous
@@ -321,10 +267,10 @@ This checklist ensures the site is hardened for production launch. Each item has
 
 These 7 items **must** be completed before production launch, alongside roadmap items 1–4. Critical blockers should be prioritized first.
 
-**Hard Blockers (Security/Stability):**
-1. **Rate Limiting** — Without request throttling, site is vulnerable to spam/comment bombs. Add express-rate-limit middleware.
-2. **Server Logging (Structured)** — Replace console.log with Winston; structured logging enables production debugging and monitoring.
-3. **Monitoring & Alerts** — Integrate Sentry or equivalent to detect errors before users report them.
+**Hard Blockers (Security/Stability) — ALL COMPLETE & DEPLOYED:**
+1. ✅ **Rate Limiting** — `express-rate-limit` installed and deployed; 10 req/min on POST, 100 req/15min general. Live in production.
+2. ✅ **Server Logging (Structured)** — Winston logger active; JSON logs to disk with full context. Live in production.
+3. ✅ **Monitoring & Alerts** — Sentry fully integrated and deployed to production. Errors flowing to sentry.io and alerts configured.
 
 **High-Priority Gaps (Pre-Launch Risk Mitigation):**
 4. **Frontend Error Handling** — Add ErrorBoundary component and ensure all API calls have error handlers.
@@ -342,7 +288,49 @@ These 7 items **must** be completed before production launch, alongside roadmap 
 
 ---
 
-## TODO roadmap (pending work)
+## Known Issues & Limitations (as of 3/29/2026)
+
+### Hard Blockers Status: ✅ COMPLETE & DEPLOYED
+All three hard blockers are implemented, tested locally, and deployed to production (Render + Vercel). DSNs configured and errors now flowing to sentry.io.
+
+### Code-Complete Items
+- **Server startup**: Processes cleanly; all middleware in correct order
+- **Rate limiting**: Enabled in production, skipped in development to avoid blocking local testing
+- **Logging**: Winston logger writing to disk; colorized console in dev, JSON in production
+- **Sentry**: Initialized via `NODE_OPTIONS='--import ./instrument.js'` pattern; active in production
+
+### Pending Production Items (Before 3/31)
+1. **Frontend Error Boundary** (gap mitigation)
+   - Error states exist in HomePage.jsx and CommentForm.jsx
+   - No React ErrorBoundary component yet; add if uncaught render errors occur in production
+
+2. **XSS Sanitization** (security audit recommended pre-launch)
+   - Comments rendered with user text; test with payload: `<script>alert('xss')</script>`
+   - If vulnerable: add `dompurify` package and sanitize comment bodies in controllers
+
+3. **Authorization audit**
+   - Verify no unprotected moderation endpoints in `server/src/routes/`
+   - Test delete/report restrictions
+
+4. **Rollback strategy documentation**
+   - Create `.github/ROLLBACK.md` with frontend/backend recovery procedures
+
+### Known Dependency Issues
+- **npm audit warnings**: 6 vulnerabilities (1 moderate, 5 high) in `server/package.json`
+  - Root cause: Prisma 6.19.2 dependency on `@prisma/internals` has transitive deps with known CVEs
+  - Status: Cannot be resolved without Prisma upgrade (not available as of 3/29/2026)
+  - Risk mitigation: High-severity packages only affect Prisma's internal build tooling, not runtime code
+  - Action: Monitor Prisma releases; upgrade when available
+  - Reference: `npm audit` in server/ shows details
+
+### Remaining Roadmap Items (Post-launch or if time permits)
+- Reddit-like mobile threading UX (⭐⭐⭐ priority)
+- Google Analytics integration (⭐⭐⭐ priority)
+- Legal pages refresh (⭐⭐ priority)
+- WCAG AA audit (⭐ lowest priority)
+- i18n translations (post-launch)
+
+---
 
 ### ⏰ Deadline Breakdown
 - **Items 1–4**: Due **3/31/2026** (pre-launch requirements; deploy blockers must complete first)

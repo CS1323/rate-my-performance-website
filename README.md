@@ -7,6 +7,15 @@ A lightweight, interactive companion site for the sports-romance novel *Campus R
 - LCP: 2.4s
 - TBT: 0ms
 
+## Known Issues
+
+### npm audit Vulnerabilities
+- **6 vulnerabilities** (1 moderate, 5 high) in `server/package.json`
+  - **Root cause**: Prisma 6.19.2 has transitive dependencies with known CVEs
+  - **Impact**: Affects Prisma's build tooling only; does not affect runtime code
+  - **Status**: Cannot be resolved until Prisma releases an update
+  - **Mitigation**: Monitor Prisma releases and upgrade when available
+
 ### :handshake: Acknowledgments
 
 Created in collaboration with Cadence Keys as an interactive extension of the world of *Campus Rival*.
