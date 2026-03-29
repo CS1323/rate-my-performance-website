@@ -1,5 +1,6 @@
 import { prisma } from "../../config/db.js";
 import { hashIp } from "../utils/hashIp.js";
+import logger from "../utils/logger.js";
 
 /**
  * Report a comment for moderation
@@ -26,7 +27,7 @@ export const reportComment = async (req, res) => {
     res.status(201).json({ success: true });
 
   } catch (err) {
-    console.error(err);
+    logger.error("Error reporting comment:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to report comment" });
   }
 }

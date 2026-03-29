@@ -1,5 +1,6 @@
 import { prisma } from "../../config/db.js";
 import { moderateContent } from "../utils/moderateContent.js";
+import logger from "../utils/logger.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -42,14 +43,17 @@ const createComment = async (req, res) => {
           }
         });
       } catch (reportErr) {
-        console.error("Failed to create auto-moderation report:", reportErr);
+        logger.error("Failed to create auto-moderation report:", { 
+          error: reportErr.message,
+          commentId: comment.id 
+        });
       }
     }
 
     res.status(201).json(comment);
 
   } catch (err) {
-    console.error(err);
+    logger.error("Error creating comment:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to create comment" });
   }
 }
@@ -95,14 +99,17 @@ const replyToComment = async (req, res) => {
           }
         });
       } catch (reportErr) {
-        console.error("Failed to create auto-moderation report:", reportErr);
+        logger.error("Failed to create auto-moderation report:", { 
+          error: reportErr.message,
+          replyId: reply.id 
+        });
       }
     }
 
     res.status(201).json(reply);
 
   } catch (err) {
-    console.error(err);
+    logger.error("Error creating reply:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to create reply" });
   }
 }

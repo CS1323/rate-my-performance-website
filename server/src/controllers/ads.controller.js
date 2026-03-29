@@ -32,7 +32,7 @@ const getAds = async (req, res) => {
 
     res.status(200).json(ads);
   } catch (err) {
-    console.error(err);
+    logger.error("Error fetching ads:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to fetch ads" });
   }
 };

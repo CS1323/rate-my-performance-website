@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import logger from "../utils/logger.js";
 
 /**
  * 404 Not Found handler
@@ -52,6 +53,15 @@ const errorHandler = (err, req, res, next) => {
     message: err.message,
     // Only include stack trace in development
     ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
+
+  // Log the error for monitoring
+  logger.error(`Error: ${err.message}`, {
+    statusCode: err.statusCode,
+    stack: err.stack,
+    method: req.method,
+    path: req.path,
+    url: req.originalUrl
   });
 };
 

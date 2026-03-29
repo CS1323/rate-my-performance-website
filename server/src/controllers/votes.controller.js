@@ -1,5 +1,6 @@
 import { prisma } from "../../config/db.js";
 import { hashIp } from "../utils/hashIp.js";
+import logger from "../utils/logger.js";
 
 /**
  * Cast, change, or remove a vote on a comment
@@ -74,7 +75,7 @@ export const submitVote = async (req, res) => {
     res.status(201).json({ success: true });
 
   } catch (err) {
-    console.error(err);
+    logger.error("Error casting vote:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to cast vote" });
   }
 };
@@ -109,7 +110,7 @@ export const getUserVotes = async (req, res) => {
 
     res.json(voteMap);
   } catch (err) {
-    console.error(err);
+    logger.error("Error fetching user votes:", { error: err.message, stack: err.stack });
     res.status(500).json({ error: "Failed to fetch user votes" });
   }
 };
