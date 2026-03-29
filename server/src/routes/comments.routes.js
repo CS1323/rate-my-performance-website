@@ -2,6 +2,7 @@ import express from "express";
 import { getCommentsByPost, createComment, replyToComment } from "../controllers/comments.controller.js";
 import { validateRequest } from "../middleware/validateRequest.js";
 import { createCommentSchema, getCommentsByPostSchema, replyToCommentSchema } from "../validators/comments.validators.js";
+import { strictLimiter } from "../middleware/rateLimit.middleware.js";
 
 const router = express.Router();
 
@@ -9,9 +10,9 @@ const router = express.Router();
 router.get("/post/:postId", validateRequest(getCommentsByPostSchema), getCommentsByPost);
 
 // POST /api/comments/post/:postId
-router.post("/post/:postId", validateRequest(createCommentSchema), createComment);
+router.post("/post/:postId", strictLimiter, validateRequest(createCommentSchema), createComment);
 
 // POST /api/comments/:commentId/reply
-router.post("/:commentId/reply", validateRequest(replyToCommentSchema), replyToComment);
+router.post("/:commentId/reply", strictLimiter, validateRequest(replyToCommentSchema), replyToComment);
 
 export default router;

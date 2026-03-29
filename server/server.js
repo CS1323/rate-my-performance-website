@@ -6,6 +6,8 @@ import { dirname, join } from 'path';
 import { connectDB, disconnectDB } from "./config/db.js";
 import { errorHandler, notFound } from "./src/middleware/error.middleware.js";
 import { corsMiddleware } from "./src/middleware/cors.middleware.js";
+import { limiter } from "./src/middleware/rateLimit.middleware.js";
+import logger from "./src/utils/logger.js";
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +27,9 @@ const app = express();
 
 // CORS Middleware - Allow frontend domains specified in CORS_ORIGIN
 app.use(corsMiddleware);
+
+// Rate Limiting Middleware - Prevent abuse and spam
+app.use(limiter);
 
 // Compression middleware - gzip/deflate responses
 app.use(compression());
@@ -52,12 +57,12 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 const server = app.listen(PORT, () => {
-  console.log(`Server running on PORT ${PORT}`);
+  logger.info(`Server running on PORT ${PORT}`);
 });
 
 // Handle unhandles promise rejections (e.g., database connection errors)
 process.on("unhandledRejection", (err) => {
-  console.error("Unhandled Rejection:", err);
+  logger.error("Unhandled Rejection:", err);
   server.close(async () => {
     await disconnectDB();
     process.exit(1);
@@ -66,14 +71,14 @@ process.on("unhandledRejection", (err) => {
 
 // Handle uncaught exceptions
 process.on("uncaughtException", async (err) => {
-  console.error("Uncaught Exception:", err);
+  logger.error("Uncaught Exception:", err);
   await disconnectDB();
   process.exit(1);
 });
 
 // Graceful shutdown
 process.on("SIGTERM", async () => {
-  console.log("SIGTERM received, shutting down gracefully");
+  logger.info("SIGTERM received, shutting down gracefully");
   server.close(async () => {
     await disconnectDB();
     process.exit(0);
