@@ -1,8 +1,14 @@
 import { prisma } from "../../config/db.js";
 import { moderateContent } from "../utils/moderateContent.js";
 import logger from "../utils/logger.js";
+import DOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 import dotenv from "dotenv";
 dotenv.config();
+
+// Initialize DOMPurify with jsdom for Node.js environment
+const window = new JSDOM("").window;
+const purify = DOMPurify(window);
 
 /**
  * Create a top-level comment
@@ -10,12 +16,16 @@ dotenv.config();
 const createComment = async (req, res) => {
   try {
     const { postId } = req.params;
-    const { content, authorName, avatarId } = req.body;
+    let { content, authorName, avatarId } = req.body;
 
     // Validate input
     if (!content || !content.trim()) {
       return res.status(400).json({ error: "Content cannot be empty" });
     }
+
+    // Sanitize inputs to prevent XSS
+    content = purify.sanitize(content);
+    authorName = purify.sanitize(authorName || "");
 
     // LLM moderation: score the comment content
     const { score, status, reason } = await moderateContent(content);
@@ -64,7 +74,7 @@ const createComment = async (req, res) => {
 const replyToComment = async (req, res) => {
   try {
     const { commentId } = req.params; // parent comment ID
-    const { content, authorName, avatarId } = req.body;
+    let { content, authorName, avatarId } = req.body;
 
     if (!content || !content.trim()) {
       return res.status(400).json({ error: "Content required" });
@@ -73,6 +83,9 @@ const replyToComment = async (req, res) => {
     const parent = await prisma.comment.findUnique({ where: { id: commentId } });
     if (!parent) return res.status(404).json({ error: "Parent comment not found" });
 
+    // Sanitize inputs to prevent XSS
+    content = purify.sanitize(content);
+    authorName = purify.sanitize(authorName || "");
 
     // LLM moderation: score the reply content
     const { score, status, reason } = await moderateContent(content);
