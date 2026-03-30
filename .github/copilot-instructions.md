@@ -35,18 +35,12 @@ Implemented now
 - IP-based vote/report deduplication via hashIp utility.
 
 Partially complete / known risk areas
-- **Pre-deployment (due 3/31)**: Rate limiting, structured logging, Sentry monitoring, error boundaries, XSS sanitization, authorization audit, rollback documentation
-- **Pre-launch features (due 3/31)**: Reddit-like mobile threading UX, legal pages refresh, Google Analytics setup, WCAG AA compliance
+- **Pre-deployment (due 3/31)**: XSS sanitization, authorization audit, rollback documentation
+- **Pre-launch features (due 3/31)**: Reddit-like mobile threading UX, legal pages refresh, Google Analytics setup
 - Deep comment thread readability on mobile still needs mobile-first collapse/indent treatment.
-- Accessibility work is present (many ARIA attributes) but WCAG AA end-to-end conformance not yet validated.
 - Testing setup with Vitest and Playwright mostly complete; coverage and integration tests in progress.
-- Error handling exists but no error boundary component; XSS sanitization not yet added.
 
 Not implemented yet
-- Rate limiting middleware (express-rate-limit).
-- Structured logging (Winston).
-- Production error monitoring (Sentry).
-- Frontend ErrorBoundary component.
 - Input sanitization (dompurify for XSS prevention).
 - Translation framework and localized content (5+ languages).
 - Complete integration/system test matrix across frontend/backend.
@@ -199,17 +193,14 @@ This checklist ensures the site is hardened for production launch. Each item has
 - **Design Choice**: Per [README.md](../README.md), users enter a username/avatar without creating an account or logging in
 - **No action needed**
 
-#### 6. 🟡 Frontend Error Handling (partially implemented)
-- **Current State**: ✅ Try-catch exists in `HomePage.jsx` and `CommentForm.jsx`; error states shown to user
-- **Gaps**: ❌ No error boundary component; some errors only logged to console; no 500-error fallback UI
-- **Verification**:
-  1. Test network outage: disable backend, try posting a comment → user should see error message (not blank/crash)
-  2. Test API error response: manually return 500 from backend → frontend should show user-friendly error
-  3. Inspect browser console: should not show uncaught exceptions for missing optional data
-- **If failing**: 
-  1. Create `client/src/components/ErrorBoundary.jsx` with class component + `componentDidCatch()` to catch React render errors
-  2. Wrap `<HomePage />` in `ErrorBoundary` in `App.jsx`
-  3. Ensure all `.then()` chains include `.catch()` with error state update
+#### 6. ✅ Frontend Error Handling (IMPLEMENTED)
+- **Current State**: ErrorBoundary component exists at `client/src/components/ErrorBoundary.jsx`
+- **Implementation Details**:
+  - Class component with `getDerivedStateFromError()` and `componentDidCatch()`
+  - Wraps `<HomePage />` in `App.jsx`
+  - Displays user-friendly fallback UI with dev-only error details
+  - Try-catch exists in `HomePage.jsx` and `CommentForm.jsx` with error states shown to user
+- **Verification**: ✅ ErrorBoundary catches React render errors; API errors handled in component state
 
 #### 7. ✅ Server Logging (IMPLEMENTED)
 - **Current State**: Winston logger fully configured with structured JSON output
@@ -273,7 +264,7 @@ These 7 items **must** be completed before production launch, alongside roadmap 
 3. ✅ **Monitoring & Alerts** — Sentry fully integrated and deployed to production. Errors flowing to sentry.io and alerts configured.
 
 **High-Priority Gaps (Pre-Launch Risk Mitigation):**
-4. **Frontend Error Handling** — Add ErrorBoundary component and ensure all API calls have error handlers.
+4. ✅ **Frontend Error Handling** — ErrorBoundary component implemented; all API calls have error handlers.
 5. **XSS Sanitization** — Add dompurify to prevent code injection attacks on user-submitted content.
 6. **Authorization Audit** — Verify no unprotected moderation endpoints; test delete/vote restrictions.
 7. **Rollback Strategy Doc** — Create .github/ROLLBACK.md with step-by-step recovery procedures.
@@ -300,9 +291,9 @@ All three hard blockers are implemented, tested locally, and deployed to product
 - **Sentry**: Initialized via `NODE_OPTIONS='--import ./instrument.js'` pattern; active in production
 
 ### Pending Production Items (Before 3/31)
-1. **Frontend Error Boundary** (gap mitigation)
-   - Error states exist in HomePage.jsx and CommentForm.jsx
-   - No React ErrorBoundary component yet; add if uncaught render errors occur in production
+1. **Frontend Error Boundary** ✅ COMPLETE
+   - `client/src/components/ErrorBoundary.jsx` implemented with `getDerivedStateFromError()` + `componentDidCatch()`
+   - Wraps `<HomePage />` in `App.jsx`; displays fallback UI on render errors
 
 2. **XSS Sanitization** (security audit recommended pre-launch)
    - Comments rendered with user text; test with payload: `<script>alert('xss')</script>`
@@ -327,7 +318,6 @@ All three hard blockers are implemented, tested locally, and deployed to product
 - Reddit-like mobile threading UX (⭐⭐⭐ priority)
 - Google Analytics integration (⭐⭐⭐ priority)
 - Legal pages refresh (⭐⭐ priority)
-- WCAG AA audit (⭐ lowest priority)
 - i18n translations (post-launch)
 
 ---
@@ -346,12 +336,21 @@ All three hard blockers are implemented, tested locally, and deployed to product
   - Define mobile-friendly indentation/collapse rules and branch loading behavior
   - Keep accessibility semantics intact for nested discussions
 
-2) 🟡 Make site meet WCAG AA accessibility standards
-- **Priority**: ⭐ Defer if time critical (lowest of pre-launch items)
-- **Scope**: Full WCAG AA audit and compliance
-  - Ensure keyboard-only operability (navigation, forms, modal, thread controls)
-  - Ensure visible focus states and compliant color contrast
-  - Validate semantic structure, labels, and screen-reader announcements
+2) ✅ Make site meet WCAG AA accessibility standards
+- **Priority**: ⭐ Complete
+- **Scope**: Full WCAG AA audit and compliance — IMPLEMENTED
+- **Implementation Details**:
+  - `:focus-visible` outlines (2px solid #5c0700) on all interactive elements across all CSS files
+  - 44×44px touch targets via invisible `::after` pseudo-elements (preserves original button visuals)
+  - `prefers-reduced-motion` global media query in `index.css`
+  - Focus trap in ReportModal with focus restoration to trigger element on close
+  - `aria-hidden="true"` on decorative icons (IconBase.jsx SVGs, Comment.jsx button imgs)
+  - Color contrast fixes: `#999`/`#888` → `#767676` (4.54:1 on white, passes AA 4.5:1)
+  - ARIA labels, `aria-pressed`, `aria-expanded`, `aria-live` regions on all action buttons
+  - Semantic HTML (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`)
+  - Skip link, heading hierarchy, form labels with `<fieldset>`/`<legend>`
+  - `aria-invalid`, `aria-describedby`, `role="alert"` on form validation errors
+  - Quiz progress bar with `role="progressbar"` and live result announcements
 
 3) ❌ Update legal pages (rules, privacy policy, user agreement, accessibility)
 - **Priority**: ⭐⭐ Medium (compliance + user trust)
