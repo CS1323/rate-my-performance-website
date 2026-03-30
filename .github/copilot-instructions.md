@@ -21,7 +21,7 @@ Purpose
   - CFU Boyfriend Quiz
 - Frontend is a React SPA (Vite). Backend is Express + Prisma + PostgreSQL.
 
-## Current repo/project status (March 28, 2026)
+## Current repo/project status (March 29, 2026)
 
 Implemented now
 - Frontend routes and lazy loading are wired in `client/src/App.jsx`.
@@ -31,17 +31,24 @@ Implemented now
 - CORS middleware configured with environment variable control.
 - Database indexes on Comment(postId), Comment(parentCommentId), Vote(commentId, ipHash) for performance.
 - Zod validators for posts, comments, votes, reports in `server/src/validators/`.
+- XSS sanitization via dompurify in `server/src/controllers/comments.controller.js`.
 - Try-catch and error states in HomePage.jsx and CommentForm.jsx.
+- ErrorBoundary component wrapping `<HomePage />` in `App.jsx`.
 - IP-based vote/report deduplication via hashIp utility.
+- Rate limiting via `express-rate-limit` (100/15min general, 10/1min strict on POST routes).
+- Structured logging via Winston (`server/src/utils/logger.js`).
+- Production monitoring via Sentry (backend `instrument.js` + frontend `main.jsx`).
+- WCAG AA compliance: focus indicators, touch targets, ARIA attributes, reduced motion, focus trapping, semantic HTML, color contrast.
+- Google Analytics via `react-ga4` with date-based launch gating (`VITE_GA_LAUNCH_DATE`, `VITE_GA_ID`).
+- Rollback procedures documented in `.github/ROLLBACK.md`.
 
 Partially complete / known risk areas
-- **Pre-deployment (due 3/31)**: XSS sanitization, authorization audit, rollback documentation
-- **Pre-launch features (due 3/31)**: Reddit-like mobile threading UX, legal pages refresh, Google Analytics setup
-- Deep comment thread readability on mobile still needs mobile-first collapse/indent treatment.
+- **Pre-launch features (due 3/31)**: Legal pages refresh
+- Deep comment thread readability on mobile has mobile-first CSS (reduced indentation, collapse/expand) but not full Reddit-style lazy-load branching.
 - Testing setup with Vitest and Playwright mostly complete; coverage and integration tests in progress.
+- README lacks setup/deploy/contributor documentation.
 
 Not implemented yet
-- Input sanitization (dompurify for XSS prevention).
 - Translation framework and localized content (5+ languages).
 - Complete integration/system test matrix across frontend/backend.
 - Comprehensive README with setup/deploy/contributor guides.
@@ -134,8 +141,8 @@ npm test
 ```
 
 Environment reminders
-- Backend reads env such as `PORT`, `CORS_ORIGIN`, `GEMINI_API_KEY`.
-- Frontend reads `VITE_API_BASE_URL`.
+- Backend reads env such as `PORT`, `CORS_ORIGIN`, `GEMINI_API_KEY`, `SENTRY_DSN`, `LOG_LEVEL`.
+- Frontend reads `VITE_API_BASE_URL`, `VITE_SENTRY_DSN`, `VITE_GA_ID`, `VITE_GA_LAUNCH_DATE`.
 - Test workflows may rely on `.env.test` in `server/`.
 
 ## Pre-Deployment Checklist (Target: Tuesday, 3/31/2026)
@@ -168,15 +175,14 @@ This checklist ensures the site is hardened for production launch. Each item has
   3. Query plan inspection: `EXPLAIN ANALYZE` on recursive comment queries should use indexes
 - **No action needed** if performance is acceptable
 
-#### 3. 🟡 Input Validation & Sanitization (partially implemented)
+#### 3. ✅ Input Validation & Sanitization (IMPLEMENTED)
 - **Validation**: ✅ Backend validators exist in `server/src/validators/` (Zod schemas for comments, posts, votes, reports)
 - **Frontend Validation**: ✅ Partial validation in `client/src/pages/home/CommentForm.jsx` (length limits, emptiness checks)
-- **Sanitization Gap**: ❌ No XSS sanitization library actively used; comments rendered with user-provided text
+- **Sanitization**: ✅ `dompurify` installed in `server/package.json` and actively sanitizing comment body and display names in `server/src/controllers/comments.controller.js`
 - **Verification**:
-  1. Test SQL injection: try `'; DROP TABLE comments; --` in comment form → should be escaped
-  2. Test XSS payload: try `<script>alert('xss')</script>` in comment → should render as text, not execute
-  3. Verify Zod validators enforce max lengths (especially comments field)
-- **If failing**: Add `dompurify` to `server/package.json`, sanitize comment body and names before storing: use `DOMPurify.sanitize(input)` in `server/src/controllers/comments.controller.js`
+  1. Test XSS payload: try `<script>alert('xss')</script>` in comment → should be stripped by dompurify before storage
+  2. Verify Zod validators enforce max lengths (especially comments field)
+- **No action needed** — dompurify is active on all user-submitted text fields
 
 #### 4. ✅ Rate Limiting (IMPLEMENTED)
 - **Current State**: `express-rate-limit` fully configured and deployed
@@ -229,28 +235,20 @@ This checklist ensures the site is hardened for production launch. Each item has
   - Production deployment: Errors automatically send to Sentry in production
 - **Verification**: ✅ Tested locally; DSNs deployed to production; errors flowing to sentry.io
 
-#### 9. 🟡 Authorization & Access Control (partially applicable)
+#### 9. ✅ Authorization & Access Control (VERIFIED)
 - **Current State**: 🔵 No user authentication—by design, site is fully anonymous
-- **Access Control Needed**: Only validate that:
-  - Users can only report/vote on their own IP (prevent manipulation): ✅ already hash IP + store in Vote/Report
-  - Moderation endpoints (if any) are not exposed: ⚠️ check that `server/src/routes/` do not include unprotected moderation APIs
-- **Verification**:
-  1. Check `server/src/routes/` — confirm no "delete user", "ban user", "moderate" endpoints are public
-  2. Test: try to delete someone else's comment via REST client → should fail (403 Forbidden or 401 Unauthorized)
-- **If failing**: Add middleware to validate user owns the resource before allow deletion
+- **Access Control Verified**:
+  - Users can only report/vote on their own IP (prevent manipulation): ✅ IP hash + unique constraint in Vote/Report
+  - No unprotected moderation endpoints: ✅ All routes checked — posts (GET only), comments (GET + POST, no delete), votes (POST only), reports (POST only)
+  - No admin/delete/ban/moderate endpoints are exposed
+- **No action needed**
 
-#### 10. 🟡 Rollback Strategy (partially implemented)
+#### 10. ✅ Rollback Strategy (IMPLEMENTED)
 - **Current State**: 
   - Frontend: ✅ Vercel auto-rollback on failed deploy available (via dashboard)
-  - Database: ⚠️ Prisma migrations support rollback via `npm run prisma:migrate resolve --rolled-back <migration_name>`, but not automated
-  - Noted in `server/package.json`: `prisma:migrate` is available
-- **Verification**:
-  1. Verify Vercel "Auto-rollback" is enabled for frontend deployment
-  2. Document rollback steps in deployment runbook:
-     - Frontend: Redeploy previous commit to Vercel (or use Vercel rollback button)
-     - Backend: For database, note: `npm run prisma:migrate resolve --rolled-back <migration>` then redeploy Express server
-     - Create a `.github/ROLLBACK.md` file with step-by-step instructions
-- **Action**: Create `.github/ROLLBACK.md` with rollback procedures; no code changes required if manual process is documented
+  - Backend: ✅ Prisma rollback commands documented
+  - Documentation: ✅ `.github/ROLLBACK.md` exists with step-by-step recovery procedures
+- **No action needed**
 
 ---
 
@@ -263,19 +261,16 @@ These 7 items **must** be completed before production launch, alongside roadmap 
 2. ✅ **Server Logging (Structured)** — Winston logger active; JSON logs to disk with full context. Live in production.
 3. ✅ **Monitoring & Alerts** — Sentry fully integrated and deployed to production. Errors flowing to sentry.io and alerts configured.
 
-**High-Priority Gaps (Pre-Launch Risk Mitigation):**
+**High-Priority Gaps (Pre-Launch Risk Mitigation) — ALL COMPLETE:**
 4. ✅ **Frontend Error Handling** — ErrorBoundary component implemented; all API calls have error handlers.
-5. **XSS Sanitization** — Add dompurify to prevent code injection attacks on user-submitted content.
-6. **Authorization Audit** — Verify no unprotected moderation endpoints; test delete/vote restrictions.
-7. **Rollback Strategy Doc** — Create .github/ROLLBACK.md with step-by-step recovery procedures.
+5. ✅ **XSS Sanitization** — dompurify installed and actively sanitizing comment body/display names in `comments.controller.js`.
+6. ✅ **Authorization Audit** — Verified no unprotected moderation endpoints; all routes are read-only or IP-validated.
+7. ✅ **Rollback Strategy Doc** — `.github/ROLLBACK.md` created with step-by-step recovery procedures.
 
 **Recommended Priority Order**: 
-1. Items 1–3 (hard blockers: rate limiting, logging, monitoring)
-2. Items 4–6 (gap mitigation: error handling, sanitization, auth audit)
-3. Item 7 (documentation: rollback procedures)
-4. Roadmap 1 & 4 (high user impact: Reddit threading, Google Analytics)
-5. Roadmap 3 (compliance/trust: legal pages)
-6. Roadmap 2 (defer to post-launch if time pressure: WCAG AA audit)
+1. Items 1–7 ✅ (all deploy blockers complete)
+2. Roadmap 3 (compliance/trust: legal pages — only remaining pre-launch item)
+3. Roadmap 5, 7 (post-launch: i18n, README documentation)
 
 ---
 
@@ -291,20 +286,12 @@ All three hard blockers are implemented, tested locally, and deployed to product
 - **Sentry**: Initialized via `NODE_OPTIONS='--import ./instrument.js'` pattern; active in production
 
 ### Pending Production Items (Before 3/31)
-1. **Frontend Error Boundary** ✅ COMPLETE
-   - `client/src/components/ErrorBoundary.jsx` implemented with `getDerivedStateFromError()` + `componentDidCatch()`
-   - Wraps `<HomePage />` in `App.jsx`; displays fallback UI on render errors
+All high-priority gaps are now resolved. Remaining pre-launch work:
 
-2. **XSS Sanitization** (security audit recommended pre-launch)
-   - Comments rendered with user text; test with payload: `<script>alert('xss')</script>`
-   - If vulnerable: add `dompurify` package and sanitize comment bodies in controllers
-
-3. **Authorization audit**
-   - Verify no unprotected moderation endpoints in `server/src/routes/`
-   - Test delete/report restrictions
-
-4. **Rollback strategy documentation**
-   - Create `.github/ROLLBACK.md` with frontend/backend recovery procedures
+1. **Legal pages refresh** (compliance/trust)
+   - Verify consistency of terms, moderation language, and contact information across rules, privacy policy, user agreement, and accessibility pages
+   - Ensure effective-date formatting is uniform
+   - Privacy Policy currently shows effective date: Feb 28, 2026 — update if needed for launch
 
 ### Known Dependency Issues
 - **npm audit warnings**: 6 vulnerabilities (1 moderate, 5 high) in `server/package.json`
@@ -314,27 +301,29 @@ All three hard blockers are implemented, tested locally, and deployed to product
   - Action: Monitor Prisma releases; upgrade when available
   - Reference: `npm audit` in server/ shows details
 
-### Remaining Roadmap Items (Post-launch or if time permits)
-- Reddit-like mobile threading UX (⭐⭐⭐ priority)
-- Google Analytics integration (⭐⭐⭐ priority)
-- Legal pages refresh (⭐⭐ priority)
+### Remaining Roadmap Items
+- Legal pages refresh (⭐⭐ priority — pre-launch)
+- Reddit-like mobile threading lazy-load branching (⭐ nice-to-have — basic mobile CSS done)
 - i18n translations (post-launch)
+- README documentation (post-launch)
 
 ---
 
 ### ⏰ Deadline Breakdown
-- **Items 1–4**: Due **3/31/2026** (pre-launch requirements; deploy blockers must complete first)
-- **Item 6**: ✅ **Mostly complete** (verify & finalize)
-- **Items 5, 7**: Due **4/16/2026** (post-launch sprints)
+- **Pre-launch items**: Due **3/31/2026** — Only legal pages refresh remains
+- **Items 5, 7**: Due **4/16/2026** (post-launch sprints: i18n, README)
 
 ### 🚀 Pre-Launch — Due 3/31/2026
 
-1) ❌ Add Reddit-like threading to comments (especially for mobile screens)
-- **Priority**: ⭐⭐⭐ User-facing impact, high priority
-- **Scope**: Improve deep-thread readability on narrow viewports
-  - Reduce or eliminate forced horizontal scrolling for deep reply chains
-  - Define mobile-friendly indentation/collapse rules and branch loading behavior
-  - Keep accessibility semantics intact for nested discussions
+1) 🟡 Add Reddit-like threading to comments (especially for mobile screens)
+- **Priority**: ⭐⭐⭐ Complete (basic implementation)
+- **Scope**: Mobile-first CSS implemented
+  - Reduced indentation on narrow viewports via media queries (max-width: 479px)
+  - Collapse/expand button (`.collapse-replies`) for thread branches
+  - Left border visual hierarchy for nested replies
+  - Focus-visible indicator on collapse button
+  - Proper `aria-expanded` and descriptive `aria-label` on collapse controls
+- **Not implemented**: Full Reddit-style lazy-load branch pagination for very deep threads
 
 2) ✅ Make site meet WCAG AA accessibility standards
 - **Priority**: ⭐ Complete
@@ -353,18 +342,22 @@ All three hard blockers are implemented, tested locally, and deployed to product
   - Quiz progress bar with `role="progressbar"` and live result announcements
 
 3) ❌ Update legal pages (rules, privacy policy, user agreement, accessibility)
-- **Priority**: ⭐⭐ Medium (compliance + user trust)
+- **Priority**: ⭐⭐ Medium (compliance + user trust) — **only remaining pre-launch item**
 - **Scope**: Production-ready legal content
   - Refresh legal copy for production readiness
   - Verify consistency of terms, moderation language, and contact information
   - Ensure page content and effective-date formatting are uniform
 
-4) ❌ Add Google Analytics to be used in production
-- **Priority**: ⭐⭐⭐ User-flagged priority
-- **Scope**: Production-safe analytics integration
-  - Implement GA in production-safe way (no noisy local/dev tracking by default)
-  - Gate tracking by environment and consent requirements
-  - Document configuration steps and required environment variables
+4) ✅ Add Google Analytics to be used in production
+- **Priority**: ⭐⭐⭐ Complete
+- **Scope**: Production-safe analytics integration — IMPLEMENTED
+- **Implementation Details**:
+  - `react-ga4` installed in `client/package.json`
+  - Initialized in `client/src/main.jsx` and `client/src/App.jsx`
+  - Page view tracking via useEffect on route changes
+  - Date-based launch gating via `VITE_GA_LAUNCH_DATE` environment variable
+  - Gated on `VITE_GA_ID` — no tracking without env var (dev-safe)
+  - No noisy local/dev tracking by default
 
 ### 📋 Post-Launch — Due 4/16/2026
 
