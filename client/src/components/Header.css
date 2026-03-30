@@ -88,6 +88,17 @@ header {
   outline-offset: 2px;
 }
 
+/* WCAG AA 2.5.5: Invisible 44x44px touch target */
+.hamburger-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+}
+
 .puck-toggle-logo {
   width: 24px;
   height: 24px;

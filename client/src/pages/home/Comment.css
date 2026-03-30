@@ -308,6 +308,27 @@
   }
 }
 
+/* WCAG AA 2.5.5: Invisible 44x44px touch targets for action buttons */
+.vote,
+.flag-btn,
+.flag,
+.reply {
+  position: relative;
+}
+
+.vote::after,
+.flag-btn::after,
+.flag::after,
+.reply::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* --- Vote Buttons (Like/Dislike) --- */
 .vote {
   background: #fff;

@@ -231,6 +231,21 @@
   outline-offset: 2px;
 }
 
+/* WCAG AA 2.5.5: Invisible 44x44px touch target */
+.answer-button {
+  position: relative;
+}
+
+.answer-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* --- Navigation Buttons --- */
 .quiz-navigation {
   display: flex;

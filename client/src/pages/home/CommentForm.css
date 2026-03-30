@@ -245,6 +245,23 @@
   }
 }
 
+/* WCAG AA 2.5.5: Invisible 44x44px touch targets */
+.btn-post,
+.cancel-btn {
+  position: relative;
+}
+
+.btn-post::after,
+.cancel-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+}
+
 .btn-post {
   background: #5c0700;
   color: #fff;
