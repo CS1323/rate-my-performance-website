@@ -5,9 +5,11 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   const submitButtonRef = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
     if (isOpen && dialogRef.current) {
+      triggerRef.current = document.activeElement;
       dialogRef.current.showModal();
       inputRef.current?.focus();
     }
@@ -20,12 +22,14 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
     if (dialogRef.current) {
       dialogRef.current.close();
     }
+    triggerRef.current?.focus();
   };
 
   const handleCancel = () => {
     if (dialogRef.current) {
       dialogRef.current.close();
     }
+    triggerRef.current?.focus();
     onClose();
   };
 
