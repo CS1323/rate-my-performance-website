@@ -86,7 +86,7 @@
 
 .placeholder-icon {
   font-size: 1.4rem;
-  color: #888;
+  color: #767676;
   display: flex;
   align-items: center;
 }
@@ -187,7 +187,7 @@
 
 .time-separator {
   margin: 0 3px;
-  color: #999;
+  color: #767676;
   font-weight: 400;
 }
 
@@ -733,7 +733,7 @@
 .collapse-replies {
   background: transparent;
   border: none;
-  color: #888;
+  color: #767676;
   border-radius: 4px;
   padding: 4px 8px;
   font-size: 0.65rem;
