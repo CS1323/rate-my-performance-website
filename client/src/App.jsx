@@ -1,6 +1,8 @@
-import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router';
+import { lazy, Suspense, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router';
+import ReactGA from 'react-ga4';
 import { HomePage } from './pages/home/HomePage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import './App.css';
 
 const CFUBoyfriendQuiz = lazy(() =>
@@ -23,10 +25,28 @@ const Accessibility = lazy(() =>
 );
 
 function App() {
+  const location = useLocation();
+
+  // Track page views with Google Analytics
+  useEffect(() => {
+    // Check if GA is initialized
+    if (import.meta.env.VITE_GA_ID) {
+      const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE 
+        ? new Date(import.meta.env.VITE_GA_LAUNCH_DATE) 
+        : null;
+      
+      const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
+      
+      if (isGAEnabled) {
+        ReactGA.send({ hitType: 'pageview', page: location.pathname });
+      }
+    }
+  }, [location.pathname]);
+
   return (
     <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>}>
       <Routes>
-        <Route index element={<HomePage />} />
+        <Route index element={<ErrorBoundary><HomePage /></ErrorBoundary>} />
         <Route path="cfu-boyfriend-quiz" element={<CFUBoyfriendQuiz />} />
         <Route path="about-me" element={<AboutMe />} />
         <Route path="rules" element={<Rules />} />
