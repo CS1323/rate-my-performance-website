@@ -419,6 +419,11 @@
   filter: brightness(0) invert(1);
 }
 
+.vote:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
+}
+
 .vote.voted {
   background: #5c0700;
   color: #fff;
@@ -538,11 +543,10 @@
   filter: brightness(0) invert(1);
 }
 
-.flag-btn:active,
-.flag-btn:focus,
-.flag:active,
-.flag:focus {
+.flag-btn:focus-visible,
+.flag:focus-visible {
   outline: 2px solid #5c0700;
+  outline-offset: 2px;
 }
 
 .flag-btn:disabled,
@@ -634,6 +638,11 @@
 
 .reply:hover:not(:disabled) img {
   filter: brightness(0) invert(1);
+}
+
+.reply:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
 }
 
 .reply:disabled {

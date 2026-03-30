@@ -107,7 +107,7 @@ export function CFUBoyfriendQuiz() {
                 <div className="quiz-header">
                   <h1>CFU Boyfriend Quiz</h1>
                   <p className="quiz-subtitle">Discover which CFU hockey player is your perfect match!</p>
-                  <div className="progress-bar">
+                  <div className="progress-bar" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin="1" aria-valuemax={quizData.questions.length} aria-label={`Quiz progress: question ${currentQuestionIndex + 1} of ${quizData.questions.length}`}>
                     <div 
                       className="progress-fill" 
                       style={{ width: `${((currentQuestionIndex + 1) / quizData.questions.length) * 100}%` }}
@@ -126,6 +126,7 @@ export function CFUBoyfriendQuiz() {
                         key={index}
                         className="answer-button"
                         onClick={() => handleAnswerSelect(answer)}
+                        aria-label={`Answer option: ${answer.text}`}
                       >
                         {answer.text}
                       </button>
@@ -142,11 +143,11 @@ export function CFUBoyfriendQuiz() {
                 </div>
               </div>
             ) : (
-              <div className="quiz-result">
+              <div className="quiz-result" role="status" aria-live="polite" aria-atomic="true">
                 <div className="result-card">
                   <h1>Your CFU Boyfriend is...</h1>
                   <div className="boyfriend-result">
-                    <div className="boyfriend-emoji">{result.emoji}</div>
+                    <div className="boyfriend-emoji" aria-hidden="true">{result.emoji}</div>
                     <h2 className="boyfriend-name">{result.name}</h2>
                     <p className="boyfriend-position">{result.position} • #{result.number}</p>
                     <p className="boyfriend-description">{result.description}</p>

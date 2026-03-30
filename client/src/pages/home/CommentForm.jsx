@@ -32,12 +32,22 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
     e.preventDefault();
 
     if (!username.trim()) {
-      setError('Please enter a display name');
+      setError('Display name required (minimum 1 character)');
+      usernameRef.current?.focus();
+      return;
+    }
+    if (username.trim().length > 30) {
+      setError(`Display name too long (maximum 30 characters, current: ${username.trim().length})`);
       usernameRef.current?.focus();
       return;
     }
     if (!content.trim()) {
-      setError(`Please enter a ${mode === 'reply' ? 'reply' : 'comment'}`);
+      setError(`Please enter a ${mode === 'reply' ? 'reply' : 'comment'} (minimum 1 character)`);
+      contentRef.current?.focus();
+      return;
+    }
+    if (content.trim().length > 2000) {
+      setError(`${mode === 'reply' ? 'Reply' : 'Comment'} too long (maximum 2000 characters, current: ${content.trim().length})`);
       contentRef.current?.focus();
       return;
     }

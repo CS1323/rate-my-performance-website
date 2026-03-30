@@ -71,7 +71,12 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
     const isMobile = isMobileScreen();
 
     const handleFlagClick = useCallback(() => {
-      setReportModalOpen(true);
+      const confirmed = window.confirm(
+        'Report this comment for moderation?\n\nThis action helps us keep the community safe. Misuse of the report feature may result in restrictions.'
+      );
+      if (confirmed) {
+        setReportModalOpen(true);
+      }
     }, []);
 
     const handleReportSubmit = useCallback(async (reason) => {

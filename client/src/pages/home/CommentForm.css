@@ -283,6 +283,11 @@
   box-shadow: 0 2px 8px 0 rgba(92,7,0,0.15);
 }
 
+.btn-post:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
+}
+
 .btn-post:disabled {
   background: #bdbdbd;
   cursor: not-allowed;
@@ -309,6 +314,11 @@
   border-color: #222;
 }
 
+.cancel-btn:focus-visible {
+  outline: 2px solid #5c0700;
+  outline-offset: 2px;
+}
+
 .cancel-btn:disabled {
   background: #f7f5f2;
   color: #bdbdbd;
@@ -316,6 +326,7 @@
   cursor: not-allowed;
   opacity: 0.7;
 }
+
 
 /* --- Form Error Styling --- */
 .form-error {
