@@ -299,7 +299,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
                           setExpandedReplyCount(10); // Reset to initial value when toggling
                           setIsExpanded(!isExpanded);
                         }}
-                        aria-expanded={isExpanded && hiddenCount === 0}
+                        aria-expanded={isExpanded}
                         aria-label={
                           isExpanded && hiddenCount > 0
                             ? `Load ${hiddenCount} more ${hiddenCount === 1 ? 'reply' : 'replies'}`
