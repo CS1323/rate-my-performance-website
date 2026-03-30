@@ -13,6 +13,8 @@ export const IconBase = ({
     style={{ color, fill: color }}
     className={className}
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     {children}

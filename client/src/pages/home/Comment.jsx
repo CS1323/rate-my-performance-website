@@ -219,7 +219,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
             onClick={handleReplyClick}
             aria-label="Reply to this comment"
           >
-            <img src={MessageSquareIcon} alt="Reply" />
+            <img src={MessageSquareIcon} alt="" aria-hidden="true" />
             Reply
           </button>
           <button 
@@ -228,7 +228,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
             aria-label={`Like this comment, ${comment.likeCount || 0} likes`}
             aria-pressed={currentUserVote === 'LIKE'}
           >
-            <img src={ThumbsUpIcon} alt="" />
+            <img src={ThumbsUpIcon} alt="" aria-hidden="true" />
             <span className="count">{comment.likeCount || 0}</span>
           </button>
           <button 
@@ -237,7 +237,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
             aria-label={`Dislike this comment, ${comment.dislikeCount || 0} dislikes`}
             aria-pressed={currentUserVote === 'DISLIKE'}
           >
-            <img src={ThumbsDownIcon} alt="" />
+            <img src={ThumbsDownIcon} alt="" aria-hidden="true" />
             <span className="count" style={{ display: 'none' }}>{comment.dislikeCount || 0}</span>
           </button>
           <button 
@@ -245,7 +245,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
             aria-label="Report this comment as inappropriate"
             onClick={handleFlagClick}
           >
-            <img src={FlagIcon} alt="" />
+            <img src={FlagIcon} alt="" aria-hidden="true" />
           </button>
         </div>
 
