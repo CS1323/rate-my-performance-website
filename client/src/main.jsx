@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import * as Sentry from "@sentry/react";
+import ReactGA from 'react-ga4';
 import { AdsProvider } from './context/AdsContext'
 import App from './App.jsx'
 import './index.css'
@@ -28,6 +29,17 @@ Sentry.init({
     return event;
   },
 });
+
+// Initialize Google Analytics with date-based gating
+const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE 
+  ? new Date(import.meta.env.VITE_GA_LAUNCH_DATE) 
+  : null;
+
+const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
+
+if (isGAEnabled && import.meta.env.VITE_GA_ID) {
+  ReactGA.initialize(import.meta.env.VITE_GA_ID);
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
