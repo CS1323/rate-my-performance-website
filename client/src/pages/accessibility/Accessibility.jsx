@@ -56,8 +56,14 @@ export function Accessibility() {
                   <li>Keyboard navigation support for all interactive elements</li>
                   <li>Skip link to jump directly to main content (visible when focused)</li>
                   <li>Consistent navigation structure across all pages</li>
-                  <li>Clear focus indicators on buttons, links, and form inputs</li>
+                  <li>Clear, visible focus indicators (outline) on buttons, links, and form inputs</li>
                   <li>Proper heading hierarchy (h1, h2, h3) for logical page structure</li>
+                  <li>Keyboard-accessible modals with Escape key to close</li>
+                  <li>Focus trapping inside modals so Tab/Shift+Tab stays within the dialog</li>
+                  <li>Focus restored to the triggering button when a modal closes</li>
+                  <li>Logical Tab order following reading order (top to bottom, left to right)</li>
+                  <li>No keyboard traps: users can navigate away from any element using keyboard alone</li>
+                  <li>All interactive elements have minimum 44×44px touch target size</li>
                 </ul>
                 
                 <h3>Text and Reading</h3>
@@ -68,40 +74,56 @@ export function Accessibility() {
                   <li>Alt text on all images and icons that convey meaning</li>
                 </ul>
 
+                <h3>Form Validation & Error Handling</h3>
+                <ul>
+                  <li>All form inputs have visible, associated labels or aria-labels</li>
+                  <li>Form validation errors are clearly identified with descriptive messages</li>
+                  <li>Error messages explain how to fix the problem (e.g., "Display name must be 30 characters or less. Current: 45")</li>
+                  <li>Errors are announced to screen readers via aria-live="assertive"</li>
+                  <li>aria-invalid attributes indicate invalid fields</li>
+                  <li>Critical actions (like reporting comments) require user confirmation before proceeding</li>
+                </ul>
+
                 <h3>Screen Readers & Assistive Technology</h3>
                 <ul>
                   <li>ARIA labels on buttons to describe their function (e.g., "Like this comment")</li>
                   <li>ARIA alerts for error messages with role="alert" and aria-live="assertive"</li>
-                  <li>ARIA status regions for vote announcements</li>
+                  <li>ARIA status regions for vote count announcements</li>
+                  <li>Toggle states communicated via aria-pressed (vote buttons) and aria-expanded (reply threads)</li>
                   <li>Proper form structure with fieldset/legend for grouped controls (avatar selector)</li>
                   <li>aria-describedby and aria-invalid attributes on form fields</li>
                   <li>Dialog and modal windows with proper aria-labelledby and aria-describedby</li>
+                  <li>Decorative icons hidden from screen readers with aria-hidden to prevent duplicate announcements</li>
+                  <li>Quiz progress bar with ARIA role="progressbar" and live updates for each question</li>
+                  <li>Quiz answer buttons with descriptive aria-labels</li>
+                  <li>Quiz results announced via live region (role="status" aria-live="polite")</li>
                 </ul>
 
                 <h3>Mobile Experience</h3>
                 <ul>
-                  <li>Touch-friendly button sizes (minimum 44x44px)</li>
+                  <li>Touch-friendly button sizes (minimum 44x44px) via invisible touch target overlays</li>
                   <li>Responsive design that adapts to mobile, tablet, and desktop screens</li>
                   <li>Hamburger menu for mobile navigation with aria-label</li>
                   <li>Simplified layouts on smaller screens without loss of functionality</li>
+                </ul>
+
+                <h3>Motion & Visual Preferences</h3>
+                <ul>
+                  <li>Respects prefers-reduced-motion: all animations and transitions are disabled when the user's system setting requests reduced motion</li>
+                  <li>No content depends solely on animation to be understood</li>
                 </ul>
               </section>
 
               <section className="accessibility-section">
                 <h2>Known Issues & Ongoing Improvements</h2>
                 <p>
-                  We're actively working on these areas to improve accessibility:
+                  We continuously monitor and improve accessibility. If you encounter any issues, please let us know:
                 </p>
                 <ul>
-                  <li><strong>Quiz interactions:</strong> Answer options need explicit aria-labels to clarify what character each answer represents</li>
-                  <li><strong>Quiz progress announcements:</strong> Adding live region updates so screen reader users are notified when answers are submitted and progress changes</li>
-                  <li><strong>Emoji as content:</strong> Result emojis are decorative; we're adding descriptive labels to prevent redundant screen reader announcements</li>
-                  <li><strong>Avatar visual feedback:</strong> We're enhancing the visual and textual feedback for avatar selection on the comment form</li>
-                  <li><strong>Form success messages:</strong> Adding live region announcements when comments or replies are posted successfully</li>
+                  <li><strong>Browser/assistive tech combinations:</strong> While we test on major browsers and screen readers (NVDA, JAWS, VoiceOver), some niche combinations may have issues</li>
+                  <li><strong>Third-party embeds:</strong> Some ads or embedded content may not fully meet WCAG AA standards due to external provider limitations</li>
+                  <li><strong>Future enhancements:</strong> We're always looking for ways to improve. Your feedback helps us identify accessibility barriers we may have missed</li>
                 </ul>
-                <p>
-                  If you encounter accessibility barriers not mentioned here, or have suggestions for improvements, please contact us.
-                </p>
               </section>
 
               <section className="accessibility-section">
@@ -125,7 +147,7 @@ export function Accessibility() {
               <section className="accessibility-section">
                 <h2>Accessibility Standards</h2>
                 <p>
-                  We aim to meet WCAG 2.1 Level AA standards across the site. This means:
+                  We aim to conform to WCAG 2.1 Level AA standards across the site. This means:
                 </p>
                 <ul>
                   <li>Color contrast ratios of at least 4.5:1 for normal text</li>
