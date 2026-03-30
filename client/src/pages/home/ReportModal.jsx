@@ -33,6 +33,27 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
     if (e.key === 'Escape') {
       handleCancel();
     }
+
+    // WCAG AA 2.1.2: Focus trap within modal
+    if (e.key === 'Tab' && dialogRef.current) {
+      const focusable = dialogRef.current.querySelectorAll(
+        'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
   };
 
   return (
