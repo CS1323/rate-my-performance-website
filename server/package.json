@@ -13,10 +13,8 @@
     "build": "npm run prisma:migrate",
     "prisma:migrate": "npx prisma@6.19.2 migrate deploy",
     "prisma_migrate:test": "dotenv -e .env.test npx prisma@6.19.2 migrate deploy",
-    "seed:db": "node prisma/seed.js",
-    "seed:test": "dotenv -e .env.test node prisma/seed.js",
-    "default:db": "node prisma/defaultData.js",
-    "default:test": "dotenv -e .env.test node prisma/defaultData.js"
+    "seed:db": "dotenv -e .env.production node prisma/seed.js",
+    "seed:test": "node prisma/seed.js"
   },
   "keywords": [],
   "author": "",
