@@ -1,10 +1,11 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import * as Sentry from "@sentry/react";
 import ReactGA from 'react-ga4';
 import { AdsProvider } from './context/AdsContext'
 import App from './App.jsx'
+import './i18n'
 import './index.css'
 
 // Initialize Sentry for frontend error tracking
@@ -43,10 +44,12 @@ if (isGAEnabled && import.meta.env.VITE_GA_ID) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AdsProvider>
-        <App />
-      </AdsProvider>
-    </BrowserRouter>
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>}>
+      <BrowserRouter>
+        <AdsProvider>
+          <App />
+        </AdsProvider>
+      </BrowserRouter>
+    </Suspense>
   </StrictMode>,
 )

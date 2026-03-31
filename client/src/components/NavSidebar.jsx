@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router';
-import { useLocation } from 'react-router';
+import { NavLink, useLocation, useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 // Navigation Icons
 import HomeIcon from '../assets/images/icons/home.svg';
@@ -10,17 +10,26 @@ import ClipboardIcon from '../assets/images/icons/clipboard.svg';
 
 // Social Icons
 import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
+import { LanguageSelector } from './LanguageSelector';
 
 import './NavSidebar.css';
+
+// Build locale-prefixed path
+function useLocalePath(path) {
+  const { lang } = useParams();
+  if (!lang || lang === 'en') return path;
+  return `/${lang}${path === '/' ? '' : path}`;
+}
 
 // Helper component for accessible NavLink with aria-current
 function AccessibleNavLink({ to, children, icon }) {
   const location = useLocation();
-  const isActive = location.pathname === to;
+  const localeTo = useLocalePath(to);
+  const isActive = location.pathname === localeTo;
   
   return (
     <NavLink 
-      to={to}
+      to={localeTo}
       className={`sidebar-link${isActive ? ' active' : ''}`}
       aria-current={isActive ? 'page' : undefined}
     >
@@ -31,31 +40,34 @@ function AccessibleNavLink({ to, children, icon }) {
 }
 
 export function NavSidebar() {
+  const { t } = useTranslation();
   const location = useLocation();
-  const isAccessibilityActive = location.pathname === '/accessibility';
+  const { lang } = useParams();
+  const accessibilityPath = useLocalePath('/accessibility');
+  const isAccessibilityActive = location.pathname === accessibilityPath;
   
   return (
     <nav className="left sidebar">
       {/* <!-- top section: navigation--> */}
       <div>
-        <AccessibleNavLink to="/" icon={HomeIcon}>Home</AccessibleNavLink>
-        <AccessibleNavLink to="/cfu-boyfriend-quiz" icon={FileTextIcon}>CFU Boyfriend Quiz</AccessibleNavLink>
-        <AccessibleNavLink to="/about-me" icon={UserIcon}>About Me</AccessibleNavLink>
+        <AccessibleNavLink to="/" icon={HomeIcon}>{t('nav.home')}</AccessibleNavLink>
+        <AccessibleNavLink to="/cfu-boyfriend-quiz" icon={FileTextIcon}>{t('nav.quiz')}</AccessibleNavLink>
+        <AccessibleNavLink to="/about-me" icon={UserIcon}>{t('nav.aboutMe')}</AccessibleNavLink>
       </div>
       {/* <!-- bottom section: website compliance --> */}
       <div>
-        <AccessibleNavLink to="/rules" icon={BookOpenIcon}>Rules</AccessibleNavLink>
-        <AccessibleNavLink to="/privacy-policy" icon={ClipboardIcon}>Privacy Policy</AccessibleNavLink>
-        <AccessibleNavLink to="/user-agreement" icon={ClipboardIcon}>User Agreement</AccessibleNavLink>
+        <AccessibleNavLink to="/rules" icon={BookOpenIcon}>{t('nav.rules')}</AccessibleNavLink>
+        <AccessibleNavLink to="/privacy-policy" icon={ClipboardIcon}>{t('nav.privacyPolicy')}</AccessibleNavLink>
+        <AccessibleNavLink to="/user-agreement" icon={ClipboardIcon}>{t('nav.userAgreement')}</AccessibleNavLink>
         <NavLink 
-          to="/accessibility" 
+          to={accessibilityPath}
           className={`sidebar-link${isAccessibilityActive ? ' active' : ''}`}
           aria-current={isAccessibilityActive ? 'page' : undefined}
         >
           <span className="material-symbols-outlined">
             settings_accessibility
           </span>
-          <div>Accessibility</div>
+          <div>{t('nav.accessibility')}</div>
         </NavLink>
         {/* <!-- social media icons (mobile only) --> */}
         <div className="sidebar-socials">
@@ -72,9 +84,11 @@ export function NavSidebar() {
             <YouTubeIcon size={24} color="#222" playButtonColor="white" />
           </a>
         </div>
+        {/* <!-- language selector --> */}
+        <LanguageSelector />
         {/* <!-- copyright --> */}
         <p className="copyright">
-          &copy; 2026 Cadence Keys
+          {t('nav.copyright')}
         </p>
       </div>
     </nav>
