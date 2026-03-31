@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "quiz": "CFU-Freund-Quiz",
+    "aboutMe": "Über mich",
+    "rules": "Regeln",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "userAgreement": "Nutzungsvereinbarung",
+    "accessibility": "Barrierefreiheit",
+    "copyright": "© 2026 Cadence Keys"
+  },
+  "header": {
+    "skipToContent": "Zum Hauptinhalt springen",
+    "toggleNav": "Navigation umschalten",
+    "toggleMenu": "Menü umschalten",
+    "menuAlt": "Menü",
+    "logoAlt": "CFU-Puck-Logo",
+    "siteTitle": "RATE MY PERFORMANCE"
+  },
+  "home": {
+    "pageTitle": "Rate My Performance",
+    "loading": "Laden...",
+    "error": "Fehler: {{message}}",
+    "commentsHeading": "Kommentare",
+    "orderBy": "Sortieren nach:",
+    "sortLatest": "Neueste",
+    "sortTop": "Beste",
+    "commentsError": "Kommentare konnten nicht geladen werden. Bitte aktualisieren Sie die Seite.",
+    "commentsLoading": "Kommentare werden geladen...",
+    "noComments": "Noch keine Kommentare. Seien Sie der Erste!",
+    "loadingMore": "Weitere Kommentare werden geladen...",
+    "loadMore": "Mehr Kommentare laden"
+  },
+  "post": {
+    "loading": "Laden...",
+    "howToJoin": "So nehmen Sie an der Diskussion teil",
+    "instructions1": "Betrachten Sie dies als Ihre offene Bühne. Sie können eine echte Bewertung für jemanden schreiben, der sie verdient, eine fiktive Bewertung erfinden, so wie Harper es getan hat, oder in die Kommentare eintauchen, um auf die anderer Leute zu reagieren. Egal wie Sie mitmachen — bleiben Sie lustig, nicht grausam. Machen Sie Harper stolz!",
+    "instructions2": "Scrollen Sie nach unten, um einen Benutzernamen zu erstellen, Ihren Avatar zu wählen und Ihren Kommentar zu posten. Möchten Sie jemandem direkt antworten? Klicken Sie einfach auf den Antworten-Button unter seinem Kommentar. Sie können Kommentare auch liken oder disliken und alles melden, was unangemessen wirkt."
+  },
+  "commentForm": {
+    "displayNameLabel": "Anzeigename",
+    "displayNamePlaceholder": "Ihr Name",
+    "chooseAvatar": "Avatar wählen",
+    "avatarHockeyStick": "Hockeyschläger",
+    "avatarHockeySkate": "Schlittschuh",
+    "avatarHockeyRink": "Eishalle",
+    "avatarHockeyPlayer": "Eishockeyspieler",
+    "commentLabel": "Kommentar",
+    "replyLabel": "Antwort",
+    "commentPlaceholder": "Schreiben Sie Ihren Kommentar...",
+    "replyPlaceholder": "Schreiben Sie Ihre Antwort...",
+    "submitComment": "Kommentar abschicken",
+    "submitReply": "Antworten",
+    "submittingComment": "Wird gepostet...",
+    "submittingReply": "Wird gesendet...",
+    "cancel": "Abbrechen",
+    "errorNameRequired": "Anzeigename erforderlich (mindestens 1 Zeichen)",
+    "errorNameTooLong": "Anzeigename zu lang (maximal 30 Zeichen, aktuell: {{length}})",
+    "errorContentRequired": "Bitte geben Sie einen {{type}} ein (mindestens 1 Zeichen)",
+    "errorContentTooLong": "{{type}} zu lang (maximal 2000 Zeichen, aktuell: {{length}})",
+    "errorSubmitFailed": "Fehler beim Senden des {{type}}"
+  },
+  "comment": {
+    "hiddenByModeration": "Kommentar durch Moderation verborgen",
+    "deleted": "Kommentar gelöscht",
+    "avatarAlt": "Avatar {{id}}",
+    "replyButton": "Auf diesen Kommentar antworten",
+    "likeButton": "Diesen Kommentar liken, {{count}} Likes",
+    "dislikeButton": "Diesen Kommentar disliken, {{count}} Dislikes",
+    "reportButton": "Diesen Kommentar als unangemessen melden",
+    "voteAnnouncement": "Sie haben diesen Kommentar {{type}}",
+    "reportConfirm": "Diesen Kommentar zur Moderation melden?\n\nDiese Aktion hilft uns, die Community sicher zu halten. Ein Missbrauch der Meldefunktion kann zu Einschränkungen führen.",
+    "reportSuccess": "Danke für Ihre Meldung. Unsere Moderatoren werden diesen Kommentar überprüfen.",
+    "reportError": "Meldung fehlgeschlagen. Bitte versuchen Sie es später erneut.",
+    "time": {
+      "minutesAgo_one": "vor {{count}} Minute",
+      "minutesAgo_other": "vor {{count}} Minuten",
+      "hoursAgo_one": "vor {{count}} Stunde",
+      "hoursAgo_other": "vor {{count}} Stunden",
+      "daysAgo_one": "vor {{count}} Tag",
+      "daysAgo_other": "vor {{count}} Tagen"
+    },
+    "loadMoreReplies_one": "+ {{count}} weitere Antwort laden",
+    "loadMoreReplies_other": "+ {{count}} weitere Antworten laden",
+    "hideReplies_one": "{{count}} Antwort verbergen",
+    "hideReplies_other": "{{count}} Antworten verbergen",
+    "expandReplies_one": "{{count}} Antwort laden",
+    "expandReplies_other": "{{count}} Antworten laden"
+  },
+  "report": {
+    "heading": "Kommentar melden",
+    "description": "Helfen Sie uns, die Community sicher zu halten. Warum melden Sie diesen Kommentar?",
+    "reasonLabel": "Grund (optional)",
+    "reasonPlaceholder": "Sagen Sie uns, warum Sie diesen Kommentar melden...",
+    "cancel": "Abbrechen",
+    "submit": "Melden",
+    "submitting": "Wird gesendet..."
+  },
+  "quiz": {
+    "pageTitle": "CFU-Freund-Quiz - RMP",
+    "heading": "CFU-Freund-Quiz",
+    "subtitle": "Finden Sie heraus, welcher CFU-Hockeyspieler Ihr perfektes Match ist!",
+    "progressLabel": "Quizfortschritt: Frage {{current}} von {{total}}",
+    "progressText": "Frage {{current}} von {{total}}",
+    "answerLabel": "Antwortoption: {{text}}",
+    "back": "← Zurück",
+    "resultHeading": "Ihr CFU-Freund ist...",
+    "resultPosition": "{{position}} • #{{number}}",
+    "takeAgain": "Quiz wiederholen"
+  },
+  "quizData": {
+    "questions": {
+      "q1": {
+        "text": "Es ist Freitagabend. Was ist Ihr ideales Date?",
+        "answers": {
+          "a1": "Gemütlicher Abend mit Videospielen und selbstgemachten Snacks",
+          "a2": "Eine lebhafte Bar mit Karaoke, Darts und viel zu vielen Geschichten",
+          "a3": "Heimliches Mitternachtsschwimmen unter den Sternen",
+          "a4": "Zusammen kochen, während er Sie mit dem trockensten Humor neckt, den Sie je gehört haben"
+        }
+      },
+      "q2": {
+        "text": "Sie haben einen schrecklichen Tag. Was brauchen Sie am meisten von Ihrem Partner?",
+        "answers": {
+          "a1": "Er kommt mit Ihrer genauen Kaffeebestellung vorbei und muss nicht mal fragen, was los ist — er weiß es einfach",
+          "a2": "Er bringt Sie so sehr zum Lachen, dass Sie vergessen, warum Sie überhaupt verärgert waren",
+          "a3": "Er nimmt Sie wortlos in den Arm und hält Sie fest, bis die Welt aufhört sich zu drehen",
+          "a4": "Er sitzt mit Ihnen in gemütlicher Stille und sagt dann das eine brutal ehrliche Ding, das Sie hören mussten"
+        }
+      },
+      "q3": {
+        "text": "Was ist Ihre größte Schwäche bei Männern?",
+        "answers": {
+          "a1": "Die, die sich an jedes kleine Detail erinnern — Ihre Lieblingsblume, wie Sie Ihren Kaffee trinken, die Geschichte, die Sie einmal um 2 Uhr morgens erzählt haben",
+          "a2": "Arrogante mit scharfer Zunge, die sich als totale Softies entpuppen",
+          "a3": "Die, die Sie ansehen, als wären Sie die einzige Person im Raum, und keine Angst haben, alles für Sie niederzubrennen",
+          "a4": "Die Stillen, die Sie durchschauen — die, die niemand bemerkt, bis es zu spät ist"
+        }
+      },
+      "q4": {
+        "text": "Wählen Sie eine Liebessprache:",
+        "answers": {
+          "a1": "Durchdachte, handgemachte Geschenke, die beweisen, dass er aufgepasst hat",
+          "a2": "Quality Time — er lässt alles stehen und liegen und ist jeden Tag da, egal wie chaotisch es wird",
+          "a3": "Körperliche Nähe — seine Hand findet immer instinktiv Ihre",
+          "a4": "Hilfsbereitschaft — er kümmert sich still um Dinge, bevor Sie überhaupt merken, dass Sie Hilfe brauchen"
+        }
+      },
+      "q5": {
+        "text": "Was ist Ihr Lieblings-Trope?",
+        "answers": {
+          "a1": "Geheime Identität / Online-Romanze wird real",
+          "a2": "Von Feinden zu Liebenden mit Baby (ja, wirklich)",
+          "a3": "Verbotene Liebe / Schwester/Bruder des besten Freundes",
+          "a4": "Fake-Dating wird sehr, sehr echt"
+        }
+      },
+      "q6": {
+        "text": "Ihre Freunde würden Ihren idealen Typen beschreiben als:",
+        "answers": {
+          "a1": "Ein Golden Retriever mit Plan — süß, beständig und unendlich geduldig",
+          "a2": "Das menschliche Äquivalent eines Feuerwerks — chaotisch, laut und unmöglich zu ignorieren",
+          "a3": "Gefährlich charmant mit einem Akzent, der herauskommt, wenn er emotional wird",
+          "a4": "Ein verschlossenes Tagebuch — geheimnisvoll, brillant und sanft nur zur richtigen Person"
+        }
+      },
+      "q7": {
+        "text": "Wählen Sie die Geste, die Sie umhauen würde:",
+        "answers": {
+          "a1": "Er baut Ihnen ein handgemachtes Diorama Ihrer Lieblings-Fiktion-Welt, weil er sich an jedes Detail erinnert, das Sie jemals erwähnt haben",
+          "a2": "Er gibt seiner Tochter einen wunderschönen Namen und wird der Mann, den sie verdient — direkt vor Ihren Augen",
+          "a3": "Er steht vor allen auf und erklärt seine Liebe für Sie nach monatelanger Geheimhaltung, mit dickem Akzent und zitternder Stimme",
+          "a4": "Er stellt sich vor Sie, um Sie vor jemandem zu schützen, der Sie verletzt hat, ohne Fragen zu stellen, weil er Sie besser liest als jeder andere"
+        }
+      },
+      "q8": {
+        "text": "Was ist ein absolutes No-Go für Sie?",
+        "answers": {
+          "a1": "Jemand, der nicht verletzlich sein kann — ich brauche einen Typen, der vor einer Menschenmenge falsch singen würde, nur um mich lächeln zu sehen",
+          "a2": "Jemand, der sich nicht weiterentwickeln kann — ich muss sehen, wie er zu einem besseren Menschen wird",
+          "a3": "Jemand, der sich zurückhält — wenn er All-in geht, muss ich es in jedem Blick und jeder Berührung spüren",
+          "a4": "Jemand, der mit dem wahren Ich nicht umgehen kann — ich brauche einen Typen, der durch die Fassade sieht und trotzdem bleibt"
+        }
+      },
+      "q9": {
+        "text": "Sie stecken mit Ihrem CFU-Typen in einem Schneesturm fest. Was passiert?",
+        "answers": {
+          "a1": "Er hat bereits Extra-Decken, Snacks und eine voll aufgeladene Switch eingepackt, weil er für alles vorgesorgt hat",
+          "a2": "Er erklärt dramatisch, das sei der 'beste schlimmste Abend aller Zeiten' und verwandelt alles in ein Abenteuer",
+          "a3": "Er zieht Sie an sich, zeichnet Kreise auf Ihre Haut und erzählt Ihnen Geschichten aus seiner Kindheit mit dieser leisen, sanften Stimme",
+          "a4": "Er macht wortlos ein Feuer, bereitet Ihnen die beste heiße Schokolade zu, die Sie je getrunken haben, und lässt die Stille alles sagen"
+        }
+      },
+      "q10": {
+        "text": "Zum Schluss — wählen Sie ein Zitat, das Ihr Herz höher schlagen lässt:",
+        "answers": {
+          "a1": "'Ich hätte so lange gewartet, wie nötig gewesen wäre. Du bist es wert.'",
+          "a2": "'Ich bin total verrückt nach dir.'",
+          "a3": "'Jedes Mal, wenn ich dich ansehe, vergesse ich zu atmen.'",
+          "a4": "'Ich kenne dich lange genug, um den Unterschied zu sehen.'"
+        }
+      }
+    },
+    "boyfriends": {
+      "foster": {
+        "name": "Foster Kane",
+        "title": "Der Hingebungsvolle Kapitän",
+        "position": "Center",
+        "number": "88",
+        "book": "Campus Crush",
+        "traits": ["Geduldig", "Aufmerksam", "Hingebungsvoll", "Beständig"],
+        "description": "Ihr perfekter CFU-Freund ist der Teamkapitän höchstpersönlich. Foster ist der Typ Mann, der Ihre Kaffeebestellung nach einmaligem Hören behält, Ihnen handgemachte Geschenke bastelt, die auf Witze von vor Monaten anspielen, und Taylor Swift bei Karaoke vor einer vollen Bar singen würde, nur um Sie lächeln zu sehen — auch wenn er klingt wie eine sterbende Katze. Er ist geduldig, aufmerksam, und sobald er Ihnen gehört, gehört er GANZ Ihnen.",
+        "quote": "Ich hätte so lange gewartet, wie nötig gewesen wäre. Du bist es wert."
+      },
+      "drew": {
+        "name": "Drew Dumontier",
+        "title": "Der Geläuterte Charmeur",
+        "position": "Verteidiger",
+        "number": "3",
+        "book": "Campus Rival",
+        "traits": ["Mutig", "Witzig", "Beschützend", "Furchtlos"],
+        "description": "Ihr CFU-Match ist der kühne, chaotische und völlig unverblümte Drew Dumontier. Klar, er hat Frauen wie Socken durchgewechselt und seine Sprüche waren legendär (oder kriminell, je nachdem wen man fragt). Aber dann kam ein Baby und hat seine Welt auf den Kopf gestellt. Drew ist der Typ, der Sie zum Lachen bringt, bis Sie nicht mehr atmen können, für Sie kämpft, wenn die Welt gegen Sie ist, und Sie so wild liebt, dass es fast beängstigend ist.",
+        "quote": "Ich bin total verrückt nach dir."
+      },
+      "liam": {
+        "name": "Liam Farrell",
+        "title": "Der Leidenschaftliche Beschützer",
+        "position": "Verteidiger",
+        "number": "27",
+        "book": "",
+        "traits": ["Intensiv", "Loyal", "Romantisch", "Leidenschaftlich"],
+        "description": "Sie haben den Hübschen Iren bekommen, und ehrlich? Was für ein Glück. Liam Farrell ist intensiv, wild loyal und der Typ Mann, dessen Akzent dicker wird, wenn er emotional wird — was öfter vorkommt, als er jemals zugeben würde. Er wird seine eigenen Dämonen bekämpfen, um der Mann zu sein, den Sie verdienen, betrunken Poesie zitieren und Ihre Hand in der Öffentlichkeit halten, als würde er jeden Moment nachholen, in dem er sich zurückgehalten hat.",
+        "quote": "Jedes Mal, wenn ich dich ansehe, vergesse ich zu atmen."
+      },
+      "gordy": {
+        "name": "Harrison 'Gordy' Gordon",
+        "title": "Der Stille Wächter",
+        "position": "Torwart",
+        "number": "32",
+        "book": "",
+        "traits": ["Scharfsinnig", "Beständig", "Beschützend", "Geistreich"],
+        "description": "Ihr CFU-Freund ist der, den niemand kommen sah — Sie eingeschlossen. Gordy ist der starke, stille Typ, der Menschen liest wie er Schützen auf dem Eis liest: jede Mikroexpression, jeder Hinweis, alles was Sie zu verbergen versuchen. Er wird Sie nicht jagen. Er wird keine Show machen. Aber er wird da sein, wenn es darauf ankommt, das eine Ding sagen, das sonst niemand den Mut hatte zu sagen, und einen Kartoffelbrei machen, der so gut ist, dass er Ihnen jeden anderen Kartoffelbrei für immer ruiniert.",
+        "quote": "Ich kenne dich lange genug, um den Unterschied zu sehen."
+      }
+    }
+  },
+  "ads": {
+    "loading": "Werbung wird geladen...",
+    "noAds": "Keine Werbung verfügbar",
+    "imageAlt": "Werbeanzeige"
+  },
+  "errors": {
+    "heading": "Etwas ist schiefgelaufen",
+    "description": "Wir haben einen unerwarteten Fehler festgestellt. Bitte aktualisieren Sie die Seite.",
+    "devDetails": "Fehlerdetails (nur Entwicklung)",
+    "notFound": "Seite nicht gefunden"
+  },
+  "apiErrors": {
+    "contentEmpty": "Inhalt darf nicht leer sein",
+    "contentRequired": "Inhalt ist erforderlich",
+    "parentNotFound": "Elternkommentar nicht gefunden",
+    "createCommentFailed": "Kommentar konnte nicht erstellt werden",
+    "createReplyFailed": "Antwort konnte nicht erstellt werden",
+    "fetchCommentsFailed": "Kommentare konnten nicht geladen werden",
+    "postNotFound": "Beitrag nicht gefunden",
+    "fetchPostFailed": "Beitrag konnte nicht geladen werden",
+    "voteFailed": "Abstimmung fehlgeschlagen",
+    "reportFailed": "Kommentar konnte nicht gemeldet werden",
+    "fetchAdsFailed": "Anzeigen konnten nicht geladen werden",
+    "identifierRequired": "Gerätekennung erforderlich",
+    "fetchVotesFailed": "Stimmen konnten nicht geladen werden",
+    "unknown": "Ein unerwarteter Fehler ist aufgetreten"
+  },
+  "common": {
+    "loading": "Laden...",
+    "emailCopied": "E-Mail in die Zwischenablage kopiert!",
+    "emailCopyFailed": "E-Mail konnte nicht kopiert werden",
+    "emailAriaLabel": "E-Mail-Adresse in die Zwischenablage kopieren: {{email}}",
+    "contact": "Kontakt:",
+    "effectiveDate": "Gültig ab: {{date}}"
+  },
+  "language": {
+    "selectLanguage": "Sprache wählen",
+    "en": "EN",
+    "fr": "FR",
+    "de": "DE",
+    "it": "IT",
+    "nl": "NL"
+  }
+}

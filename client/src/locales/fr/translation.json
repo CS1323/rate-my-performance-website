@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "quiz": "Quiz Petit Ami CFU",
+    "aboutMe": "À propos",
+    "rules": "Règles",
+    "privacyPolicy": "Politique de confidentialité",
+    "userAgreement": "Conditions d'utilisation",
+    "accessibility": "Accessibilité",
+    "copyright": "© 2026 Cadence Keys"
+  },
+  "header": {
+    "skipToContent": "Aller au contenu principal",
+    "toggleNav": "Basculer la navigation",
+    "toggleMenu": "Basculer le menu",
+    "menuAlt": "Menu",
+    "logoAlt": "Logo palet CFU",
+    "siteTitle": "RATE MY PERFORMANCE"
+  },
+  "home": {
+    "pageTitle": "Rate My Performance",
+    "loading": "Chargement...",
+    "error": "Erreur : {{message}}",
+    "commentsHeading": "Commentaires",
+    "orderBy": "Trier par :",
+    "sortLatest": "Récents",
+    "sortTop": "Meilleurs",
+    "commentsError": "Impossible de charger les commentaires. Veuillez rafraîchir la page.",
+    "commentsLoading": "Chargement des commentaires...",
+    "noComments": "Aucun commentaire pour le moment. Soyez le premier à commenter !",
+    "loadingMore": "Chargement de plus de commentaires...",
+    "loadMore": "Charger plus de commentaires"
+  },
+  "post": {
+    "loading": "Chargement...",
+    "howToJoin": "Comment participer à la discussion",
+    "instructions1": "Considérez ceci comme votre scène ouverte. Vous pouvez écrire un vrai avis pour celui qui le mérite, en inventer un fictif comme Harper l'a fait, ou plonger dans les commentaires pour réagir à ceux des autres. Quelle que soit votre façon de participer — restez drôle, pas cruel. Rendez Harper fière !",
+    "instructions2": "Faites défiler vers le bas pour créer un pseudonyme, choisir votre avatar et poster votre commentaire. Vous voulez répondre directement à quelqu'un ? Cliquez simplement sur le bouton Répondre sous son commentaire. Vous pouvez aussi aimer ou ne pas aimer les commentaires et signaler tout ce qui semble inapproprié."
+  },
+  "commentForm": {
+    "displayNameLabel": "Nom d'affichage",
+    "displayNamePlaceholder": "Votre nom",
+    "chooseAvatar": "Choisir un avatar",
+    "avatarHockeyStick": "Crosse de hockey",
+    "avatarHockeySkate": "Patin de hockey",
+    "avatarHockeyRink": "Patinoire",
+    "avatarHockeyPlayer": "Joueur de hockey",
+    "commentLabel": "Commentaire",
+    "replyLabel": "Réponse",
+    "commentPlaceholder": "Écrivez votre commentaire...",
+    "replyPlaceholder": "Écrivez votre réponse...",
+    "submitComment": "Publier le commentaire",
+    "submitReply": "Répondre",
+    "submittingComment": "Publication...",
+    "submittingReply": "Envoi...",
+    "cancel": "Annuler",
+    "errorNameRequired": "Nom d'affichage requis (minimum 1 caractère)",
+    "errorNameTooLong": "Nom d'affichage trop long (maximum 30 caractères, actuel : {{length}})",
+    "errorContentRequired": "Veuillez entrer un {{type}} (minimum 1 caractère)",
+    "errorContentTooLong": "{{type}} trop long (maximum 2000 caractères, actuel : {{length}})",
+    "errorSubmitFailed": "Échec de la publication du {{type}}"
+  },
+  "comment": {
+    "hiddenByModeration": "Commentaire masqué par la modération",
+    "deleted": "Commentaire supprimé",
+    "avatarAlt": "Avatar {{id}}",
+    "replyButton": "Répondre à ce commentaire",
+    "likeButton": "Aimer ce commentaire, {{count}} j'aime",
+    "dislikeButton": "Ne pas aimer ce commentaire, {{count}} je n'aime pas",
+    "reportButton": "Signaler ce commentaire comme inapproprié",
+    "voteAnnouncement": "Vous avez {{type}} ce commentaire",
+    "reportConfirm": "Signaler ce commentaire pour modération ?\n\nCette action nous aide à garder la communauté sûre. L'utilisation abusive de la fonction de signalement peut entraîner des restrictions.",
+    "reportSuccess": "Merci pour votre signalement. Nos modérateurs examineront ce commentaire.",
+    "reportError": "Échec du signalement. Veuillez réessayer plus tard.",
+    "time": {
+      "minutesAgo_one": "il y a {{count}} minute",
+      "minutesAgo_other": "il y a {{count}} minutes",
+      "hoursAgo_one": "il y a {{count}} heure",
+      "hoursAgo_other": "il y a {{count}} heures",
+      "daysAgo_one": "il y a {{count}} jour",
+      "daysAgo_other": "il y a {{count}} jours"
+    },
+    "loadMoreReplies_one": "+ Charger {{count}} réponse supplémentaire",
+    "loadMoreReplies_other": "+ Charger {{count}} réponses supplémentaires",
+    "hideReplies_one": "Masquer {{count}} réponse",
+    "hideReplies_other": "Masquer {{count}} réponses",
+    "expandReplies_one": "Charger {{count}} réponse",
+    "expandReplies_other": "Charger {{count}} réponses"
+  },
+  "report": {
+    "heading": "Signaler un commentaire",
+    "description": "Aidez-nous à garder la communauté sûre. Pourquoi signalez-vous ce commentaire ?",
+    "reasonLabel": "Raison (optionnelle)",
+    "reasonPlaceholder": "Dites-nous pourquoi vous signalez ce commentaire...",
+    "cancel": "Annuler",
+    "submit": "Signaler",
+    "submitting": "Envoi..."
+  },
+  "quiz": {
+    "pageTitle": "Quiz Petit Ami CFU - RMP",
+    "heading": "Quiz Petit Ami CFU",
+    "subtitle": "Découvrez quel joueur de hockey CFU est votre match parfait !",
+    "progressLabel": "Progression du quiz : question {{current}} sur {{total}}",
+    "progressText": "Question {{current}} sur {{total}}",
+    "answerLabel": "Option de réponse : {{text}}",
+    "back": "← Retour",
+    "resultHeading": "Votre petit ami CFU est...",
+    "resultPosition": "{{position}} • #{{number}}",
+    "takeAgain": "Refaire le quiz"
+  },
+  "quizData": {
+    "questions": {
+      "q1": {
+        "text": "C'est vendredi soir. Quel est votre rendez-vous idéal ?",
+        "answers": {
+          "a1": "Soirée cocooning à jouer aux jeux vidéo ensemble avec des snacks faits maison",
+          "a2": "Un bar animé avec karaoké, fléchettes et beaucoup trop d'histoires",
+          "a3": "Une baignade secrète à minuit sous les étoiles",
+          "a4": "Cuisiner ensemble pendant qu'il vous taquine avec l'humour le plus pince-sans-rire que vous ayez jamais entendu"
+        }
+      },
+      "q2": {
+        "text": "Vous passez une journée terrible. De quoi avez-vous le plus besoin de votre partenaire ?",
+        "answers": {
+          "a1": "Il arrive avec votre commande de café exacte et n'a même pas besoin de demander ce qui ne va pas — il le sait",
+          "a2": "Il vous fait rire si fort que vous oubliez pourquoi vous étiez contrariée",
+          "a3": "Il vous prend dans ses bras sans un mot et vous serre jusqu'à ce que le monde cesse de tourner",
+          "a4": "Il s'assoit avec vous dans un silence confortable, puis dit la seule chose brutalement honnête que vous aviez besoin d'entendre"
+        }
+      },
+      "q3": {
+        "text": "Quelle est votre plus grande faiblesse quand il s'agit de mecs ?",
+        "answers": {
+          "a1": "Ceux qui se souviennent de chaque petit détail — votre fleur préférée, comment vous prenez votre café, cette histoire que vous avez racontée une fois à 2h du matin",
+          "a2": "Les arrogants avec une langue acérée qui se révèlent être de vrais guimauves en dessous",
+          "a3": "Ceux qui vous regardent comme si vous étiez la seule personne dans la pièce et n'ont pas peur de tout brûler pour vous",
+          "a4": "Les discrets qui voient à travers vous — ceux que personne ne remarque jusqu'à ce qu'il soit trop tard"
+        }
+      },
+      "q4": {
+        "text": "Choisissez un langage amoureux :",
+        "answers": {
+          "a1": "Des cadeaux réfléchis et faits main qui prouvent qu'il a fait attention",
+          "a2": "Du temps de qualité — il laisse tout tomber et est là chaque jour, peu importe le chaos",
+          "a3": "Le toucher physique — sa main trouvant toujours la vôtre comme par instinct",
+          "a4": "Les actes de service — il s'occupe silencieusement des choses avant même que vous ne réalisiez que vous aviez besoin d'aide"
+        }
+      },
+      "q5": {
+        "text": "Quel est votre trope préféré ?",
+        "answers": {
+          "a1": "Identité secrète / romance en ligne qui devient réelle",
+          "a2": "Ennemis-à-amoureux avec un bébé (oui, vraiment)",
+          "a3": "Amour interdit / frère/sœur du meilleur ami",
+          "a4": "Faux couple qui devient très, très réel"
+        }
+      },
+      "q6": {
+        "text": "Vos amis décriraient votre mec idéal comme :",
+        "answers": {
+          "a1": "Un golden retriever avec un plan — doux, stable et infiniment patient",
+          "a2": "L'équivalent humain d'un feu d'artifice — chaotique, bruyant et impossible à ignorer",
+          "a3": "Dangereusement charmant avec un accent qui ressort quand il est ému",
+          "a4": "Un journal intime verrouillé — mystérieux, brillant et doux seulement pour la bonne personne"
+        }
+      },
+      "q7": {
+        "text": "Choisissez le geste qui vous ferait craquer :",
+        "answers": {
+          "a1": "Il vous construit un diorama fait main de votre monde fictif préféré parce qu'il se souvient de chaque détail que vous avez mentionné",
+          "a2": "Il donne un beau prénom à sa fille et devient le genre d'homme qu'elle mérite — juste devant vos yeux",
+          "a3": "Il se lève devant tout le monde et déclare son amour pour vous après des mois de secret, l'accent épais et la voix tremblante",
+          "a4": "Il intervient pour vous protéger de quelqu'un qui vous a blessée, sans poser de questions, parce qu'il vous lit mieux que quiconque"
+        }
+      },
+      "q8": {
+        "text": "Qu'est-ce qui est rédhibitoire pour vous ?",
+        "answers": {
+          "a1": "Quelqu'un qui ne peut pas être vulnérable — j'ai besoin d'un mec qui chantera faux devant une foule juste pour me faire sourire",
+          "a2": "Quelqu'un qui ne peut pas évoluer — j'ai besoin de le voir devenir une meilleure personne",
+          "a3": "Quelqu'un qui se retient — s'il est à fond, je dois le sentir dans chaque regard et chaque toucher",
+          "a4": "Quelqu'un qui ne peut pas gérer la vraie moi — j'ai besoin d'un mec qui voit à travers la façade et reste quand même"
+        }
+      },
+      "q9": {
+        "text": "Vous êtes coincés dans une tempête de neige avec votre gars de CFU. Que se passe-t-il ?",
+        "answers": {
+          "a1": "Il a déjà emballé des couvertures supplémentaires, des snacks et une Switch complètement chargée parce qu'il a tout prévu",
+          "a2": "Il déclare dramatiquement que c'est la « meilleure pire soirée de tous les temps » et transforme le tout en aventure",
+          "a3": "Il vous serre contre lui, trace des cercles sur votre peau et vous raconte des histoires de son enfance de cette voix basse et douce",
+          "a4": "Il fait un feu sans dire un mot, vous prépare le meilleur chocolat chaud que vous ayez jamais bu, et laisse le silence tout dire"
+        }
+      },
+      "q10": {
+        "text": "Enfin — choisissez une citation qui fait battre votre cœur :",
+        "answers": {
+          "a1": "« J'aurais attendu aussi longtemps qu'il fallait. Tu en vaux la peine. »",
+          "a2": "« Je suis complètement fou de toi. »",
+          "a3": "« Chaque fois que je te regarde, j'oublie comment respirer. »",
+          "a4": "« Je te connais assez longtemps pour voir la différence. »"
+        }
+      }
+    },
+    "boyfriends": {
+      "foster": {
+        "name": "Foster Kane",
+        "title": "Le Capitaine Dévoué",
+        "position": "Centre",
+        "number": "88",
+        "book": "Campus Crush",
+        "traits": ["Patient", "Attentionné", "Dévoué", "Stable"],
+        "description": "Votre petit ami CFU parfait est le capitaine d'équipe en personne. Foster est le genre de gars qui retient votre commande de café après l'avoir entendue une seule fois, vous fabrique des cadeaux faits main qui font référence à des blagues d'il y a des mois, et chanterait du Taylor Swift au karaoké devant un bar bondé juste pour vous voir sourire — même s'il chante comme un chat mourant. Il est patient, attentionné, et une fois qu'il est à vous, il est TOUT entier à vous.",
+        "quote": "J'aurais attendu aussi longtemps qu'il fallait. Tu en vaux la peine."
+      },
+      "drew": {
+        "name": "Drew Dumontier",
+        "title": "Le Séducteur Racheté",
+        "position": "Défenseur",
+        "number": "3",
+        "book": "Campus Rival",
+        "traits": ["Audacieux", "Drôle", "Protecteur", "Intrépide"],
+        "description": "Votre match CFU est l'audacieux, chaotique et totalement sans gêne Drew Dumontier. Bien sûr, il enchaînait les filles comme des chaussettes et ses blagues étaient légendaires (ou criminelles, selon à qui vous demandez). Mais un bébé est arrivé et a ouvert son monde en grand. Drew est le gars qui vous fera rire jusqu'à ne plus pouvoir respirer, se battra pour vous quand le monde est contre vous, et vous aimera si férocement que c'en est presque effrayant.",
+        "quote": "Je suis complètement fou de toi."
+      },
+      "liam": {
+        "name": "Liam Farrell",
+        "title": "Le Protecteur Passionné",
+        "position": "Défenseur",
+        "number": "27",
+        "book": "",
+        "traits": ["Intense", "Loyal", "Romantique", "Passionné"],
+        "description": "Vous avez eu le Bel Irlandais, et franchement ? Quelle chance. Liam Farrell est intense, farouchement loyal, et le genre de gars dont l'accent s'épaissit quand il est ému — ce qui arrive plus souvent qu'il ne l'admettrait jamais. Il combattra ses propres démons pour être l'homme que vous méritez, citera de la poésie quand il est ivre, et vous tiendra la main en public comme pour rattraper chaque moment où il s'est retenu.",
+        "quote": "Chaque fois que je te regarde, j'oublie comment respirer."
+      },
+      "gordy": {
+        "name": "Harrison « Gordy » Gordon",
+        "title": "Le Gardien Silencieux",
+        "position": "Gardien",
+        "number": "32",
+        "book": "",
+        "traits": ["Perspicace", "Stable", "Protecteur", "Spirituel"],
+        "description": "Votre petit ami CFU est celui que personne n'avait vu venir — vous y compris. Gordy est le type fort et silencieux qui lit les gens comme il lit les tireurs sur la glace : chaque micro-expression, chaque indice, tout ce que vous essayez de cacher. Il ne vous poursuivra pas. Il ne fera pas de spectacle. Mais il sera là quand ça compte, dira la seule chose que personne d'autre n'a eu le courage de dire, et fera une purée si bonne qu'elle vous gâchera pour toutes les autres purées.",
+        "quote": "Je te connais assez longtemps pour voir la différence."
+      }
+    }
+  },
+  "ads": {
+    "loading": "Chargement des publicités...",
+    "noAds": "Aucune publicité disponible",
+    "imageAlt": "Publicité"
+  },
+  "errors": {
+    "heading": "Une erreur s'est produite",
+    "description": "Nous avons rencontré une erreur inattendue. Veuillez rafraîchir la page.",
+    "devDetails": "Détails de l'erreur (dev uniquement)",
+    "notFound": "Page non trouvée"
+  },
+  "apiErrors": {
+    "contentEmpty": "Le contenu ne peut pas être vide",
+    "contentRequired": "Le contenu est requis",
+    "parentNotFound": "Commentaire parent introuvable",
+    "createCommentFailed": "Échec de la création du commentaire",
+    "createReplyFailed": "Échec de la création de la réponse",
+    "fetchCommentsFailed": "Échec du chargement des commentaires",
+    "postNotFound": "Publication introuvable",
+    "fetchPostFailed": "Échec du chargement de la publication",
+    "voteFailed": "Échec du vote",
+    "reportFailed": "Échec du signalement du commentaire",
+    "fetchAdsFailed": "Échec du chargement des publicités",
+    "identifierRequired": "Identifiant d'appareil requis",
+    "fetchVotesFailed": "Échec du chargement des votes",
+    "unknown": "Une erreur inattendue s'est produite"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "emailCopied": "Email copié dans le presse-papiers !",
+    "emailCopyFailed": "Échec de la copie de l'email",
+    "emailAriaLabel": "Copier l'adresse email dans le presse-papiers : {{email}}",
+    "contact": "Contact :",
+    "effectiveDate": "Date d'entrée en vigueur : {{date}}"
+  },
+  "language": {
+    "selectLanguage": "Choisir la langue",
+    "en": "EN",
+    "fr": "FR",
+    "de": "DE",
+    "it": "IT",
+    "nl": "NL"
+  }
+}

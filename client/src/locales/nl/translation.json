@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "home": "Home",
+    "quiz": "CFU-Vriendje-Quiz",
+    "aboutMe": "Over mij",
+    "rules": "Regels",
+    "privacyPolicy": "Privacybeleid",
+    "userAgreement": "Gebruikersovereenkomst",
+    "accessibility": "Toegankelijkheid",
+    "copyright": "© 2026 Cadence Keys"
+  },
+  "header": {
+    "skipToContent": "Ga naar hoofdinhoud",
+    "toggleNav": "Navigatie in-/uitschakelen",
+    "toggleMenu": "Menu in-/uitschakelen",
+    "menuAlt": "Menu",
+    "logoAlt": "CFU-puck-logo",
+    "siteTitle": "RATE MY PERFORMANCE"
+  },
+  "home": {
+    "pageTitle": "Rate My Performance",
+    "loading": "Laden...",
+    "error": "Fout: {{message}}",
+    "commentsHeading": "Reacties",
+    "orderBy": "Sorteren op:",
+    "sortLatest": "Nieuwste",
+    "sortTop": "Beste",
+    "commentsError": "Reacties konden niet geladen worden. Vernieuw de pagina.",
+    "commentsLoading": "Reacties laden...",
+    "noComments": "Nog geen reacties. Wees de eerste om te reageren!",
+    "loadingMore": "Meer reacties laden...",
+    "loadMore": "Meer reacties laden"
+  },
+  "post": {
+    "loading": "Laden...",
+    "howToJoin": "Hoe je meedoet aan de discussie",
+    "instructions1": "Beschouw dit als jouw open podium. Je kunt een echte beoordeling schrijven voor iemand die het verdient, een fictieve verzinnen zoals Harper deed, of in de reacties duiken om te reageren op die van anderen. Hoe je ook meedoet — houd het grappig, niet wreed. Maak Harper trots!",
+    "instructions2": "Scroll naar beneden om een gebruikersnaam aan te maken, je avatar te kiezen en je reactie te plaatsen. Wil je direct op iemand reageren? Klik gewoon op de Reageer-knop onder hun reactie. Je kunt ook reacties liken of disliken en alles melden wat ongepast lijkt."
+  },
+  "commentForm": {
+    "displayNameLabel": "Weergavenaam",
+    "displayNamePlaceholder": "Je naam",
+    "chooseAvatar": "Kies een avatar",
+    "avatarHockeyStick": "Hockeystick",
+    "avatarHockeySkate": "Hockeyschaats",
+    "avatarHockeyRink": "Hockeybaan",
+    "avatarHockeyPlayer": "Hockeyspeler",
+    "commentLabel": "Reactie",
+    "replyLabel": "Antwoord",
+    "commentPlaceholder": "Schrijf je reactie...",
+    "replyPlaceholder": "Schrijf je antwoord...",
+    "submitComment": "Reactie plaatsen",
+    "submitReply": "Reageren",
+    "submittingComment": "Wordt geplaatst...",
+    "submittingReply": "Wordt verzonden...",
+    "cancel": "Annuleren",
+    "errorNameRequired": "Weergavenaam vereist (minimaal 1 teken)",
+    "errorNameTooLong": "Weergavenaam te lang (maximaal 30 tekens, huidig: {{length}})",
+    "errorContentRequired": "Voer een {{type}} in (minimaal 1 teken)",
+    "errorContentTooLong": "{{type}} te lang (maximaal 2000 tekens, huidig: {{length}})",
+    "errorSubmitFailed": "Verzenden van {{type}} mislukt"
+  },
+  "comment": {
+    "hiddenByModeration": "Reactie verborgen door moderatie",
+    "deleted": "Reactie verwijderd",
+    "avatarAlt": "Avatar {{id}}",
+    "replyButton": "Reageer op deze reactie",
+    "likeButton": "Vind deze reactie leuk, {{count}} likes",
+    "dislikeButton": "Vind deze reactie niet leuk, {{count}} dislikes",
+    "reportButton": "Meld deze reactie als ongepast",
+    "voteAnnouncement": "Je hebt deze reactie {{type}}",
+    "reportConfirm": "Deze reactie melden voor moderatie?\n\nDeze actie helpt ons de community veilig te houden. Misbruik van de meldfunctie kan leiden tot beperkingen.",
+    "reportSuccess": "Bedankt voor je melding. Onze moderators zullen deze reactie beoordelen.",
+    "reportError": "Melding mislukt. Probeer het later opnieuw.",
+    "time": {
+      "minutesAgo_one": "{{count}} minuut geleden",
+      "minutesAgo_other": "{{count}} minuten geleden",
+      "hoursAgo_one": "{{count}} uur geleden",
+      "hoursAgo_other": "{{count}} uur geleden",
+      "daysAgo_one": "{{count}} dag geleden",
+      "daysAgo_other": "{{count}} dagen geleden"
+    },
+    "loadMoreReplies_one": "+ Laad {{count}} extra antwoord",
+    "loadMoreReplies_other": "+ Laad {{count}} extra antwoorden",
+    "hideReplies_one": "Verberg {{count}} antwoord",
+    "hideReplies_other": "Verberg {{count}} antwoorden",
+    "expandReplies_one": "Laad {{count}} antwoord",
+    "expandReplies_other": "Laad {{count}} antwoorden"
+  },
+  "report": {
+    "heading": "Reactie melden",
+    "description": "Help ons de community veilig te houden. Waarom meld je deze reactie?",
+    "reasonLabel": "Reden (optioneel)",
+    "reasonPlaceholder": "Vertel ons waarom je deze reactie meldt...",
+    "cancel": "Annuleren",
+    "submit": "Melden",
+    "submitting": "Wordt verzonden..."
+  },
+  "quiz": {
+    "pageTitle": "CFU-Vriendje-Quiz - RMP",
+    "heading": "CFU-Vriendje-Quiz",
+    "subtitle": "Ontdek welke CFU-hockeyspeler jouw perfecte match is!",
+    "progressLabel": "Quiz voortgang: vraag {{current}} van {{total}}",
+    "progressText": "Vraag {{current}} van {{total}}",
+    "answerLabel": "Antwoordoptie: {{text}}",
+    "back": "← Terug",
+    "resultHeading": "Jouw CFU-vriendje is...",
+    "resultPosition": "{{position}} • #{{number}}",
+    "takeAgain": "Quiz opnieuw doen"
+  },
+  "quizData": {
+    "questions": {
+      "q1": {
+        "text": "Het is vrijdagavond. Wat is jouw ideale date?",
+        "answers": {
+          "a1": "Knusse avond videogames spelen met zelfgemaakte snacks",
+          "a2": "Een bruisende bar met karaoke, darts en veel te veel verhalen",
+          "a3": "Stiekem middernacht zwemmen onder de sterren",
+          "a4": "Samen koken terwijl hij je plaagt met de droogste humor die je ooit hebt gehoord"
+        }
+      },
+      "q2": {
+        "text": "Je hebt een verschrikkelijke dag. Wat heb je het meest nodig van je partner?",
+        "answers": {
+          "a1": "Hij komt langs met precies jouw koffiebestelling en hoeft niet eens te vragen wat er is — hij weet het gewoon",
+          "a2": "Hij laat je zo hard lachen dat je vergeet waarom je van streek was",
+          "a3": "Hij neemt je zonder een woord in zijn armen en houdt je vast tot de wereld stopt met draaien",
+          "a4": "Hij zit met je in comfortabele stilte, en zegt dan het ene brutaal eerlijke ding dat je moest horen"
+        }
+      },
+      "q3": {
+        "text": "Wat is je grootste zwakte als het om jongens gaat?",
+        "answers": {
+          "a1": "Degenen die elk klein detail onthouden — je favoriete bloem, hoe je je koffie drinkt, dat verhaal dat je ooit om 2 uur 's nachts vertelde",
+          "a2": "Arrogante types met scherpe tong die totale softies blijken te zijn van binnen",
+          "a3": "Degenen die naar je kijken alsof je de enige persoon in de kamer bent en niet bang zijn alles voor je plat te branden",
+          "a4": "De stille types die dwars door je heen kijken — degenen die niemand opmerkt tot het te laat is"
+        }
+      },
+      "q4": {
+        "text": "Kies een liefdestaal:",
+        "answers": {
+          "a1": "Doordachte, handgemaakte cadeaus die bewijzen dat hij heeft opgelet",
+          "a2": "Quality time — hij laat alles vallen en is er elke dag, ongeacht de chaos",
+          "a3": "Fysieke aanraking — zijn hand vindt altijd instinctief de jouwe",
+          "a4": "Daden van dienstbaarheid — hij regelt stilletjes dingen voordat je je überhaupt realiseert dat je hulp nodig had"
+        }
+      },
+      "q5": {
+        "text": "Wat is je favoriete trope?",
+        "answers": {
+          "a1": "Geheime identiteit / online romance wordt echt",
+          "a2": "Van vijanden tot geliefden met een baby (ja, echt)",
+          "a3": "Verboden liefde / broer/zus van de beste vriend",
+          "a4": "Nep-daten dat heel, heel echt wordt"
+        }
+      },
+      "q6": {
+        "text": "Je vrienden zouden jouw ideale type beschrijven als:",
+        "answers": {
+          "a1": "Een golden retriever met een plan — lief, stabiel en eindeloos geduldig",
+          "a2": "Het menselijke equivalent van vuurwerk — chaotisch, luid en onmogelijk te negeren",
+          "a3": "Gevaarlijk charmant met een accent dat tevoorschijn komt als hij emotioneel wordt",
+          "a4": "Een afgesloten dagboek — mysterieus, briljant en alleen zacht voor de juiste persoon"
+        }
+      },
+      "q7": {
+        "text": "Kies het gebaar dat je zou omverblazen:",
+        "answers": {
+          "a1": "Hij bouwt je een handgemaakt diorama van je favoriete fictieve wereld omdat hij elk detail onthoudt dat je ooit hebt genoemd",
+          "a2": "Hij geeft zijn dochter een prachtige naam en wordt het soort man dat zij verdient — recht voor je ogen",
+          "a3": "Hij staat op voor iedereen en verklaart zijn liefde voor jou na maanden van geheimhouding, met dik accent en trillende stem",
+          "a4": "Hij springt ertussen om je te beschermen tegen iemand die je pijn heeft gedaan, zonder vragen te stellen, omdat hij je beter leest dan wie dan ook"
+        }
+      },
+      "q8": {
+        "text": "Wat is een dealbreaker voor jou?",
+        "answers": {
+          "a1": "Iemand die niet kwetsbaar kan zijn — ik heb een jongen nodig die vals zou zingen voor een menigte alleen om me te laten glimlachen",
+          "a2": "Iemand die niet kan groeien — ik moet hem zien veranderen in een beter persoon",
+          "a3": "Iemand die zich inhoudt — als hij er helemaal in zit, moet ik het voelen in elke blik en elke aanraking",
+          "a4": "Iemand die niet om kan gaan met de echte ik — ik heb een jongen nodig die door de façade heen kijkt en toch blijft"
+        }
+      },
+      "q9": {
+        "text": "Jullie zitten vast in een sneeuwstorm met je CFU-jongen. Wat gebeurt er?",
+        "answers": {
+          "a1": "Hij heeft al extra dekens, snacks en een volledig opgeladen Switch ingepakt omdat hij overal op voorbereid was",
+          "a2": "Hij verklaart dramatisch dat dit de \"beste slechtste avond ooit\" is en maakt er een avontuur van",
+          "a3": "Hij trekt je tegen zich aan, tekent cirkels op je huid en vertelt je verhalen uit zijn jeugd met die lage, zachte stem",
+          "a4": "Hij maakt zonder een woord te zeggen een vuur, bereidt de beste warme chocolademelk die je ooit hebt gedronken, en laat de stilte alles zeggen"
+        }
+      },
+      "q10": {
+        "text": "Tot slot — kies een citaat dat je hart sneller laat kloppen:",
+        "answers": {
+          "a1": "\"Ik zou zo lang gewacht hebben als nodig was. Je bent het waard.\"",
+          "a2": "\"Ik ben compleet gek op je.\"",
+          "a3": "\"Elke keer als ik naar je kijk, vergeet ik hoe ik moet ademen.\"",
+          "a4": "\"Ik ken je lang genoeg om het verschil te zien.\""
+        }
+      }
+    },
+    "boyfriends": {
+      "foster": {
+        "name": "Foster Kane",
+        "title": "De Toegewijde Aanvoerder",
+        "position": "Center",
+        "number": "88",
+        "book": "Campus Crush",
+        "traits": ["Geduldig", "Attent", "Toegewijd", "Stabiel"],
+        "description": "Jouw perfecte CFU-vriendje is de teamkapitein zelf. Foster is het type man dat je koffiebestelling onthoudt na het één keer te horen, handgemaakte cadeautjes voor je maakt die verwijzen naar grappen van maanden geleden, en Taylor Swift zou zingen bij karaoke in een volle bar alleen om je te zien glimlachen — ook al klinkt hij als een stervende kat. Hij is geduldig, attent, en als hij eenmaal van jou is, is hij HELEMAAL van jou.",
+        "quote": "Ik zou zo lang gewacht hebben als nodig was. Je bent het waard."
+      },
+      "drew": {
+        "name": "Drew Dumontier",
+        "title": "De Verlossde Charmeur",
+        "position": "Verdediger",
+        "number": "3",
+        "book": "Campus Rival",
+        "traits": ["Gedurfd", "Grappig", "Beschermend", "Onverschrokken"],
+        "description": "Jouw CFU-match is de gedurfde, chaotische en totaal schaamteloze Drew Dumontier. Zeker, hij versleeet vrouwen als sokken en zijn grappen waren legendarisch (of crimineel, afhankelijk van wie je het vraagt). Maar toen kwam er een baby en blies zijn wereld open. Drew is het type dat je laat lachen tot je niet meer kunt ademen, voor je vecht als de wereld tegen je is, en van je houdt zo fel dat het bijna eng is.",
+        "quote": "Ik ben compleet gek op je."
+      },
+      "liam": {
+        "name": "Liam Farrell",
+        "title": "De Gepassioneerde Beschermer",
+        "position": "Verdediger",
+        "number": "27",
+        "book": "",
+        "traits": ["Intens", "Loyaal", "Romantisch", "Gepassioneerd"],
+        "description": "Je hebt de Knappe Ier gekregen, en eerlijk? Wat een geluk. Liam Farrell is intens, vurig loyaal, en het type man wiens accent dikker wordt als hij emotioneel is — wat vaker gebeurt dan hij ooit zou toegeven. Hij zal zijn eigen demonen bevechten om de man te zijn die jij verdient, poëzie citeren als hij dronken is, en je hand vasthouden in het openbaar alsof hij elk moment inhaalt dat hij zich inhield.",
+        "quote": "Elke keer als ik naar je kijk, vergeet ik hoe ik moet ademen."
+      },
+      "gordy": {
+        "name": "Harrison \"Gordy\" Gordon",
+        "title": "De Stille Bewaker",
+        "position": "Keeper",
+        "number": "32",
+        "book": "",
+        "traits": ["Scherpzinnig", "Stabiel", "Beschermend", "Gevat"],
+        "description": "Jouw CFU-vriendje is degene die niemand zag aankomen — jij ook niet. Gordy is het sterke, stille type dat mensen leest zoals hij schutters leest op het ijs: elke micro-expressie, elk aanwijzing, alles wat je probeert te verbergen. Hij zal je niet achternazitten. Hij zal geen show maken. Maar hij zal er zijn als het ertoe doet, het ene ding zeggen dat niemand anders het lef had om te zeggen, en een aardappelpuree maken die zo goed is dat alle andere aardappelpuree voor altijd verpest is.",
+        "quote": "Ik ken je lang genoeg om het verschil te zien."
+      }
+    }
+  },
+  "ads": {
+    "loading": "Advertenties laden...",
+    "noAds": "Geen advertenties beschikbaar",
+    "imageAlt": "Advertentie"
+  },
+  "errors": {
+    "heading": "Er is iets misgegaan",
+    "description": "We zijn een onverwachte fout tegengekomen. Vernieuw de pagina.",
+    "devDetails": "Foutdetails (alleen ontwikkeling)",
+    "notFound": "Pagina niet gevonden"
+  },
+  "apiErrors": {
+    "contentEmpty": "Inhoud mag niet leeg zijn",
+    "contentRequired": "Inhoud is vereist",
+    "parentNotFound": "Bovenliggende reactie niet gevonden",
+    "createCommentFailed": "Reactie kon niet worden aangemaakt",
+    "createReplyFailed": "Antwoord kon niet worden aangemaakt",
+    "fetchCommentsFailed": "Reacties konden niet worden geladen",
+    "postNotFound": "Bericht niet gevonden",
+    "fetchPostFailed": "Bericht kon niet worden geladen",
+    "voteFailed": "Stem kon niet worden uitgebracht",
+    "reportFailed": "Reactie kon niet worden gemeld",
+    "fetchAdsFailed": "Advertenties konden niet worden geladen",
+    "identifierRequired": "Apparaat-identificatie vereist",
+    "fetchVotesFailed": "Stemmen konden niet worden geladen",
+    "unknown": "Er is een onverwachte fout opgetreden"
+  },
+  "common": {
+    "loading": "Laden...",
+    "emailCopied": "E-mail gekopieerd naar klembord!",
+    "emailCopyFailed": "E-mail kopiëren mislukt",
+    "emailAriaLabel": "Kopieer e-mailadres naar klembord: {{email}}",
+    "contact": "Contact:",
+    "effectiveDate": "Ingangsdatum: {{date}}"
+  },
+  "language": {
+    "selectLanguage": "Taal selecteren",
+    "en": "EN",
+    "fr": "FR",
+    "de": "DE",
+    "it": "IT",
+    "nl": "NL"
+  }
+}

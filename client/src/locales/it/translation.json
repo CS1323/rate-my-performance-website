@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "home": "Home",
+    "quiz": "Quiz Fidanzato CFU",
+    "aboutMe": "Chi sono",
+    "rules": "Regole",
+    "privacyPolicy": "Informativa sulla privacy",
+    "userAgreement": "Accordo utente",
+    "accessibility": "Accessibilità",
+    "copyright": "© 2026 Cadence Keys"
+  },
+  "header": {
+    "skipToContent": "Vai al contenuto principale",
+    "toggleNav": "Attiva/disattiva navigazione",
+    "toggleMenu": "Attiva/disattiva menu",
+    "menuAlt": "Menu",
+    "logoAlt": "Logo puck CFU",
+    "siteTitle": "RATE MY PERFORMANCE"
+  },
+  "home": {
+    "pageTitle": "Rate My Performance",
+    "loading": "Caricamento...",
+    "error": "Errore: {{message}}",
+    "commentsHeading": "Commenti",
+    "orderBy": "Ordina per:",
+    "sortLatest": "Recenti",
+    "sortTop": "Migliori",
+    "commentsError": "Impossibile caricare i commenti. Si prega di aggiornare la pagina.",
+    "commentsLoading": "Caricamento commenti...",
+    "noComments": "Nessun commento ancora. Sii il primo a commentare!",
+    "loadingMore": "Caricamento di altri commenti...",
+    "loadMore": "Carica altri commenti"
+  },
+  "post": {
+    "loading": "Caricamento...",
+    "howToJoin": "Come partecipare alla discussione",
+    "instructions1": "Considera questo il tuo palcoscenico aperto. Puoi scrivere una vera recensione per chi la merita, inventarne una fittizia come ha fatto Harper, o tuffarti nei commenti per reagire a quelli degli altri. In qualunque modo partecipi — sii divertente, non crudele. Rendi Harper orgogliosa!",
+    "instructions2": "Scorri verso il basso per creare un nome utente, scegliere il tuo avatar e pubblicare il tuo commento. Vuoi rispondere direttamente a qualcuno? Basta cliccare il pulsante Rispondi sotto il suo commento. Puoi anche mettere mi piace o non mi piace ai commenti e segnalare qualsiasi cosa che sembra inappropriata."
+  },
+  "commentForm": {
+    "displayNameLabel": "Nome visualizzato",
+    "displayNamePlaceholder": "Il tuo nome",
+    "chooseAvatar": "Scegli un avatar",
+    "avatarHockeyStick": "Bastone da hockey",
+    "avatarHockeySkate": "Pattino da hockey",
+    "avatarHockeyRink": "Pista di hockey",
+    "avatarHockeyPlayer": "Giocatore di hockey",
+    "commentLabel": "Commento",
+    "replyLabel": "Risposta",
+    "commentPlaceholder": "Scrivi il tuo commento...",
+    "replyPlaceholder": "Scrivi la tua risposta...",
+    "submitComment": "Pubblica commento",
+    "submitReply": "Rispondi",
+    "submittingComment": "Pubblicazione...",
+    "submittingReply": "Invio...",
+    "cancel": "Annulla",
+    "errorNameRequired": "Nome visualizzato richiesto (minimo 1 carattere)",
+    "errorNameTooLong": "Nome visualizzato troppo lungo (massimo 30 caratteri, attuale: {{length}})",
+    "errorContentRequired": "Inserisci un {{type}} (minimo 1 carattere)",
+    "errorContentTooLong": "{{type}} troppo lungo (massimo 2000 caratteri, attuale: {{length}})",
+    "errorSubmitFailed": "Invio del {{type}} fallito"
+  },
+  "comment": {
+    "hiddenByModeration": "Commento nascosto dalla moderazione",
+    "deleted": "Commento eliminato",
+    "avatarAlt": "Avatar {{id}}",
+    "replyButton": "Rispondi a questo commento",
+    "likeButton": "Metti mi piace a questo commento, {{count}} mi piace",
+    "dislikeButton": "Metti non mi piace a questo commento, {{count}} non mi piace",
+    "reportButton": "Segnala questo commento come inappropriato",
+    "voteAnnouncement": "Hai messo {{type}} a questo commento",
+    "reportConfirm": "Segnalare questo commento per la moderazione?\n\nQuesta azione ci aiuta a mantenere la comunità sicura. L'uso improprio della funzione di segnalazione può comportare restrizioni.",
+    "reportSuccess": "Grazie per la segnalazione. I nostri moderatori esamineranno questo commento.",
+    "reportError": "Segnalazione fallita. Riprova più tardi.",
+    "time": {
+      "minutesAgo_one": "{{count}} minuto fa",
+      "minutesAgo_other": "{{count}} minuti fa",
+      "hoursAgo_one": "{{count}} ora fa",
+      "hoursAgo_other": "{{count}} ore fa",
+      "daysAgo_one": "{{count}} giorno fa",
+      "daysAgo_other": "{{count}} giorni fa"
+    },
+    "loadMoreReplies_one": "+ Carica {{count}} altra risposta",
+    "loadMoreReplies_other": "+ Carica {{count}} altre risposte",
+    "hideReplies_one": "Nascondi {{count}} risposta",
+    "hideReplies_other": "Nascondi {{count}} risposte",
+    "expandReplies_one": "Carica {{count}} risposta",
+    "expandReplies_other": "Carica {{count}} risposte"
+  },
+  "report": {
+    "heading": "Segnala commento",
+    "description": "Aiutaci a mantenere la comunità sicura. Perché stai segnalando questo commento?",
+    "reasonLabel": "Motivo (opzionale)",
+    "reasonPlaceholder": "Dicci perché stai segnalando questo commento...",
+    "cancel": "Annulla",
+    "submit": "Segnala",
+    "submitting": "Invio in corso..."
+  },
+  "quiz": {
+    "pageTitle": "Quiz Fidanzato CFU - RMP",
+    "heading": "Quiz Fidanzato CFU",
+    "subtitle": "Scopri quale giocatore di hockey CFU è il tuo partner perfetto!",
+    "progressLabel": "Avanzamento quiz: domanda {{current}} di {{total}}",
+    "progressText": "Domanda {{current}} di {{total}}",
+    "answerLabel": "Opzione di risposta: {{text}}",
+    "back": "← Indietro",
+    "resultHeading": "Il tuo fidanzato CFU è...",
+    "resultPosition": "{{position}} • #{{number}}",
+    "takeAgain": "Rifai il quiz"
+  },
+  "quizData": {
+    "questions": {
+      "q1": {
+        "text": "È venerdì sera. Qual è il tuo appuntamento ideale?",
+        "answers": {
+          "a1": "Serata accogliente a giocare ai videogiochi insieme con snack fatti in casa",
+          "a2": "Un bar animato con karaoke, freccette e troppe storie da raccontare",
+          "a3": "Una nuotata segreta a mezzanotte sotto le stelle",
+          "a4": "Cucinare insieme mentre lui ti stuzzica con l'umorismo più asciutto che tu abbia mai sentito"
+        }
+      },
+      "q2": {
+        "text": "Stai passando una giornata terribile. Di cosa hai più bisogno dal tuo partner?",
+        "answers": {
+          "a1": "Si presenta con il tuo ordine esatto di caffè e non ha nemmeno bisogno di chiedere cosa c'è che non va — lo sa già",
+          "a2": "Ti fa ridere così tanto che dimentichi perché eri arrabbiata",
+          "a3": "Ti abbraccia senza dire una parola e ti stringe finché il mondo smette di girare",
+          "a4": "Si siede con te in un silenzio confortevole, poi dice l'unica cosa brutalmente onesta che avevi bisogno di sentire"
+        }
+      },
+      "q3": {
+        "text": "Qual è la tua più grande debolezza quando si tratta di ragazzi?",
+        "answers": {
+          "a1": "Quelli che ricordano ogni piccolo dettaglio — il tuo fiore preferito, come prendi il caffè, quella storia che hai raccontato una volta alle 2 di notte",
+          "a2": "I tipi arroganti con la lingua tagliente che si rivelano dei veri teneroni sotto sotto",
+          "a3": "Quelli che ti guardano come se fossi l'unica persona nella stanza e non hanno paura di dare fuoco a tutto per te",
+          "a4": "I tipi silenziosi che ti leggono dentro — quelli che nessuno nota fino a quando non è troppo tardi"
+        }
+      },
+      "q4": {
+        "text": "Scegli un linguaggio d'amore:",
+        "answers": {
+          "a1": "Regali premurosi e fatti a mano che dimostrano che stava attento",
+          "a2": "Tempo di qualità — molla tutto ed è presente ogni giorno, non importa il caos",
+          "a3": "Contatto fisico — la sua mano trova sempre la tua come per istinto",
+          "a4": "Atti di servizio — si prende cura silenziosamente delle cose prima ancora che tu ti renda conto di aver bisogno d'aiuto"
+        }
+      },
+      "q5": {
+        "text": "Qual è il tuo trope preferito?",
+        "answers": {
+          "a1": "Identità segreta / romance online che diventa reale",
+          "a2": "Da nemici ad amanti con un bambino (sì, davvero)",
+          "a3": "Amore proibito / fratello/sorella del migliore amico",
+          "a4": "Finta relazione che diventa molto, molto reale"
+        }
+      },
+      "q6": {
+        "text": "I tuoi amici descriverebbero il tuo ragazzo ideale come:",
+        "answers": {
+          "a1": "Un golden retriever con un piano — dolce, stabile e infinitamente paziente",
+          "a2": "L'equivalente umano dei fuochi d'artificio — caotico, rumoroso e impossibile da ignorare",
+          "a3": "Pericolosamente affascinante con un accento che esce fuori quando è emozionato",
+          "a4": "Un diario chiuso a chiave — misterioso, brillante e dolce solo con la persona giusta"
+        }
+      },
+      "q7": {
+        "text": "Scegli il gesto che ti farebbe perdere la testa:",
+        "answers": {
+          "a1": "Ti costruisce un diorama fatto a mano del tuo mondo immaginario preferito perché ricorda ogni dettaglio che hai mai menzionato",
+          "a2": "Dà un bellissimo nome a sua figlia e diventa il tipo di uomo che lei merita — proprio davanti ai tuoi occhi",
+          "a3": "Si alza davanti a tutti e dichiara il suo amore per te dopo mesi di segreto, con l'accento pronunciato e la voce tremante",
+          "a4": "Interviene per proteggerti da qualcuno che ti ha fatto del male, senza fare domande, perché ti legge meglio di chiunque altro"
+        }
+      },
+      "q8": {
+        "text": "Cosa è inaccettabile per te?",
+        "answers": {
+          "a1": "Qualcuno che non riesce ad essere vulnerabile — ho bisogno di un ragazzo che canterebbe stonato davanti alla folla solo per farmi sorridere",
+          "a2": "Qualcuno che non riesce a crescere — ho bisogno di vederlo diventare una persona migliore",
+          "a3": "Qualcuno che si trattiene — se è tutto dentro, devo sentirlo in ogni sguardo e ogni tocco",
+          "a4": "Qualcuno che non riesce a gestire la vera me — ho bisogno di un ragazzo che vede oltre la facciata e resta comunque"
+        }
+      },
+      "q9": {
+        "text": "Siete bloccati in una tempesta di neve con il tuo ragazzo CFU. Cosa succede?",
+        "answers": {
+          "a1": "Ha già preparato coperte extra, snack e una Switch completamente carica perché ha pensato a tutto in anticipo",
+          "a2": "Dichiara drammaticamente che questa è la \"migliore peggior serata di sempre\" e trasforma tutto in un'avventura",
+          "a3": "Ti stringe a sé, disegna cerchi sulla tua pelle e ti racconta storie della sua infanzia con quella voce bassa e morbida",
+          "a4": "Accende un fuoco senza dire una parola, ti prepara la migliore cioccolata calda che tu abbia mai bevuto, e lascia che il silenzio dica tutto"
+        }
+      },
+      "q10": {
+        "text": "Infine — scegli una citazione che ti fa battere forte il cuore:",
+        "answers": {
+          "a1": "\"Avrei aspettato tutto il tempo necessario. Tu ne vali la pena.\"",
+          "a2": "\"Sono completamente pazzo di te.\"",
+          "a3": "\"Ogni volta che ti guardo, dimentico come respirare.\"",
+          "a4": "\"Ti conosco da abbastanza tempo per vedere la differenza.\""
+        }
+      }
+    },
+    "boyfriends": {
+      "foster": {
+        "name": "Foster Kane",
+        "title": "Il Capitano Devoto",
+        "position": "Centro",
+        "number": "88",
+        "book": "Campus Crush",
+        "traits": ["Paziente", "Premuroso", "Devoto", "Stabile"],
+        "description": "Il tuo fidanzato CFU perfetto è il capitano della squadra in persona. Foster è il tipo di ragazzo che ricorda il tuo ordine di caffè dopo averlo sentito una volta sola, ti crea regali fatti a mano che fanno riferimento a battute di mesi fa, e canterebbe Taylor Swift al karaoke davanti a un bar pieno solo per vederti sorridere — anche se canta come un gatto morente. È paziente, premuroso, e una volta che è tuo, è TUTTO tuo.",
+        "quote": "Avrei aspettato tutto il tempo necessario. Tu ne vali la pena."
+      },
+      "drew": {
+        "name": "Drew Dumontier",
+        "title": "Il Seduttore Redento",
+        "position": "Difensore",
+        "number": "3",
+        "book": "Campus Rival",
+        "traits": ["Audace", "Divertente", "Protettivo", "Impavido"],
+        "description": "Il tuo match CFU è l'audace, caotico e totalmente sfacciato Drew Dumontier. Certo, cambiava ragazze come calzini e le sue battute erano leggendarie (o criminali, a seconda di chi chiedi). Ma poi è arrivata una bambina e gli ha spalancato il mondo. Drew è il tipo che ti farà ridere fino a non riuscire più a respirare, lotterà per te quando il mondo è contro di te, e ti amerà così ferocemente che fa quasi paura.",
+        "quote": "Sono completamente pazzo di te."
+      },
+      "liam": {
+        "name": "Liam Farrell",
+        "title": "Il Protettore Appassionato",
+        "position": "Difensore",
+        "number": "27",
+        "book": "",
+        "traits": ["Intenso", "Leale", "Romantico", "Appassionato"],
+        "description": "Hai trovato il Bell'Irlandese, e onestamente? Che fortuna. Liam Farrell è intenso, ferocemente leale, e il tipo di ragazzo il cui accento si ispessisce quando è emozionato — cosa che succede più spesso di quanto ammetterebbe mai. Combatterà i suoi demoni per essere l'uomo che meriti, citerà poesia quando è ubriaco, e ti terrà la mano in pubblico come per recuperare ogni momento in cui si è trattenuto.",
+        "quote": "Ogni volta che ti guardo, dimentico come respirare."
+      },
+      "gordy": {
+        "name": "Harrison \"Gordy\" Gordon",
+        "title": "Il Guardiano Silenzioso",
+        "position": "Portiere",
+        "number": "32",
+        "book": "",
+        "traits": ["Percettivo", "Stabile", "Protettivo", "Arguto"],
+        "description": "Il tuo fidanzato CFU è quello che nessuno aveva previsto — inclusa te. Gordy è il tipo forte e silenzioso che legge le persone come legge i tiratori sul ghiaccio: ogni microespressione, ogni indizio, tutto quello che cerchi di nascondere. Non ti inseguirà. Non farà scena. Ma sarà lì quando conta, dirà l'unica cosa che nessun altro ha avuto il coraggio di dire, e preparerà un purè così buono da rovinarti tutti gli altri purè per sempre.",
+        "quote": "Ti conosco da abbastanza tempo per vedere la differenza."
+      }
+    }
+  },
+  "ads": {
+    "loading": "Caricamento pubblicità...",
+    "noAds": "Nessuna pubblicità disponibile",
+    "imageAlt": "Pubblicità"
+  },
+  "errors": {
+    "heading": "Qualcosa è andato storto",
+    "description": "Abbiamo riscontrato un errore imprevisto. Si prega di aggiornare la pagina.",
+    "devDetails": "Dettagli errore (solo sviluppo)",
+    "notFound": "Pagina non trovata"
+  },
+  "apiErrors": {
+    "contentEmpty": "Il contenuto non può essere vuoto",
+    "contentRequired": "Il contenuto è obbligatorio",
+    "parentNotFound": "Commento genitore non trovato",
+    "createCommentFailed": "Impossibile creare il commento",
+    "createReplyFailed": "Impossibile creare la risposta",
+    "fetchCommentsFailed": "Impossibile caricare i commenti",
+    "postNotFound": "Post non trovato",
+    "fetchPostFailed": "Impossibile caricare il post",
+    "voteFailed": "Impossibile votare",
+    "reportFailed": "Impossibile segnalare il commento",
+    "fetchAdsFailed": "Impossibile caricare le pubblicità",
+    "identifierRequired": "Identificatore dispositivo richiesto",
+    "fetchVotesFailed": "Impossibile caricare i voti",
+    "unknown": "Si è verificato un errore imprevisto"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "emailCopied": "Email copiata negli appunti!",
+    "emailCopyFailed": "Copia email fallita",
+    "emailAriaLabel": "Copia l'indirizzo email negli appunti: {{email}}",
+    "contact": "Contatto:",
+    "effectiveDate": "Data di entrata in vigore: {{date}}"
+  },
+  "language": {
+    "selectLanguage": "Seleziona lingua",
+    "en": "EN",
+    "fr": "FR",
+    "de": "DE",
+    "it": "IT",
+    "nl": "NL"
+  }
+}
