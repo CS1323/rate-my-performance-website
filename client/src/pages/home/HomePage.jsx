@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
@@ -13,9 +14,13 @@ import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 import './HomePage.css';
 
-const POST_SLUG = "drew-dumontier";
+function getPostSlug(lang) {
+  if (!lang || lang === 'en') return 'drew-dumontier';
+  return `drew-dumontier-${lang}`;
+}
 
 export function HomePage() {
+  const { t, i18n } = useTranslation();
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [postLoading, setPostLoading] = useState(true);
@@ -31,13 +36,15 @@ export function HomePage() {
   const [paginationMeta, setPaginationMeta] = useState(null);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Fetch post once on initial mount.
+  const postSlug = getPostSlug(i18n.language);
+
+  // Fetch post when locale changes.
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setPostLoading(true);
         setPostError(null);
-        const postRes = await axios.get(`${API_BASE_URL}/api/posts/${POST_SLUG}`);
+        const postRes = await axios.get(`${API_BASE_URL}/api/posts/${postSlug}`);
         setPost(postRes.data);
       } catch (err) {
         console.error("Error fetching post:", err);
@@ -48,7 +55,7 @@ export function HomePage() {
     };
 
     fetchPost();
-  }, []);
+  }, [postSlug]);
 
   // Fetch comments/votes whenever post or sort mode changes.
   useEffect(() => {
@@ -233,12 +240,12 @@ export function HomePage() {
   if (postLoading) {
     return (
       <>
-        <title>Rate My Performance</title>
+        <title>{t('home.pageTitle')}</title>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
-            <div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>
+            <div style={{ textAlign: 'center', padding: '2rem' }}>{t('home.loading')}</div>
           </main>
           <AdsSidebar />
         </div>
@@ -249,13 +256,13 @@ export function HomePage() {
   if (postError) {
     return (
       <>
-        <title>Rate My Performance</title>
+        <title>{t('home.pageTitle')}</title>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
           <NavSidebar />
           <main className="content">
             <div style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>
-              Error: {postError}
+              {t('home.error', { message: postError })}
             </div>
           </main>
           <AdsSidebar />
@@ -266,7 +273,7 @@ export function HomePage() {
 
   return (
     <>
-      <title>Rate My Performance</title>
+      <title>{t('home.pageTitle')}</title>
       <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
 
       <div className="layout" style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}>
@@ -278,25 +285,25 @@ export function HomePage() {
           {/* Comments section: comment form + list */}
           <section className="comments-section">
             <div className="comments-header">
-              <h2>Comments</h2>
+              <h2>{t('home.commentsHeading')}</h2>
             </div>
 
             <CommentForm postId={post?.id} onSubmitSuccess={handleCommentPosted} />
 
             {/* Sort controls - positioned above comments list */}
             <div className="sort-controls">
-              <span className="sort-label">Order by:</span>
+              <span className="sort-label">{t('home.orderBy')}</span>
               <button 
                 className={`sort-btn ${sortMode === 'latest' ? 'active' : ''}`}
                 onClick={() => setSortMode('latest')}
               >
-                Latest
+                {t('home.sortLatest')}
               </button>
               <button 
                 className={`sort-btn ${sortMode === 'top' ? 'active' : ''}`}
                 onClick={() => setSortMode('top')}
               >
-                Top
+                {t('home.sortTop')}
               </button>
             </div>
 
@@ -304,11 +311,11 @@ export function HomePage() {
             <div className="comments-list">
               {commentsError ? (
                 <p style={{ textAlign: 'center', color: 'red', padding: '1rem' }}>
-                  Could not load comments right now. Please refresh.
+                  {t('home.commentsError')}
                 </p>
               ) : commentsLoading && comments.length === 0 ? (
                 <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
-                  Loading comments...
+                  {t('home.commentsLoading')}
                 </p>
               ) : comments.length > 0 ? (
                 <>
@@ -335,7 +342,7 @@ export function HomePage() {
                   {paginationMeta?.hasNextPage && (
                     <div ref={sentinelRef} className="scroll-sentinel" style={{ height: '20px', margin: '20px 0' }}>
                       {loadingMore && (
-                        <p style={{ textAlign: 'center', color: '#999' }}>Loading more comments...</p>
+                        <p style={{ textAlign: 'center', color: '#999' }}>{t('home.loadingMore')}</p>
                       )}
                     </div>
                   )}
@@ -348,13 +355,13 @@ export function HomePage() {
                       disabled={loadingMore}
                       style={{ marginTop: '10px' }}
                     >
-                      Load More Comments
+                      {t('home.loadMore')}
                     </button>
                   )}
                 </>
               ) : (
                 <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>
-                  No comments yet. Be the first to comment!
+                  {t('home.noComments')}
                 </p>
               )}
             </div>
