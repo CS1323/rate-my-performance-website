@@ -35,6 +35,7 @@ export function Rules() {
           <div className="rules-container">
             <div className="rules-header">
               <h1>Community Rules</h1>
+              <p className="rules-subtitle">Effective Date: March 31, 2026</p>
               <p className="rules-subtitle">Keep it civil and keep it fun</p>
             </div>
 
@@ -43,26 +44,26 @@ export function Rules() {
                 <h2>1. Be Respectful</h2>
                 <p>
                   Treat other users with basic human decency. No harassment, personal attacks, 
-                  or targeting individuals. Disagreeing with someone's opinion is fine - being 
-                  rude about it isn't.
+                  or targeting individuals. Disagreeing with someone's opinion is fine — being 
+                  rude about it is not.
                 </p>
               </section>
 
               <section className="rule-section">
                 <h2>2. Stay On Topic</h2>
                 <p>
-                  This site is about sports romance, hockey, and the CFU series. Off-topic posts 
-                  may be removed. If you're not sure if something fits, ask yourself: "Would 
-                  someone here care about this?"
+                  Rate My Performance (RMP) is about sports romance, hockey, and the CFU series. 
+                  Off-topic posts may be removed. If you are not sure if something fits, ask 
+                  yourself: "Would someone here care about this?"
                 </p>
               </section>
 
               <section className="rule-section">
                 <h2>3. No Spam or Self-Promotion</h2>
                 <p>
-                  Don't use this space as your personal billboard. Excessive promotion, 
+                  Do not use this space as your personal billboard. Excessive promotion, 
                   repetitive posts, or obvious spam will be removed. Share content because 
-                  it's interesting, not because you're selling something.
+                  it is interesting, not because you are selling something.
                 </p>
               </section>
 
@@ -78,7 +79,7 @@ export function Rules() {
                 <h2>5. Spoiler Etiquette</h2>
                 <p>
                   When discussing books or series plot points, be considerate of others who 
-                  haven't read them yet. Mark your spoilers clearly or keep major plot reveals 
+                  have not read them yet. Mark your spoilers clearly or keep major plot reveals 
                   vague in titles and previews.
                 </p>
               </section>
@@ -87,8 +88,17 @@ export function Rules() {
                 <h2>6. Report, Don't Retaliate</h2>
                 <p>
                   If someone breaks these rules, report them instead of responding in kind. 
-                  Fighting fire with fire just creates more fire, and we're trying to keep 
+                  Fighting fire with fire just creates more fire, and we are trying to keep 
                   things cool here.
+                </p>
+              </section>
+
+              <section className="rule-section">
+                <h2>7. Respect Copyright</h2>
+                <p>
+                  Do not post copyrighted material without permission. Fan discussion and fair 
+                  use commentary are welcome, but do not paste entire chapters of books or 
+                  share pirated content. See our User Agreement for more details.
                 </p>
               </section>
 
@@ -96,24 +106,28 @@ export function Rules() {
                 <h2>Enforcement</h2>
                 <p>
                   Rule violations may result in comment removal, temporary restrictions, or 
-                  permanent bans depending on severity and frequency. We're not looking to 
-                  ban people - we just want everyone to have a good time.
+                  permanent bans depending on severity and frequency. We are not looking to 
+                  ban people — we just want everyone to have a good time.
                 </p>
                 <p>
                   Moderators have discretion in how these rules are applied. If you have 
                   questions or concerns about moderation decisions, you can contact us directly.
                 </p>
+                <p>
+                  For full details on content policies and your responsibilities, see 
+                  our User Agreement.
+                </p>
               </div>
 
               <div className="rules-footer">
-                <p><strong>Questions?</strong> These rules might seem like common sense, but we've learned that spelling things out helps everyone stay on the same page. When in doubt, just be kind.</p>
+                <p><strong>Questions?</strong> These rules might seem like common sense, but we have learned that spelling things out helps everyone stay on the same page. When in doubt, just be kind.</p>
                 <p><strong>Contact:</strong> <span 
                     className="contact-email" 
                     onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
                     role="button"
                     tabIndex="0"
                     aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         handleCopyEmail('cadence@cadencekeys.com');

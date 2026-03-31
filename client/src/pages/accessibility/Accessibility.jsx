@@ -21,7 +21,7 @@ export function Accessibility() {
 
   return (
     <>
-      <title>Accessibility - RMP</title>
+      <title>RMP Accessibility</title>
 
       <Header onToggleSidebar={handleToggleSidebar} />
       
@@ -36,16 +36,18 @@ export function Accessibility() {
             <div className="accessibility-header">
               <h1>Accessibility</h1>
               <p className="accessibility-subtitle">Making this site usable for everyone</p>
+              <p className="accessibility-subtitle">Last reviewed: March 31, 2026</p>
             </div>
 
             <div className="accessibility-content">
               <section className="accessibility-section">
                 <h2>Our Commitment</h2>
                 <p>
-                  We want this site to be accessible to everyone, including people who use 
-                  screen readers, keyboard navigation, or other assistive technologies. 
-                  While we're not perfect, we're actively working to meet web accessibility 
-                  standards and improve the experience for all users.
+                  We want Rate My Performance (RMP) to be accessible to everyone, including 
+                  people who use screen readers, keyboard navigation, or other assistive 
+                  technologies. We aim to meet WCAG 2.1 Level AA standards — the widely 
+                  accepted benchmark for web accessibility. While we are not perfect, we are 
+                  actively working to improve the experience for all users.
                 </p>
               </section>
 
@@ -147,18 +149,20 @@ export function Accessibility() {
               <section className="accessibility-section">
                 <h2>Accessibility Standards</h2>
                 <p>
-                  We aim to conform to WCAG 2.1 Level AA standards across the site. This means:
+                  We aim to conform to WCAG 2.1 Level AA standards across the site. In 
+                  plain terms, that means:
                 </p>
                 <ul>
-                  <li>Color contrast ratios of at least 4.5:1 for normal text</li>
-                  <li>Keyboard accessibility for all functionality</li>
-                  <li>Proper use of semantic HTML and ARIA attributes</li>
-                  <li>Descriptive labels and instructions for form controls</li>
-                  <li>Sufficient time for users to read and interact with content</li>
+                  <li>Text is easy to read against its background (at least 4.5:1 contrast ratio)</li>
+                  <li>Everything works with a keyboard — no mouse required</li>
+                  <li>Screen readers can understand the page structure and announce content correctly</li>
+                  <li>Form fields have clear labels and helpful error messages</li>
+                  <li>Nothing times out before you have a chance to read or interact with it</li>
                 </ul>
                 <p>
-                  WCAG 2.1 Level AA is the gold standard for web accessibility and ensures that 
-                  most users with disabilities can navigate and use the site effectively.
+                  WCAG 2.1 Level AA is the widely accepted standard for web accessibility 
+                  and helps ensure that most users with disabilities can navigate and use 
+                  the site effectively.
                 </p>
               </section>
 
@@ -202,7 +206,7 @@ export function Accessibility() {
                     role="button"
                     tabIndex="0"
                     aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         handleCopyEmail('cadence@cadencekeys.com');

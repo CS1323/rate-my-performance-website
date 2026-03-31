@@ -43,7 +43,7 @@ Implemented now
 - Rollback procedures documented in `.github/ROLLBACK.md`.
 
 Partially complete / known risk areas
-- **Pre-launch features (due 3/31)**: Legal pages refresh
+- **Pre-launch features (due 3/31)**: ✅ All complete (legal pages refreshed)
 - Deep comment thread readability on mobile has mobile-first CSS (reduced indentation, collapse/expand) but not full Reddit-style lazy-load branching.
 - Testing setup with Vitest and Playwright mostly complete; coverage and integration tests in progress.
 - README lacks setup/deploy/contributor documentation.
@@ -269,7 +269,7 @@ These 7 items **must** be completed before production launch, alongside roadmap 
 
 **Recommended Priority Order**: 
 1. Items 1–7 ✅ (all deploy blockers complete)
-2. Roadmap 3 (compliance/trust: legal pages — only remaining pre-launch item)
+2. Roadmap 3 ✅ (compliance/trust: legal pages — complete)
 3. Roadmap 5, 7 (post-launch: i18n, README documentation)
 
 ---
@@ -286,12 +286,11 @@ All three hard blockers are implemented, tested locally, and deployed to product
 - **Sentry**: Initialized via `NODE_OPTIONS='--import ./instrument.js'` pattern; active in production
 
 ### Pending Production Items (Before 3/31)
-All high-priority gaps are now resolved. Remaining pre-launch work:
-
-1. **Legal pages refresh** (compliance/trust)
-   - Verify consistency of terms, moderation language, and contact information across rules, privacy policy, user agreement, and accessibility pages
-   - Ensure effective-date formatting is uniform
-   - Privacy Policy currently shows effective date: Feb 28, 2026 — update if needed for launch
+All pre-launch items are now resolved. Legal pages have been refreshed with:
+- GDPR, CCPA/CPRA, COPPA, DMCA compliance
+- Consistent effective dates (March 31, 2026)
+- Accurate data collection disclosures
+- Plain language throughout
 
 ### Known Dependency Issues
 - **npm audit warnings**: 6 vulnerabilities (1 moderate, 5 high) in `server/package.json`
@@ -302,7 +301,6 @@ All high-priority gaps are now resolved. Remaining pre-launch work:
   - Reference: `npm audit` in server/ shows details
 
 ### Remaining Roadmap Items
-- Legal pages refresh (⭐⭐ priority — pre-launch)
 - Reddit-like mobile threading lazy-load branching (⭐ nice-to-have — basic mobile CSS done)
 - i18n translations (post-launch)
 - README documentation (post-launch)
@@ -310,7 +308,7 @@ All high-priority gaps are now resolved. Remaining pre-launch work:
 ---
 
 ### ⏰ Deadline Breakdown
-- **Pre-launch items**: Due **3/31/2026** — Only legal pages refresh remains
+- **Pre-launch items**: Due **3/31/2026** — ✅ All complete
 - **Items 5, 7**: Due **4/16/2026** (post-launch sprints: i18n, README)
 
 ### 🚀 Pre-Launch — Due 3/31/2026
@@ -341,12 +339,17 @@ All high-priority gaps are now resolved. Remaining pre-launch work:
   - `aria-invalid`, `aria-describedby`, `role="alert"` on form validation errors
   - Quiz progress bar with `role="progressbar"` and live result announcements
 
-3) ❌ Update legal pages (rules, privacy policy, user agreement, accessibility)
-- **Priority**: ⭐⭐ Medium (compliance + user trust) — **only remaining pre-launch item**
-- **Scope**: Production-ready legal content
-  - Refresh legal copy for production readiness
-  - Verify consistency of terms, moderation language, and contact information
-  - Ensure page content and effective-date formatting are uniform
+3) ✅ Update legal pages (rules, privacy policy, user agreement, accessibility)
+- **Priority**: ⭐⭐ Complete
+- **Scope**: Production-ready legal content — IMPLEMENTED
+- **Implementation Details**:
+  - Effective dates updated to March 31, 2026 across all legal pages
+  - Privacy Policy: Added GDPR legal basis, CCPA/CPRA rights, data retention periods, children's privacy (COPPA), Do Not Track disclosure, international data transfers, explicit third-party service naming (Google Analytics, Sentry, Gemini API), content moderation disclosure, localStorage identifier disclosure, IP hashing explanation
+  - User Agreement: Added age requirement (13+/16+ EEA), DMCA takedown procedure, governing law (Montana), dispute resolution process, limitation of liability, fixed "accounts" references to "access"
+  - Rules: Added effective date, copyright rule (#7), User Agreement cross-reference, site identity ("Rate My Performance")
+  - Accessibility: Added review date, warm intro with WCAG 2.1 AA mention, plain-language standards section, site identity
+  - All pages: Replaced deprecated `onKeyPress` with `onKeyDown`, removed debug `console.log`
+  - Contact email consistent across all pages: cadence@cadencekeys.com
 
 4) ✅ Add Google Analytics to be used in production
 - **Priority**: ⭐⭐⭐ Complete
