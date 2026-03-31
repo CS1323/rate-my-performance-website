@@ -1,0 +1,290 @@
+{
+  "nav": {
+    "home": "Home",
+    "quiz": "CFU Boyfriend Quiz",
+    "aboutMe": "About Me",
+    "rules": "Rules",
+    "privacyPolicy": "Privacy Policy",
+    "userAgreement": "User Agreement",
+    "accessibility": "Accessibility",
+    "copyright": "© 2026 Cadence Keys"
+  },
+  "header": {
+    "skipToContent": "Skip to main content",
+    "toggleNav": "Toggle navigation",
+    "toggleMenu": "Toggle menu",
+    "menuAlt": "Menu",
+    "logoAlt": "CFU puck logo",
+    "siteTitle": "RATE MY PERFORMANCE"
+  },
+  "home": {
+    "pageTitle": "Rate My Performance",
+    "loading": "Loading...",
+    "error": "Error: {{message}}",
+    "commentsHeading": "Comments",
+    "orderBy": "Order by:",
+    "sortLatest": "Latest",
+    "sortTop": "Top",
+    "commentsError": "Could not load comments right now. Please refresh.",
+    "commentsLoading": "Loading comments...",
+    "noComments": "No comments yet. Be the first to comment!",
+    "loadingMore": "Loading more comments...",
+    "loadMore": "Load More Comments"
+  },
+  "post": {
+    "loading": "Loading...",
+    "howToJoin": "How to Join the Discussion",
+    "instructions1": "Think of this as your open mic. You can write a real review for whoever deserves it, make up a fictional one just like Harper did, or jump into the comments to react to everyone else's. However you participate — keep it funny, not cruel. Make Harper proud!",
+    "instructions2": "Scroll down below to create a nickname, pick your avatar, and drop your comment. Want to reply directly to someone? Just click the Reply button under their comment. You can also like or dislike comments and flag anything that seems off."
+  },
+  "commentForm": {
+    "displayNameLabel": "Display name",
+    "displayNamePlaceholder": "Your name",
+    "chooseAvatar": "Choose an avatar",
+    "avatarHockeyStick": "Hockey Stick",
+    "avatarHockeySkate": "Hockey Skate",
+    "avatarHockeyRink": "Hockey Rink",
+    "avatarHockeyPlayer": "Hockey Player",
+    "commentLabel": "Comment",
+    "replyLabel": "Reply",
+    "commentPlaceholder": "Write your comment...",
+    "replyPlaceholder": "Write your reply...",
+    "submitComment": "Post comment",
+    "submitReply": "Reply",
+    "submittingComment": "Posting...",
+    "submittingReply": "Replying...",
+    "cancel": "Cancel",
+    "errorNameRequired": "Display name required (minimum 1 character)",
+    "errorNameTooLong": "Display name too long (maximum 30 characters, current: {{length}})",
+    "errorContentRequired": "Please enter a {{type}} (minimum 1 character)",
+    "errorContentTooLong": "{{type}} too long (maximum 2000 characters, current: {{length}})",
+    "errorSubmitFailed": "Failed to post {{type}}"
+  },
+  "comment": {
+    "hiddenByModeration": "Comment hidden by moderation",
+    "deleted": "Comment deleted",
+    "avatarAlt": "Avatar {{id}}",
+    "replyButton": "Reply to this comment",
+    "likeButton": "Like this comment, {{count}} likes",
+    "dislikeButton": "Dislike this comment, {{count}} dislikes",
+    "reportButton": "Report this comment as inappropriate",
+    "voteAnnouncement": "You {{type}} this comment",
+    "reportConfirm": "Report this comment for moderation?\n\nThis action helps us keep the community safe. Misuse of the report feature may result in restrictions.",
+    "reportSuccess": "Thank you for your report. Our moderators will review this comment.",
+    "reportError": "Failed to report comment. Please try again later.",
+    "time": {
+      "minutesAgo_one": "{{count}} minute ago",
+      "minutesAgo_other": "{{count}} minutes ago",
+      "hoursAgo_one": "{{count}} hour ago",
+      "hoursAgo_other": "{{count}} hours ago",
+      "daysAgo_one": "{{count}} day ago",
+      "daysAgo_other": "{{count}} days ago"
+    },
+    "loadMoreReplies_one": "+ Load {{count}} more reply",
+    "loadMoreReplies_other": "+ Load {{count}} more replies",
+    "hideReplies_one": "Hide {{count}} reply",
+    "hideReplies_other": "Hide {{count}} replies",
+    "expandReplies_one": "Load {{count}} reply",
+    "expandReplies_other": "Load {{count}} replies"
+  },
+  "report": {
+    "heading": "Report Comment",
+    "description": "Help us keep the community safe. Why are you reporting this comment?",
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "Let us know why you're reporting this comment...",
+    "cancel": "Cancel",
+    "submit": "Report",
+    "submitting": "Submitting..."
+  },
+  "quiz": {
+    "pageTitle": "CFU Boyfriend Quiz - RMP",
+    "heading": "CFU Boyfriend Quiz",
+    "subtitle": "Discover which CFU hockey player is your perfect match!",
+    "progressLabel": "Quiz progress: question {{current}} of {{total}}",
+    "progressText": "Question {{current}} of {{total}}",
+    "answerLabel": "Answer option: {{text}}",
+    "back": "← Back",
+    "resultHeading": "Your CFU Boyfriend is...",
+    "resultPosition": "{{position}} • #{{number}}",
+    "takeAgain": "Take Quiz Again"
+  },
+  "quizData": {
+    "questions": {
+      "q1": {
+        "text": "It's Friday night. What's your ideal date?",
+        "answers": {
+          "a1": "Cozy night in playing video games together with homemade snacks",
+          "a2": "A rowdy bar with karaoke, darts, and way too many stories",
+          "a3": "A secret midnight swim under the stars",
+          "a4": "Cooking dinner together while he roasts you with the driest humor you've ever heard"
+        }
+      },
+      "q2": {
+        "text": "You're having a terrible day. What do you need most from your person?",
+        "answers": {
+          "a1": "He shows up with your exact coffee order and doesn't even need to ask what's wrong—he just knows",
+          "a2": "He makes you laugh so hard you forget why you were upset in the first place",
+          "a3": "He pulls you into his arms without a word and holds you until the world stops spinning",
+          "a4": "He sits with you in comfortable silence, then says the one brutally honest thing you needed to hear"
+        }
+      },
+      "q3": {
+        "text": "What's your biggest weakness when it comes to guys?",
+        "answers": {
+          "a1": "The ones who remember every little thing about you—your favorite flower, how you take your coffee, that story you told once at 2 AM",
+          "a2": "The cocky ones with a sharp tongue who turn out to be absolute marshmallows underneath",
+          "a3": "The ones who look at you like you're the only person in the room and aren't afraid to burn the world down for you",
+          "a4": "The quiet ones who see right through you—the ones nobody else seems to notice until it's too late"
+        }
+      },
+      "q4": {
+        "text": "Pick a love language:",
+        "answers": {
+          "a1": "Thoughtful, handmade gifts that prove he's been paying attention",
+          "a2": "Quality time—he drops everything and shows up every single day, no matter how chaotic life gets",
+          "a3": "Physical touch—his hand always finding yours like it's instinct",
+          "a4": "Acts of service—he quietly takes care of things before you even realize you needed help"
+        }
+      },
+      "q5": {
+        "text": "What's your favorite trope?",
+        "answers": {
+          "a1": "Secret identity / online romance that turns real",
+          "a2": "Enemies-to-lovers with a baby (yes, really)",
+          "a3": "Forbidden love / best friend's sibling",
+          "a4": "Fake dating that becomes very, very real"
+        }
+      },
+      "q6": {
+        "text": "Your friends would describe your ideal guy as:",
+        "answers": {
+          "a1": "A golden retriever with a plan—sweet, steady, and endlessly patient",
+          "a2": "The human equivalent of a firework—chaotic, loud, and impossible not to watch",
+          "a3": "Dangerously charming with an accent that comes out when he's emotional",
+          "a4": "A locked diary—mysterious, brilliant, and only soft for the right person"
+        }
+      },
+      "q7": {
+        "text": "Pick the gesture that would absolutely wreck you:",
+        "answers": {
+          "a1": "He builds you a handmade diorama of your favorite fictional world because he remembered every detail you ever mentioned",
+          "a2": "He names his daughter something beautiful and becomes the kind of man she deserves—right before your eyes",
+          "a3": "He stands up in front of everyone and declares his love for you after months of keeping it secret, accent thick and voice shaking",
+          "a4": "He steps in to protect you from someone who hurt you, no questions asked, because he reads you better than anyone"
+        }
+      },
+      "q8": {
+        "text": "What's a dealbreaker for you?",
+        "answers": {
+          "a1": "Someone who can't be vulnerable—I need a guy who'll sing badly in front of a crowd just to make me smile",
+          "a2": "Someone who can't grow—I need to see him become a better person, not just stay the same",
+          "a3": "Someone who holds back—if he's all in, I need to feel it in every look and touch",
+          "a4": "Someone who can't handle the real me—I need a guy who sees through the act and stays anyway"
+        }
+      },
+      "q9": {
+        "text": "You're stuck in a snowstorm with your CFU boy. What happens?",
+        "answers": {
+          "a1": "He already packed extra blankets, snacks, and a fully charged Switch because he planned for everything",
+          "a2": "He dramatically declares it the \"best worst night ever\" and somehow makes the whole thing an adventure",
+          "a3": "He pulls you close, traces circles on your skin, and tells you stories about his childhood in that low, quiet voice",
+          "a4": "He builds a fire without saying a word, makes you the best hot chocolate you've ever had, and lets the silence say everything"
+        }
+      },
+      "q10": {
+        "text": "Finally—pick a quote that makes your heart skip:",
+        "answers": {
+          "a1": "\"I would've waited for however long it took. You are worth it.\"",
+          "a2": "\"I'm completely gone for you.\"",
+          "a3": "\"Every time I look at you, I forget how to breathe.\"",
+          "a4": "\"I've known you long enough to know the difference.\""
+        }
+      }
+    },
+    "boyfriends": {
+      "foster": {
+        "name": "Foster Kane",
+        "title": "The Devoted Captain",
+        "position": "Center",
+        "number": "88",
+        "book": "Campus Crush",
+        "traits": ["Patient", "Thoughtful", "Devoted", "Steady"],
+        "description": "Your perfect CFU boyfriend is the team captain himself. Foster is the kind of guy who remembers your coffee order after hearing it once, builds you handmade gifts that reference inside jokes from months ago, and would sing Taylor Swift karaoke in front of a packed bar just to see you smile—even though he sounds like a dying cat. He's patient, thoughtful, and once he's yours, he's ALL in. He's the golden retriever boyfriend who also happens to have a multi-phase plan to win your heart.",
+        "quote": "I would've waited for however long it took. You are worth it."
+      },
+      "drew": {
+        "name": "Drew Dumontier",
+        "title": "The Redeemed Heartbreaker",
+        "position": "Defenseman",
+        "number": "3",
+        "book": "Campus Rival",
+        "traits": ["Bold", "Funny", "Protective", "Fearless"],
+        "description": "Your CFU match is the bold, chaotic, utterly shameless Drew Dumontier. Sure, he used to go through girls like socks and his pranks were legendary (or criminal, depending on who you ask). But then a baby girl showed up and cracked his whole world open. Drew is the guy who'll make you laugh until you can't breathe, fight for you when the world is against you, and love you so fiercely it's almost scary—once he figures out how to stop being his own worst enemy. He's proof that the best love stories start with two people who can't stand each other.",
+        "quote": "I'm completely gone for you."
+      },
+      "liam": {
+        "name": "Liam Farrell",
+        "title": "The Passionate Protector",
+        "position": "Defenseman",
+        "number": "27",
+        "book": "",
+        "traits": ["Intense", "Loyal", "Romantic", "Passionate"],
+        "description": "You got the Hot Irishman, and honestly? Lucky you. Liam Farrell is intense, fiercely loyal, and the kind of guy whose accent thickens when he's emotional—which is more often than he'd ever admit. He'll fight his own demons to be the man you deserve, quote poetry when he's drunk, and hold your hand in public like he's making up for every moment he ever held back. Liam loves HARD, and once he stops running from his feelings, there's no one on earth more devoted. He's the passionate, all-consuming love you didn't know you needed.",
+        "quote": "Every time I look at you, I forget how to breathe."
+      },
+      "gordy": {
+        "name": "Harrison \"Gordy\" Gordon",
+        "title": "The Silent Guardian",
+        "position": "Goalie",
+        "number": "32",
+        "book": "",
+        "traits": ["Perceptive", "Steady", "Protective", "Witty"],
+        "description": "Your CFU boyfriend is the one nobody saw coming—including you. Gordy is the strong, silent type who reads people the way he reads shooters on the ice: every micro-expression, every tell, every thing you're trying to hide. He won't chase you. He won't perform. But he will show up when it matters, say the one thing no one else had the guts to say, and make mashed potatoes so good they'll ruin you for all other mashed potatoes. He's the still lake with hidden depths, and the only person he'll let call him Harry is you.",
+        "quote": "I've known you long enough to know the difference."
+      }
+    }
+  },
+  "ads": {
+    "loading": "Loading ads...",
+    "noAds": "No ads available",
+    "imageAlt": "Advertisement"
+  },
+  "errors": {
+    "heading": "Something went wrong",
+    "description": "We encountered an unexpected error. Please try refreshing the page.",
+    "devDetails": "Error details (dev only)",
+    "notFound": "Not Found"
+  },
+  "apiErrors": {
+    "contentEmpty": "Content cannot be empty",
+    "contentRequired": "Content is required",
+    "parentNotFound": "Parent comment not found",
+    "createCommentFailed": "Failed to create comment",
+    "createReplyFailed": "Failed to create reply",
+    "fetchCommentsFailed": "Failed to fetch comments",
+    "postNotFound": "Post not found",
+    "fetchPostFailed": "Failed to fetch post",
+    "voteFailed": "Failed to cast vote",
+    "reportFailed": "Failed to report comment",
+    "fetchAdsFailed": "Failed to fetch ads",
+    "identifierRequired": "Device identifier required",
+    "fetchVotesFailed": "Failed to fetch votes",
+    "unknown": "An unexpected error occurred"
+  },
+  "common": {
+    "loading": "Loading...",
+    "emailCopied": "Email copied to clipboard!",
+    "emailCopyFailed": "Failed to copy email",
+    "emailAriaLabel": "Copy email address to clipboard: {{email}}",
+    "contact": "Contact:",
+    "effectiveDate": "Effective Date: {{date}}"
+  },
+  "language": {
+    "selectLanguage": "Select language",
+    "en": "EN",
+    "fr": "FR",
+    "de": "DE",
+    "it": "IT",
+    "nl": "NL"
+  }
+}
