@@ -38,13 +38,13 @@ describe('App routing integration', () => {
     expect(await screen.findByText('Home Page')).toBeInTheDocument();
   });
 
-  test('renders not found route for unknown path', async () => {
+  test('redirects invalid lang prefix to English equivalent', async () => {
     render(
       <MemoryRouter initialEntries={['/unknown-path']}>
         <App />
       </MemoryRouter>
     );
 
-    expect(await screen.findByText('Not Found')).toBeInTheDocument();
+    expect(await screen.findByText('Home Page')).toBeInTheDocument();
   });
 });

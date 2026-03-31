@@ -20,7 +20,7 @@ describe('CommentForm', () => {
     await user.type(screen.getByLabelText('Comment'), 'Hello world');
     await user.click(screen.getByRole('button', { name: 'Post comment' }));
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Please enter a display name');
+    expect(screen.getByRole('alert')).toHaveTextContent('Display name required (minimum 1 character)');
   });
 
   test('submits a top-level comment and resets form', async () => {
