@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -6,6 +7,8 @@ import './Rules.css';
 
 export function Rules() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useTranslation();
+  const { t: tLegal } = useTranslation('legal');
 
   const handleToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -13,15 +16,15 @@ export function Rules() {
 
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email).then(() => {
-      alert('Email copied to clipboard!');
+      alert(t('common.emailCopied'));
     }).catch(() => {
-      alert('Failed to copy email');
+      alert(t('common.emailCopyFailed'));
     });
   };
 
   return (
     <>
-      <title>RMP Rules</title>
+      <title>{tLegal('rules.pageTitle')}</title>
 
       <Header onToggleSidebar={handleToggleSidebar} />
       
@@ -34,106 +37,73 @@ export function Rules() {
         <main className="content">
           <div className="rules-container">
             <div className="rules-header">
-              <h1>Community Rules</h1>
-              <p className="rules-subtitle">Effective Date: March 31, 2026</p>
-              <p className="rules-subtitle">Keep it civil and keep it fun</p>
+              <h1>{tLegal('rules.heading')}</h1>
+              <p className="rules-subtitle">{t('common.effectiveDate', { date: 'March 31, 2026' })}</p>
+              <p className="rules-subtitle">{tLegal('rules.subtitle')}</p>
             </div>
 
             <div className="rules-content">
               <section className="rule-section">
-                <h2>1. Be Respectful</h2>
-                <p>
-                  Treat other users with basic human decency. No harassment, personal attacks, 
-                  or targeting individuals. Disagreeing with someone's opinion is fine — being 
-                  rude about it is not.
-                </p>
+                <h2>{tLegal('rules.rule1Title')}</h2>
+                <p>{tLegal('rules.rule1Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>2. Stay On Topic</h2>
-                <p>
-                  Rate My Performance (RMP) is about sports romance, hockey, and the CFU series. 
-                  Off-topic posts may be removed. If you are not sure if something fits, ask 
-                  yourself: "Would someone here care about this?"
-                </p>
+                <h2>{tLegal('rules.rule2Title')}</h2>
+                <p>{tLegal('rules.rule2Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>3. No Spam or Self-Promotion</h2>
-                <p>
-                  Do not use this space as your personal billboard. Excessive promotion, 
-                  repetitive posts, or obvious spam will be removed. Share content because 
-                  it is interesting, not because you are selling something.
-                </p>
+                <h2>{tLegal('rules.rule3Title')}</h2>
+                <p>{tLegal('rules.rule3Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>4. Keep It Legal and Safe</h2>
-                <p>
-                  No illegal content, doxxing, threats, or anything that could put people at risk. 
-                  This includes sharing personal information about yourself or others without consent.
-                </p>
+                <h2>{tLegal('rules.rule4Title')}</h2>
+                <p>{tLegal('rules.rule4Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>5. Spoiler Etiquette</h2>
-                <p>
-                  When discussing books or series plot points, be considerate of others who 
-                  have not read them yet. Mark your spoilers clearly or keep major plot reveals 
-                  vague in titles and previews.
-                </p>
+                <h2>{tLegal('rules.rule5Title')}</h2>
+                <p>{tLegal('rules.rule5Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>6. Report, Don't Retaliate</h2>
-                <p>
-                  If someone breaks these rules, report them instead of responding in kind. 
-                  Fighting fire with fire just creates more fire, and we are trying to keep 
-                  things cool here.
-                </p>
+                <h2>{tLegal('rules.rule6Title')}</h2>
+                <p>{tLegal('rules.rule6Content')}</p>
               </section>
 
               <section className="rule-section">
-                <h2>7. Respect Copyright</h2>
-                <p>
-                  Do not post copyrighted material without permission. Fan discussion and fair 
-                  use commentary are welcome, but do not paste entire chapters of books or 
-                  share pirated content. See our User Agreement for more details.
-                </p>
+                <h2>{tLegal('rules.rule7Title')}</h2>
+                <p>{tLegal('rules.rule7Content')}</p>
               </section>
 
               <div className="enforcement-section">
-                <h2>Enforcement</h2>
-                <p>
-                  Rule violations may result in comment removal, temporary restrictions, or 
-                  permanent bans depending on severity and frequency. We are not looking to 
-                  ban people — we just want everyone to have a good time.
-                </p>
-                <p>
-                  Moderators have discretion in how these rules are applied. If you have 
-                  questions or concerns about moderation decisions, you can contact us directly.
-                </p>
-                <p>
-                  For full details on content policies and your responsibilities, see 
-                  our User Agreement.
-                </p>
+                <h2>{tLegal('rules.enforcementTitle')}</h2>
+                <p>{tLegal('rules.enforcementP1')}</p>
+                <p>{tLegal('rules.enforcementP2')}</p>
+                <p>{tLegal('rules.enforcementP3')}</p>
               </div>
 
               <div className="rules-footer">
-                <p><strong>Questions?</strong> These rules might seem like common sense, but we have learned that spelling things out helps everyone stay on the same page. When in doubt, just be kind.</p>
-                <p><strong>Contact:</strong> <span 
-                    className="contact-email" 
-                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
-                    role="button"
-                    tabIndex="0"
-                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleCopyEmail('cadence@cadencekeys.com');
-                      }
-                    }}
-                  >cadence@cadencekeys.com</span></p>
+                <p>{tLegal('rules.footerP1')}</p>
+                <p>
+                  <Trans i18nKey="rules.footerP2" ns="legal" values={{ email: 'cadence@cadencekeys.com' }}>
+                    Contact: <span 
+                      className="contact-email" 
+                      onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                      role="button"
+                      tabIndex="0"
+                      aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleCopyEmail('cadence@cadencekeys.com');
+                        }
+                      }}
+                    >cadence@cadencekeys.com</span>
+                  </Trans>
+                </p>
               </div>
             </div>
           </div>

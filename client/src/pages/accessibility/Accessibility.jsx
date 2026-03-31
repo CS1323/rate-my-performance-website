@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -6,6 +7,8 @@ import './Accessibility.css';
 
 export function Accessibility() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useTranslation();
+  const { t: tLegal } = useTranslation('legal');
 
   const handleToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -13,15 +16,15 @@ export function Accessibility() {
 
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email).then(() => {
-      alert('Email copied to clipboard!');
+      alert(t('common.emailCopied'));
     }).catch(() => {
-      alert('Failed to copy email');
+      alert(t('common.emailCopyFailed'));
     });
   };
 
   return (
     <>
-      <title>RMP Accessibility</title>
+      <title>{tLegal('accessibility.pageTitle')}</title>
 
       <Header onToggleSidebar={handleToggleSidebar} />
       
@@ -34,185 +37,154 @@ export function Accessibility() {
         <main className="content">
           <div className="accessibility-container">
             <div className="accessibility-header">
-              <h1>Accessibility</h1>
-              <p className="accessibility-subtitle">Making this site usable for everyone</p>
-              <p className="accessibility-subtitle">Last reviewed: March 31, 2026</p>
+              <h1>{tLegal('accessibility.heading')}</h1>
+              <p className="accessibility-subtitle">{tLegal('accessibility.subtitle')}</p>
+              <p className="accessibility-subtitle">{tLegal('accessibility.reviewDate', { date: 'March 31, 2026' })}</p>
             </div>
 
             <div className="accessibility-content">
               <section className="accessibility-section">
-                <h2>Our Commitment</h2>
-                <p>
-                  We want Rate My Performance (RMP) to be accessible to everyone, including 
-                  people who use screen readers, keyboard navigation, or other assistive 
-                  technologies. We aim to meet WCAG 2.1 Level AA standards — the widely 
-                  accepted benchmark for web accessibility. While we are not perfect, we are 
-                  actively working to improve the experience for all users.
-                </p>
+                <h2>{tLegal('accessibility.commitmentTitle')}</h2>
+                <p>{tLegal('accessibility.commitmentContent')}</p>
               </section>
 
               <section className="accessibility-section">
-                <h2>Current Features</h2>
-                <h3>Navigation & Keyboard Access</h3>
+                <h2>{tLegal('accessibility.featuresTitle')}</h2>
+                <h3>{tLegal('accessibility.navTitle')}</h3>
                 <ul>
-                  <li>Keyboard navigation support for all interactive elements</li>
-                  <li>Skip link to jump directly to main content (visible when focused)</li>
-                  <li>Consistent navigation structure across all pages</li>
-                  <li>Clear, visible focus indicators (outline) on buttons, links, and form inputs</li>
-                  <li>Proper heading hierarchy (h1, h2, h3) for logical page structure</li>
-                  <li>Keyboard-accessible modals with Escape key to close</li>
-                  <li>Focus trapping inside modals so Tab/Shift+Tab stays within the dialog</li>
-                  <li>Focus restored to the triggering button when a modal closes</li>
-                  <li>Logical Tab order following reading order (top to bottom, left to right)</li>
-                  <li>No keyboard traps: users can navigate away from any element using keyboard alone</li>
-                  <li>All interactive elements have minimum 44×44px touch target size</li>
+                  <li>{tLegal('accessibility.navItem1')}</li>
+                  <li>{tLegal('accessibility.navItem2')}</li>
+                  <li>{tLegal('accessibility.navItem3')}</li>
+                  <li>{tLegal('accessibility.navItem4')}</li>
+                  <li>{tLegal('accessibility.navItem5')}</li>
+                  <li>{tLegal('accessibility.navItem6')}</li>
+                  <li>{tLegal('accessibility.navItem7')}</li>
+                  <li>{tLegal('accessibility.navItem8')}</li>
+                  <li>{tLegal('accessibility.navItem9')}</li>
+                  <li>{tLegal('accessibility.navItem10')}</li>
+                  <li>{tLegal('accessibility.navItem11')}</li>
                 </ul>
                 
-                <h3>Text and Reading</h3>
+                <h3>{tLegal('accessibility.textTitle')}</h3>
                 <ul>
-                  <li>Readable sans-serif fonts with sufficient line height</li>
-                  <li>Dark text (#333) on light backgrounds meets WCAG AA color contrast (7:1 ratio)</li>
-                  <li>Text scales properly with browser zoom up to 200%</li>
-                  <li>Alt text on all images and icons that convey meaning</li>
+                  <li>{tLegal('accessibility.textItem1')}</li>
+                  <li>{tLegal('accessibility.textItem2')}</li>
+                  <li>{tLegal('accessibility.textItem3')}</li>
+                  <li>{tLegal('accessibility.textItem4')}</li>
                 </ul>
 
-                <h3>Form Validation & Error Handling</h3>
+                <h3>{tLegal('accessibility.formTitle')}</h3>
                 <ul>
-                  <li>All form inputs have visible, associated labels or aria-labels</li>
-                  <li>Form validation errors are clearly identified with descriptive messages</li>
-                  <li>Error messages explain how to fix the problem (e.g., "Display name must be 30 characters or less. Current: 45")</li>
-                  <li>Errors are announced to screen readers via aria-live="assertive"</li>
-                  <li>aria-invalid attributes indicate invalid fields</li>
-                  <li>Critical actions (like reporting comments) require user confirmation before proceeding</li>
+                  <li>{tLegal('accessibility.formItem1')}</li>
+                  <li>{tLegal('accessibility.formItem2')}</li>
+                  <li>{tLegal('accessibility.formItem3')}</li>
+                  <li>{tLegal('accessibility.formItem4')}</li>
+                  <li>{tLegal('accessibility.formItem5')}</li>
+                  <li>{tLegal('accessibility.formItem6')}</li>
                 </ul>
 
-                <h3>Screen Readers & Assistive Technology</h3>
+                <h3>{tLegal('accessibility.screenReaderTitle')}</h3>
                 <ul>
-                  <li>ARIA labels on buttons to describe their function (e.g., "Like this comment")</li>
-                  <li>ARIA alerts for error messages with role="alert" and aria-live="assertive"</li>
-                  <li>ARIA status regions for vote count announcements</li>
-                  <li>Toggle states communicated via aria-pressed (vote buttons) and aria-expanded (reply threads)</li>
-                  <li>Proper form structure with fieldset/legend for grouped controls (avatar selector)</li>
-                  <li>aria-describedby and aria-invalid attributes on form fields</li>
-                  <li>Dialog and modal windows with proper aria-labelledby and aria-describedby</li>
-                  <li>Decorative icons hidden from screen readers with aria-hidden to prevent duplicate announcements</li>
-                  <li>Quiz progress bar with ARIA role="progressbar" and live updates for each question</li>
-                  <li>Quiz answer buttons with descriptive aria-labels</li>
-                  <li>Quiz results announced via live region (role="status" aria-live="polite")</li>
+                  <li>{tLegal('accessibility.screenReaderItem1')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem2')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem3')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem4')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem5')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem6')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem7')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem8')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem9')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem10')}</li>
+                  <li>{tLegal('accessibility.screenReaderItem11')}</li>
                 </ul>
 
-                <h3>Mobile Experience</h3>
+                <h3>{tLegal('accessibility.mobileTitle')}</h3>
                 <ul>
-                  <li>Touch-friendly button sizes (minimum 44x44px) via invisible touch target overlays</li>
-                  <li>Responsive design that adapts to mobile, tablet, and desktop screens</li>
-                  <li>Hamburger menu for mobile navigation with aria-label</li>
-                  <li>Simplified layouts on smaller screens without loss of functionality</li>
+                  <li>{tLegal('accessibility.mobileItem1')}</li>
+                  <li>{tLegal('accessibility.mobileItem2')}</li>
+                  <li>{tLegal('accessibility.mobileItem3')}</li>
+                  <li>{tLegal('accessibility.mobileItem4')}</li>
                 </ul>
 
-                <h3>Motion & Visual Preferences</h3>
+                <h3>{tLegal('accessibility.motionTitle')}</h3>
                 <ul>
-                  <li>Respects prefers-reduced-motion: all animations and transitions are disabled when the user's system setting requests reduced motion</li>
-                  <li>No content depends solely on animation to be understood</li>
-                </ul>
-              </section>
-
-              <section className="accessibility-section">
-                <h2>Known Issues & Ongoing Improvements</h2>
-                <p>
-                  We continuously monitor and improve accessibility. If you encounter any issues, please let us know:
-                </p>
-                <ul>
-                  <li><strong>Browser/assistive tech combinations:</strong> While we test on major browsers and screen readers (NVDA, JAWS, VoiceOver), some niche combinations may have issues</li>
-                  <li><strong>Third-party embeds:</strong> Some ads or embedded content may not fully meet WCAG AA standards due to external provider limitations</li>
-                  <li><strong>Future enhancements:</strong> We're always looking for ways to improve. Your feedback helps us identify accessibility barriers we may have missed</li>
+                  <li>{tLegal('accessibility.motionItem1')}</li>
+                  <li>{tLegal('accessibility.motionItem2')}</li>
                 </ul>
               </section>
 
               <section className="accessibility-section">
-                <h2>Browser and Technology Support</h2>
-                <p>We test and support accessibility with:</p>
+                <h2>{tLegal('accessibility.knownIssuesTitle')}</h2>
+                <p>{tLegal('accessibility.knownIssuesIntro')}</p>
                 <ul>
-                  <li><strong>Browsers:</strong> Chrome, Firefox, Safari (desktop and mobile), and Edge (latest versions)</li>
-                  <li><strong>Screen readers:</strong> NVDA (Windows), JAWS (Windows), and VoiceOver (macOS/iOS)</li>
-                  <li><strong>Keyboard navigation:</strong> Full support for Tab, Enter, Spacebar, and Arrow keys</li>
-                  <li><strong>Browser zoom:</strong> Responsive layouts at zoom levels from 80% to 200%</li>
-                  <li><strong>High contrast mode:</strong> Windows High Contrast Mode support</li>
-                  <li><strong>Mobile assistive tech:</strong> TalkBack (Android) and VoiceOver (iOS)</li>
-                </ul>
-                <p>
-                  If you're using assistive technology and something isn't working as expected, 
-                  please let us know. Sometimes the issue may be specific to a combination of 
-                  browser + screen reader + operating system, and we want to help troubleshoot.
-                </p>
-              </section>
-
-              <section className="accessibility-section">
-                <h2>Accessibility Standards</h2>
-                <p>
-                  We aim to conform to WCAG 2.1 Level AA standards across the site. In 
-                  plain terms, that means:
-                </p>
-                <ul>
-                  <li>Text is easy to read against its background (at least 4.5:1 contrast ratio)</li>
-                  <li>Everything works with a keyboard — no mouse required</li>
-                  <li>Screen readers can understand the page structure and announce content correctly</li>
-                  <li>Form fields have clear labels and helpful error messages</li>
-                  <li>Nothing times out before you have a chance to read or interact with it</li>
-                </ul>
-                <p>
-                  WCAG 2.1 Level AA is the widely accepted standard for web accessibility 
-                  and helps ensure that most users with disabilities can navigate and use 
-                  the site effectively.
-                </p>
-              </section>
-
-              <section className="accessibility-section">
-                <h2>Getting Help</h2>
-                <p>
-                  If you need content in a different format or are having trouble 
-                  accessing any part of the site, we're happy to help. We can provide 
-                  information in alternative formats when possible.
-                </p>
-                <p>
-                  When reporting accessibility issues, it helps if you can tell us:
-                </p>
-                <ul>
-                  <li>What browser and assistive technology you're using (e.g., NVDA, JAWS, VoiceOver)</li>
-                  <li>What page or feature you're trying to use</li>
-                  <li>What happened vs. what you expected</li>
-                  <li>Whether the issue affects core functionality (e.g., commenting) or secondary features (e.g., animations)</li>
+                  <li><Trans i18nKey="accessibility.knownIssuesItem1" ns="legal"><strong>Browser/assistive tech combinations:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.knownIssuesItem2" ns="legal"><strong>Third-party embeds:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.knownIssuesItem3" ns="legal"><strong>Future enhancements:</strong></Trans></li>
                 </ul>
               </section>
 
               <section className="accessibility-section">
-                <h2>Third-Party Content & Limitations</h2>
-                <p>
-                  Some features on this site (such as ads or embedded content) come from third parties 
-                  and may not meet the same accessibility standards that we maintain. We do our best 
-                  to choose accessible third-party providers, but we can't control everything.
-                </p>
-                <p>
-                  If third-party content is blocking your access to core site features 
-                  (commenting, voting, navigation), please contact us and we'll look for alternatives 
-                  or provide workarounds to ensure you can use the site fully.
-                </p>
+                <h2>{tLegal('accessibility.browserTitle')}</h2>
+                <p>{tLegal('accessibility.browserIntro')}</p>
+                <ul>
+                  <li><Trans i18nKey="accessibility.browserItem1" ns="legal"><strong>Browsers:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.browserItem2" ns="legal"><strong>Screen readers:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.browserItem3" ns="legal"><strong>Keyboard navigation:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.browserItem4" ns="legal"><strong>Browser zoom:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.browserItem5" ns="legal"><strong>High contrast mode:</strong></Trans></li>
+                  <li><Trans i18nKey="accessibility.browserItem6" ns="legal"><strong>Mobile assistive tech:</strong></Trans></li>
+                </ul>
+                <p>{tLegal('accessibility.browserClosing')}</p>
+              </section>
+
+              <section className="accessibility-section">
+                <h2>{tLegal('accessibility.standardsTitle')}</h2>
+                <p>{tLegal('accessibility.standardsIntro')}</p>
+                <ul>
+                  <li>{tLegal('accessibility.standardsItem1')}</li>
+                  <li>{tLegal('accessibility.standardsItem2')}</li>
+                  <li>{tLegal('accessibility.standardsItem3')}</li>
+                  <li>{tLegal('accessibility.standardsItem4')}</li>
+                  <li>{tLegal('accessibility.standardsItem5')}</li>
+                </ul>
+                <p>{tLegal('accessibility.standardsClosing')}</p>
+              </section>
+
+              <section className="accessibility-section">
+                <h2>{tLegal('accessibility.helpTitle')}</h2>
+                <p>{tLegal('accessibility.helpP1')}</p>
+                <p>{tLegal('accessibility.helpP2')}</p>
+                <ul>
+                  <li>{tLegal('accessibility.helpItem1')}</li>
+                  <li>{tLegal('accessibility.helpItem2')}</li>
+                  <li>{tLegal('accessibility.helpItem3')}</li>
+                  <li>{tLegal('accessibility.helpItem4')}</li>
+                </ul>
+              </section>
+
+              <section className="accessibility-section">
+                <h2>{tLegal('accessibility.thirdPartyTitle')}</h2>
+                <p>{tLegal('accessibility.thirdPartyP1')}</p>
+                <p>{tLegal('accessibility.thirdPartyP2')}</p>
               </section>
 
               <div className="accessibility-footer">
                 <p>
-                  <strong>Contact:</strong> If you encounter accessibility barriers or have feedback, you can reach out at <span 
-                    className="contact-email" 
-                    onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
-                    role="button"
-                    tabIndex="0"
-                    aria-label="Copy email address to clipboard: cadence@cadencekeys.com"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleCopyEmail('cadence@cadencekeys.com');
-                      }
-                    }}
-                  >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
+                  <Trans i18nKey="accessibility.footerP1" ns="legal" values={{ email: 'cadence@cadencekeys.com' }}>
+                    If you encounter accessibility barriers or have feedback, you can reach out at <span 
+                      className="contact-email" 
+                      onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                      role="button"
+                      tabIndex="0"
+                      aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleCopyEmail('cadence@cadencekeys.com');
+                        }
+                      }}
+                    >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
+                  </Trans>
                 </p>
               </div>
             </div>

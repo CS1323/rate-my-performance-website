@@ -1,25 +1,27 @@
 
+import { useTranslation } from 'react-i18next';
 import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 import PuckLogo from '../assets/images/icons/cfu-puck.svg';
 import ListIcon from '../assets/images/icons/list.svg';
 import './Header.css';
 
 export function Header({ onToggleSidebar, sidebarOpen }) {
+  const { t } = useTranslation();
   return (
     <>
-      <a href="#main" className="skip-link">Skip to main content</a>
+      <a href="#main" className="skip-link">{t('header.skipToContent')}</a>
       <header>
       <div className="header-left">
         <button 
           className="hamburger-btn" 
           onClick={onToggleSidebar}
-          aria-label="Toggle navigation"
-          title="Toggle menu"
+          aria-label={t('header.toggleNav')}
+          title={t('header.toggleMenu')}
         >
-          <img src={ListIcon} alt="Menu" className="puck-toggle-logo" />
+          <img src={ListIcon} alt={t('header.menuAlt')} className="puck-toggle-logo" />
         </button>
-        <img src={PuckLogo} alt="CFU puck logo" className="puck-logo-static" />
-        <span className="header-title">RATE MY PERFORMANCE</span>
+        <img src={PuckLogo} alt={t('header.logoAlt')} className="puck-logo-static" />
+        <span className="header-title">{t('header.siteTitle')}</span>
       </div>
       <div className="socials">
         <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer">

@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '../i18n';
 
 export class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -32,11 +33,11 @@ export class ErrorBoundary extends React.Component {
           margin: '1rem',
           color: '#721c24',
         }}>
-          <h2>Something went wrong</h2>
-          <p>We encountered an unexpected error. Please try refreshing the page.</p>
+          <h2>{i18n.t('errors.heading')}</h2>
+          <p>{i18n.t('errors.description')}</p>
           {process.env.NODE_ENV === 'development' && this.state.error && (
             <details style={{ marginTop: '1rem', textAlign: 'left', whiteSpace: 'pre-wrap' }}>
-              <summary>Error details (dev only)</summary>
+              <summary>{i18n.t('errors.devDetails')}</summary>
               <p>{this.state.error.toString()}</p>
               {this.state.errorInfo && <p>{this.state.errorInfo.componentStack}</p>}
             </details>

@@ -1,5 +1,7 @@
 import { useState, useRef, useCallback, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { mapApiError } from '../../utils/errorMapper';
 
 import './CommentForm.css';
 
@@ -11,14 +13,15 @@ import HockeyPlayer from '../../assets/images/icons/avatars/hockey-player.svg';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 const AVATARS = [
-  { id: 1, image: HockeyStickSvg, label: 'Hockey Stick' },
-  { id: 2, image: HockeySkate, label: 'Hockey Skate' },
-  { id: 3, image: HockeyRink, label: 'Hockey Rink' },
-  { id: 4, image: HockeyPlayer, label: 'Hockey Player' },
+  { id: 1, image: HockeyStickSvg, labelKey: 'commentForm.avatarHockeyStick' },
+  { id: 2, image: HockeySkate, labelKey: 'commentForm.avatarHockeySkate' },
+  { id: 3, image: HockeyRink, labelKey: 'commentForm.avatarHockeyRink' },
+  { id: 4, image: HockeyPlayer, labelKey: 'commentForm.avatarHockeyPlayer' },
 ];
 
 
 function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCancel, mode = 'comment' }) {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [avatarId, setAvatarId] = useState(1);
   const [content, setContent] = useState('');
@@ -32,22 +35,22 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
     e.preventDefault();
 
     if (!username.trim()) {
-      setError('Display name required (minimum 1 character)');
+      setError(t('commentForm.errorNameRequired'));
       usernameRef.current?.focus();
       return;
     }
     if (username.trim().length > 30) {
-      setError(`Display name too long (maximum 30 characters, current: ${username.trim().length})`);
+      setError(t('commentForm.errorNameTooLong', { length: username.trim().length }));
       usernameRef.current?.focus();
       return;
     }
     if (!content.trim()) {
-      setError(`Please enter a ${mode === 'reply' ? 'reply' : 'comment'} (minimum 1 character)`);
+      setError(t('commentForm.errorContentRequired', { type: mode === 'reply' ? t('commentForm.replyLabel') : t('commentForm.commentLabel') }));
       contentRef.current?.focus();
       return;
     }
     if (content.trim().length > 2000) {
-      setError(`${mode === 'reply' ? 'Reply' : 'Comment'} too long (maximum 2000 characters, current: ${content.trim().length})`);
+      setError(t('commentForm.errorContentTooLong', { type: mode === 'reply' ? t('commentForm.replyLabel') : t('commentForm.commentLabel'), length: content.trim().length }));
       contentRef.current?.focus();
       return;
     }
@@ -75,7 +78,7 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       if (onCancel) onCancel();
       
     } catch (err) {
-      setError(err.response?.data?.error || `Failed to post ${mode}`);
+      setError(mapApiError(err.response?.data?.error, t) || t('commentForm.errorSubmitFailed', { type: mode }));
       console.error(`Error posting ${mode}:`, err);
       
     } finally {
@@ -98,12 +101,12 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       )}
       
       <div className="form-row">
-        <label htmlFor={mode + "-username"}>Display name</label>
+        <label htmlFor={mode + "-username"}>{t('commentForm.displayNameLabel')}</label>
         <input
           ref={usernameRef}
           id={mode + "-username"}
           type="text"
-          placeholder="Your name"
+          placeholder={t('commentForm.displayNamePlaceholder')}
           maxLength="30"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -114,7 +117,7 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       </div>
       
       <fieldset className="form-row avatar-picker">
-        <legend>Choose an avatar</legend>
+        <legend>{t('commentForm.chooseAvatar')}</legend>
         <div className="avatars">
           {AVATARS.map((avatar) => {
             return (
@@ -129,9 +132,9 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
                 />
                 <img 
                   src={avatar.image}
-                  alt={avatar.label}
+                  alt={t(avatar.labelKey)}
                   className={`avatar-preview ${parseInt(avatarId) === avatar.id ? 'selected' : ''}`}
-                  title={avatar.label}
+                  title={t(avatar.labelKey)}
                 />
               </label>
             );
@@ -140,12 +143,12 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       </fieldset>
 
       <div className="form-row">
-        <label htmlFor={mode + "-content"}>{mode === 'reply' ? 'Reply' : 'Comment'}</label>
+        <label htmlFor={mode + "-content"}>{mode === 'reply' ? t('commentForm.replyLabel') : t('commentForm.commentLabel')}</label>
         <textarea
           ref={contentRef}
           id={mode + "-content"}
           rows={mode === 'reply' ? 3 : 4}
-          placeholder={mode === 'reply' ? 'Write your reply...' : 'Write your comment...'}
+          placeholder={mode === 'reply' ? t('commentForm.replyPlaceholder') : t('commentForm.commentPlaceholder')}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           disabled={loading}
@@ -160,10 +163,10 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
 
       <div className="form-row form-actions">
         <button type="submit" className="btn-post" disabled={loading}>
-          {loading ? (mode === 'reply' ? 'Replying...' : 'Posting...') : (mode === 'reply' ? 'Reply' : 'Post comment')}
+          {loading ? (mode === 'reply' ? t('commentForm.submittingReply') : t('commentForm.submittingComment')) : (mode === 'reply' ? t('commentForm.submitReply') : t('commentForm.submitComment'))}
         </button>
         {onCancel && (
-          <button type="button" onClick={onCancel} disabled={loading} className="cancel-btn">Cancel</button>
+          <button type="button" onClick={onCancel} disabled={loading} className="cancel-btn">{t('commentForm.cancel')}</button>
         )}
       </div>
     </form>

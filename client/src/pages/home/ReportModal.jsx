@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './ReportModal.css';
 
 export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
+  const { t } = useTranslation();
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   const submitButtonRef = useRef(null);
@@ -69,18 +71,18 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
       aria-describedby="report-dialog-desc"
     >
       <div className="report-modal-content">
-        <h2 id="report-dialog-title">Report Comment</h2>
+        <h2 id="report-dialog-title">{t('report.heading')}</h2>
         <p id="report-dialog-desc">
-          Help us keep the community safe. Why are you reporting this comment?
+          {t('report.description')}
         </p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="report-reason">Reason (optional)</label>
+            <label htmlFor="report-reason">{t('report.reasonLabel')}</label>
             <textarea
               ref={inputRef}
               id="report-reason"
-              placeholder="Let us know why you're reporting this comment..."
+              placeholder={t('report.reasonPlaceholder')}
               maxLength="500"
               rows="4"
               disabled={isLoading}
@@ -94,7 +96,7 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
               onClick={handleCancel}
               disabled={isLoading}
             >
-              Cancel
+              {t('report.cancel')}
             </button>
             <button
               ref={submitButtonRef}
@@ -102,7 +104,7 @@ export function ReportModal({ isOpen, onClose, onSubmit, isLoading }) {
               className="btn-submit"
               disabled={isLoading}
             >
-              {isLoading ? 'Submitting...' : 'Report'}
+              {isLoading ? t('report.submitting') : t('report.submit')}
             </button>
           </div>
         </form>

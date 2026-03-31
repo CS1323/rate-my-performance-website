@@ -1,13 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { useAds } from '../context/AdsContext';
 import './AdsSidebar.css';
 
 export function AdsSidebar({ adIndex }) {
   const { ads, loading, error } = useAds();
+  const { t } = useTranslation();
 
   if (loading) {
     return (
       <aside className="right sidebar">
-        <div className="ad-placeholder">Loading ads...</div>
+        <div className="ad-placeholder">{t('ads.loading')}</div>
       </aside>
     );
   }
@@ -15,7 +17,7 @@ export function AdsSidebar({ adIndex }) {
   if (error || ads.length === 0) {
     return (
       <aside className="right sidebar">
-        <div className="ad-placeholder">No ads available</div>
+        <div className="ad-placeholder">{t('ads.noAds')}</div>
       </aside>
     );
   }
@@ -30,7 +32,7 @@ export function AdsSidebar({ adIndex }) {
           <img 
             className="ad-image" 
             src={ad.imageUrl} 
-            alt={ad.alt || 'Advertisement'} 
+            alt={ad.alt || t('ads.imageAlt')} 
             loading="lazy"
           />
         </a>
@@ -46,7 +48,7 @@ export function AdsSidebar({ adIndex }) {
           <img 
             className="ad-image" 
             src={ad.imageUrl} 
-            alt={ad.alt || 'Advertisement'} 
+            alt={ad.alt || t('ads.imageAlt')} 
             loading="eager"
           />
         </a>

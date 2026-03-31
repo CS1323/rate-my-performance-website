@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -7,6 +8,7 @@ import './AboutMe.css';
 
 export function AboutMe() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useTranslation('legal');
 
   const handleToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -14,7 +16,7 @@ export function AboutMe() {
 
   return (
     <>
-      <title>About Me - RMP</title>
+      <title>{t('about.pageTitle')}</title>
 
       <Header onToggleSidebar={handleToggleSidebar} />
       
@@ -27,14 +29,14 @@ export function AboutMe() {
         <main className="content">
           <div className="about-container">
             <div className="about-header">
-              <h1>About Cadence Keys</h1>
+              <h1>{t('about.heading')}</h1>
             </div>
 
             <div className="about-content">
               <div className="author-photo-container">
                 <img 
                   src={AuthorPhoto} 
-                  alt="Cadence Keys" 
+                  alt={t('about.imageAlt')} 
                   className="author-photo"
                   onError={(e) => {
                     // Fallback if image doesn't exist
@@ -43,27 +45,18 @@ export function AboutMe() {
                   }}
                 />
                 <div className="photo-placeholder" style={{display: 'none'}}>
-                  <span>Author Photo</span>
+                  <span>{t('about.imageAlt')}</span>
                 </div>
               </div>
 
               <div className="about-text">
+                <p>{t('about.p1')}</p>
+                <p>{t('about.p2')}</p>
+                <p>{t('about.p3')}</p>
                 <p>
-                  Welcome! I'm Cadence, your friendly, neighborhood romance writer. 
-                </p>
-
-                <p>
-                  By day, I look like an average frazzled mom of two toddlers who rarely does her hair (a mom bun totally counts, right?). By night, I let my imagination fly and write steamy scenes that have taken several of my closest friends by major surprise. I love writing heartfelt stories with relatable characters and a guaranteed happily ever after.
-                </p>
-
-                <p>
-                  Thank you for visiting, and I hope you enjoy getting to know the players 
-                  of Clark Fork University hockey as much as I do!
-                </p>
-
-                <p>Find out more about my books at <a href="https://cadencekeys.com/" target="_blank" rel="noopener noreferrer" className="contact-email">
-                    cadencekeys.com
-                  </a>
+                  <Trans i18nKey="about.p4" ns="legal">
+                    Find out more about my books at <a href="https://cadencekeys.com/" target="_blank" rel="noopener noreferrer" className="contact-email">cadencekeys.com</a>
+                  </Trans>
                 </p>
               </div>
             </div>

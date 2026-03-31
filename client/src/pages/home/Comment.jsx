@@ -3,6 +3,7 @@ import ThumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
 import FlagIcon from '../../assets/images/icons/flag.svg';
 import MessageSquareIcon from '../../assets/images/icons/message-square.svg';
 import { useState, useCallback, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
@@ -25,7 +26,7 @@ const AVATAR_IMAGES = {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 // Helper function to format relative time
-function formatTimeAgo(createdAt, isMobile = false) {
+function formatTimeAgo(createdAt, isMobile = false, t) {
   const now = new Date();
   const created = new Date(createdAt);
   const diffMs = now - created;
@@ -41,9 +42,9 @@ function formatTimeAgo(createdAt, isMobile = false) {
     return created.toLocaleDateString();
   } else {
     // Desktop: full format
-    if (diffMins < 60) return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
-    if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
-    if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+    if (diffMins < 60) return t('comment.time.minutesAgo', { count: diffMins });
+    if (diffHours < 24) return t('comment.time.hoursAgo', { count: diffHours });
+    if (diffDays < 7) return t('comment.time.daysAgo', { count: diffDays });
     return created.toLocaleDateString();
   }
 }
@@ -62,6 +63,7 @@ function countAllReplies(replies) {
 }
 
 function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPosted, depth = 0 }) {
+    const { t } = useTranslation();
     const [reporting, setReporting] = useState(false);
     const [reportModalOpen, setReportModalOpen] = useState(false);
     const [reportStatus, setReportStatus] = useState('');
@@ -71,9 +73,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
     const isMobile = isMobileScreen();
 
     const handleFlagClick = useCallback(() => {
-      const confirmed = window.confirm(
-        'Report this comment for moderation?\n\nThis action helps us keep the community safe. Misuse of the report feature may result in restrictions.'
-      );
+      const confirmed = window.confirm(t('comment.reportConfirm'));
       if (confirmed) {
         setReportModalOpen(true);
       }
@@ -86,12 +86,12 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           commentId: comment.id,
           reason: reason || '',
         });
-        setReportStatus('Thank you for your report. Our moderators will review this comment.');
+        setReportStatus(t('comment.reportSuccess'));
         setReportModalOpen(false);
         // Clear the status message after 5 seconds
         setTimeout(() => setReportStatus(''), 5000);
       } catch (err) {
-        setReportStatus('Failed to report comment. Please try again later.');
+        setReportStatus(t('comment.reportError'));
         console.error('Report error:', err);
       } finally {
         setReporting(false);
@@ -112,9 +112,8 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
   const handleVoteClick = useCallback((voteType) => {
     if (onVote && isVisible) {
       onVote(comment.id, voteType);
-      // Announce vote to screen readers
       const voteLabel = voteType === 'LIKE' ? 'liked' : 'disliked';
-      setVoteAnnouncementMessage(`You ${voteLabel} this comment`);
+      setVoteAnnouncementMessage(t('comment.voteAnnouncement', { type: voteLabel }));
       setTimeout(() => setVoteAnnouncementMessage(''), 3000); // Clear after 3 seconds
     }
   }, [onVote, isVisible, comment.id]);
@@ -149,12 +148,12 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
             {isHidden ? (
               <>
                 <span className="material-symbols-outlined placeholder-icon">visibility_off</span>
-                Comment hidden by moderation
+                {t('comment.hiddenByModeration')}
               </>
             ) : (
               <>
                 <span className="material-symbols-outlined placeholder-icon">delete</span>
-                Comment deleted
+                {t('comment.deleted')}
               </>
             )}
           </div>
@@ -199,15 +198,15 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           <span className="avatar">
             <img
               src={AVATAR_IMAGES[comment.avatarId] || HockeyStickSvg}
-              alt={`Avatar ${comment.avatarId}`}
+              alt={t('comment.avatarAlt', { id: comment.avatarId })}
               className="avatar-preview"
               loading="lazy"
               decoding="async"
-              title={`Avatar ${comment.avatarId}`}
+              title={t('comment.avatarAlt', { id: comment.avatarId })}
             />
           </span>
           <div className="meta">
-            <div className="username">{comment.authorName} <span className="time-separator">·</span> <span className="time-inline">{formatTimeAgo(comment.createdAt, isMobile)}</span></div>
+            <div className="username">{comment.authorName} <span className="time-separator">·</span> <span className="time-inline">{formatTimeAgo(comment.createdAt, isMobile, t)}</span></div>
           </div>
         </div>
 
@@ -217,15 +216,15 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           <button 
             className="reply" 
             onClick={handleReplyClick}
-            aria-label="Reply to this comment"
+            aria-label={t('comment.replyButton')}
           >
             <img src={MessageSquareIcon} alt="" aria-hidden="true" />
-            Reply
+            {t('commentForm.submitReply')}
           </button>
           <button 
             className={`vote up ${currentUserVote === 'LIKE' ? 'voted' : ''}`} 
             onClick={() => handleVoteClick('LIKE')}
-            aria-label={`Like this comment, ${comment.likeCount || 0} likes`}
+            aria-label={t('comment.likeButton', { count: comment.likeCount || 0 })}
             aria-pressed={currentUserVote === 'LIKE'}
           >
             <img src={ThumbsUpIcon} alt="" aria-hidden="true" />
@@ -234,7 +233,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           <button 
             className={`vote down ${currentUserVote === 'DISLIKE' ? 'voted' : ''}`}
             onClick={() => handleVoteClick('DISLIKE')}
-            aria-label={`Dislike this comment, ${comment.dislikeCount || 0} dislikes`}
+            aria-label={t('comment.dislikeButton', { count: comment.dislikeCount || 0 })}
             aria-pressed={currentUserVote === 'DISLIKE'}
           >
             <img src={ThumbsDownIcon} alt="" aria-hidden="true" />
@@ -242,7 +241,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           </button>
           <button 
             className="flag" 
-            aria-label="Report this comment as inappropriate"
+            aria-label={t('comment.reportButton')}
             onClick={handleFlagClick}
           >
             <img src={FlagIcon} alt="" aria-hidden="true" />
@@ -302,15 +301,15 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
                         aria-expanded={isExpanded}
                         aria-label={
                           isExpanded && hiddenCount > 0
-                            ? `Load ${hiddenCount} more ${hiddenCount === 1 ? 'reply' : 'replies'}`
+                            ? t('comment.loadMoreReplies', { count: hiddenCount })
                             : isExpanded
-                              ? `Hide ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`
-                              : `Load ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`
+                              ? t('comment.hideReplies', { count: totalReplies })
+                              : t('comment.expandReplies', { count: totalReplies })
                         }
                       >
                         {isExpanded && hiddenCount > 0
-                          ? `+ Load ${hiddenCount} ${hiddenCount === 1 ? 'reply' : 'replies'}`
-                          : `${isExpanded ? '−' : '+'} ${isExpanded ? 'Hide' : 'Load'} ${totalReplies} ${totalReplies === 1 ? 'reply' : 'replies'}`}
+                          ? `+ ${t('comment.loadMoreReplies', { count: hiddenCount })}`
+                          : `${isExpanded ? '−' : '+'} ${isExpanded ? t('comment.hideReplies', { count: totalReplies }) : t('comment.expandReplies', { count: totalReplies })}`}
                       </button>
                     </div>
                   )}

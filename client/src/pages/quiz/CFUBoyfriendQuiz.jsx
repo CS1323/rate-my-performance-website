@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -12,6 +13,7 @@ export function CFUBoyfriendQuiz() {
   const [result, setResult] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
+  const { t } = useTranslation();
 
   const handleToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -20,15 +22,15 @@ export function CFUBoyfriendQuiz() {
   // Shuffle answers when question changes
   useEffect(() => {
     const currentQuestion = quizData.questions[currentQuestionIndex];
-    const shuffled = [...currentQuestion.answers];
+    const answersWithIndex = currentQuestion.answers.map((a, i) => ({ ...a, originalIndex: i }));
     
     // Fisher-Yates shuffle
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    for (let i = answersWithIndex.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      [answersWithIndex[i], answersWithIndex[j]] = [answersWithIndex[j], answersWithIndex[i]];
     }
     
-    setShuffledAnswers(shuffled);
+    setShuffledAnswers(answersWithIndex);
   }, [currentQuestionIndex]);
 
   const handleAnswerSelect = (selectedAnswer) => {
@@ -86,11 +88,11 @@ export function CFUBoyfriendQuiz() {
     }
   };
 
-  const currentQuestion = quizData.questions[currentQuestionIndex];
+  const qNum = currentQuestionIndex + 1;
 
   return (
     <>
-      <title>CFU Boyfriend Quiz - RMP</title>
+      <title>{t('quiz.pageTitle')}</title>
 
       <Header onToggleSidebar={handleToggleSidebar} />
       
@@ -105,39 +107,42 @@ export function CFUBoyfriendQuiz() {
             {!quizCompleted ? (
               <div className="quiz-active">
                 <div className="quiz-header">
-                  <h1>CFU Boyfriend Quiz</h1>
-                  <p className="quiz-subtitle">Discover which CFU hockey player is your perfect match!</p>
-                  <div className="progress-bar" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin="1" aria-valuemax={quizData.questions.length} aria-label={`Quiz progress: question ${currentQuestionIndex + 1} of ${quizData.questions.length}`}>
+                  <h1>{t('quiz.heading')}</h1>
+                  <p className="quiz-subtitle">{t('quiz.subtitle')}</p>
+                  <div className="progress-bar" role="progressbar" aria-valuenow={qNum} aria-valuemin="1" aria-valuemax={quizData.questions.length} aria-label={t('quiz.progressLabel', { current: qNum, total: quizData.questions.length })}>
                     <div 
                       className="progress-fill" 
-                      style={{ width: `${((currentQuestionIndex + 1) / quizData.questions.length) * 100}%` }}
+                      style={{ width: `${(qNum / quizData.questions.length) * 100}%` }}
                     ></div>
                   </div>
                   <p className="progress-text">
-                    Question {currentQuestionIndex + 1} of {quizData.questions.length}
+                    {t('quiz.progressText', { current: qNum, total: quizData.questions.length })}
                   </p>
                 </div>
 
                 <div className="question-card">
-                  <h2 className="question-title">{currentQuestion.question}</h2>
+                  <h2 className="question-title">{t(`quizData.questions.q${qNum}.text`)}</h2>
                   <div className="answers-list">
-                    {shuffledAnswers.map((answer, index) => (
-                      <button
-                        key={index}
-                        className="answer-button"
-                        onClick={() => handleAnswerSelect(answer)}
-                        aria-label={`Answer option: ${answer.text}`}
-                      >
-                        {answer.text}
-                      </button>
-                    ))}
+                    {shuffledAnswers.map((answer, index) => {
+                      const answerText = t(`quizData.questions.q${qNum}.answers.a${answer.originalIndex + 1}`);
+                      return (
+                        <button
+                          key={index}
+                          className="answer-button"
+                          onClick={() => handleAnswerSelect(answer)}
+                          aria-label={t('quiz.answerLabel', { text: answerText })}
+                        >
+                          {answerText}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
                 <div className="quiz-navigation">
                   {currentQuestionIndex > 0 && (
                     <button className="nav-button back-button" onClick={goBack}>
-                      ← Back
+                      {t('quiz.back')}
                     </button>
                   )}
                 </div>
@@ -145,33 +150,33 @@ export function CFUBoyfriendQuiz() {
             ) : (
               <div className="quiz-result" role="status" aria-live="polite" aria-atomic="true">
                 <div className="result-card">
-                  <h1>Your CFU Boyfriend is...</h1>
+                  <h1>{t('quiz.resultHeading')}</h1>
                   <div className="boyfriend-result">
                     <div className="boyfriend-emoji" aria-hidden="true">{result.emoji}</div>
-                    <h2 className="boyfriend-name">{result.name}</h2>
-                    <p className="boyfriend-position">{result.position} • #{result.number}</p>
-                    <p className="boyfriend-description">{result.description}</p>
+                    <h2 className="boyfriend-name">{t(`quizData.boyfriends.${result.id}.name`)}</h2>
+                    <p className="boyfriend-position">{t('quiz.resultPosition', { position: t(`quizData.boyfriends.${result.id}.position`), number: t(`quizData.boyfriends.${result.id}.number`) })}</p>
+                    <p className="boyfriend-description">{t(`quizData.boyfriends.${result.id}.description`)}</p>
                     
                     <div className="boyfriend-traits">
                       <div className="traits-list">
-                        {result.traits.map((trait, index) => (
+                        {t(`quizData.boyfriends.${result.id}.traits`, { returnObjects: true }).map((trait, index) => (
                           <span key={index} className="trait-badge">{trait}</span>
                         ))}
                       </div>
                     </div>
                     
-                    {result.bookQuote && (
+                    {t(`quizData.boyfriends.${result.id}.quote`) && (
                       <div className="book-quote">
-                        <p className="quote-text">"{result.bookQuote}"</p>
+                        <p className="quote-text">"{t(`quizData.boyfriends.${result.id}.quote`)}"</p>
                         <p className="quote-attribution">
-                          — {result.name}
-                          {result.book && <>, <em>{result.book}</em></>}
+                          — {t(`quizData.boyfriends.${result.id}.name`)}
+                          {t(`quizData.boyfriends.${result.id}.book`) && <>, <em>{t(`quizData.boyfriends.${result.id}.book`)}</em></>}
                         </p>
                       </div>
                     )}
                   </div>
                   <button className="restart-button" onClick={restartQuiz}>
-                    Take Quiz Again
+                    {t('quiz.takeAgain')}
                   </button>
                 </div>
               </div>
