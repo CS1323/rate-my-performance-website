@@ -18,6 +18,36 @@ async function main() {
     },
   });
 
+  // 1b. Create translated posts (same image, locale-suffixed slugs)
+  await prisma.post.createMany({
+    data: [
+      {
+        title: "Tu penses à coucher avec Drew Dumontier ?",
+        slug: "drew-dumontier-fr",
+        image: "images/post-drew.webp",
+        content: `Bienvenue sur RateMyPerformanceCFU — le site qui a lancé 83 affiches de salle de bain et a fait douter un joueur de hockey très suffisant de tout ce qu'il croyait savoir sur lui-même.\n\nCet espace a été créé dans l'esprit de l'acte de vengeance le plus déjanté et le plus emblématique de Harper Tinsley. On n'est pas là pour être méchants. On est là pour être créatifs. Considérez-le comme un espace sûr pour quiconque a déjà fréquenté un gars qui avait besoin d'une petite leçon d'humilité.`,
+      },
+      {
+        title: "Denkst du darüber nach, mit Drew Dumontier rumzumachen?",
+        slug: "drew-dumontier-de",
+        image: "images/post-drew.webp",
+        content: `Willkommen bei RateMyPerformanceCFU — die Website, die 83 Badezimmer-Poster hervorgebracht und einen sehr selbstgefälligen Eishockeyspieler dazu gebracht hat, alles in Frage zu stellen, was er über sich selbst zu wissen glaubte.\n\nDieser Raum wurde im Geiste von Harper Tinsleys unverschämtester, ikonischster Racheaktion geschaffen. Wir sind nicht hier, um gemein zu sein. Wir sind hier, um kreativ zu sein. Betrachte es als sicheren Raum für alle, die jemals mit einem Typen zusammen waren, der eine kleine Lektion in Bescheidenheit brauchte.`,
+      },
+      {
+        title: "Stai pensando di andare a letto con Drew Dumontier?",
+        slug: "drew-dumontier-it",
+        image: "images/post-drew.webp",
+        content: `Benvenuti su RateMyPerformanceCFU — il sito che ha lanciato 83 poster da bagno e ha fatto mettere in discussione a un giocatore di hockey molto presuntuoso tutto ciò che pensava di sapere su se stesso.\n\nQuesto spazio è stato creato nello spirito dell'atto di vendetta più folle e iconico di Harper Tinsley. Non siamo qui per essere cattivi. Siamo qui per essere creativi. Consideratelo come uno spazio sicuro per chiunque abbia mai frequentato un ragazzo che aveva bisogno di una piccola lezione di umiltà.`,
+      },
+      {
+        title: "Denk je eraan om met Drew Dumontier het bed in te duiken?",
+        slug: "drew-dumontier-nl",
+        image: "images/post-drew.webp",
+        content: `Welkom bij RateMyPerformanceCFU — de website die 83 badkamerposters heeft gelanceerd en een zeer zelfvoldane ijshockeyspeler alles heeft doen betwijfelen wat hij dacht te weten over zichzelf.\n\nDeze ruimte is gecreëerd in de geest van Harper Tinsley's meest gestoorde, meest iconische wraakactie. We zijn hier niet om gemeen te zijn. We zijn hier om creatief te zijn. Beschouw het als een veilige ruimte voor iedereen die ooit heeft gedatet met een jongen die een klein lesje in bescheidenheid nodig had.`,
+      },
+    ],
+  });
+
   // 2️. Create top-level comments
   const comment1 = await prisma.comment.create({
     data: {

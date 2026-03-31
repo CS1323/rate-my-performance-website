@@ -24,6 +24,36 @@ async function main() {
     },
   });
 
+  // 1b. Create translated posts (same image, locale-suffixed slugs)
+  await prisma.post.createMany({
+    data: [
+      {
+        title: "Tu penses à coucher avec Drew Dumontier ?",
+        slug: "drew-dumontier-fr",
+        image: "images/post-drew.webp",
+        content: "Ceci est le post par défaut. N'hésitez pas à commenter !",
+      },
+      {
+        title: "Denkst du darüber nach, mit Drew Dumontier rumzumachen?",
+        slug: "drew-dumontier-de",
+        image: "images/post-drew.webp",
+        content: "Dies ist der Standardbeitrag. Kommentiere gerne!",
+      },
+      {
+        title: "Stai pensando di andare a letto con Drew Dumontier?",
+        slug: "drew-dumontier-it",
+        image: "images/post-drew.webp",
+        content: "Questo è il post predefinito. Sentiti libero di commentare!",
+      },
+      {
+        title: "Denk je eraan om met Drew Dumontier het bed in te duiken?",
+        slug: "drew-dumontier-nl",
+        image: "images/post-drew.webp",
+        content: "Dit is het standaard bericht. Voel je vrij om te reageren!",
+      },
+    ],
+  });
+
   // 2️. Create top-level comments
   const comment1 = await prisma.comment.create({
     data: {
