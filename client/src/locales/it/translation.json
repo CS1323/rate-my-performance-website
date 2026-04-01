@@ -18,7 +18,7 @@
     "siteTitle": "RATE MY PERFORMANCE"
   },
   "home": {
-    "pageTitle": "Rate My Performance",
+    "pageTitle": "Rate My Performance CFU",
     "loading": "Caricamento...",
     "error": "Errore: {{message}}",
     "commentsHeading": "Commenti",
