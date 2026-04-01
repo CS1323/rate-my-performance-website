@@ -49,8 +49,7 @@ Partially complete / known risk areas
 - README lacks setup/deploy/contributor documentation.
 
 Not implemented yet
-- Translation framework and localized content (5+ languages).
-- Complete integration/system test matrix across frontend/backend.
+- 1 client test fix needed (`Comment.test.jsx` report flow — see item 6 below).
 - Comprehensive README with setup/deploy/contributor guides.
 
 ## Conventions and patterns
@@ -270,7 +269,8 @@ These 7 items **must** be completed before production launch, alongside roadmap 
 **Recommended Priority Order**: 
 1. Items 1–7 ✅ (all deploy blockers complete)
 2. Roadmap 3 ✅ (compliance/trust: legal pages — complete)
-3. Roadmap 5, 7 (post-launch: i18n, README documentation)
+3. Roadmap 5 ✅ (i18n — complete)
+4. Roadmap 6, 7 (post-launch: fix 1 failing client test, README documentation)
 
 ---
 
@@ -300,16 +300,27 @@ All pre-launch items are now resolved. Legal pages have been refreshed with:
   - Action: Monitor Prisma releases; upgrade when available
   - Reference: `npm audit` in server/ shows details
 
+- **axios supply chain attack (3/31/2026)**: North Korea-nexus actor (UNC1069) compromised axios npm versions **1.14.1** and **0.30.4** with the WAVESHAPER.V2 backdoor via a malicious `plain-crypto-js` dependency ([Google Threat Intelligence report](https://cloud.google.com/blog/topics/threat-intelligence/north-korea-threat-actor-targets-axios-npm-package))
+  - **Our status**: NOT compromised — lockfile had 1.14.0 at time of attack; no `plain-crypto-js` found
+  - **Mitigation applied**: Pinned `"axios": "1.14.0"` (removed caret) in `client/package.json` to prevent accidental upgrade
+  - **Future action required**:
+    1. Monitor the [axios GitHub repo](https://github.com/axios/axios) and npm for confirmation that 1.14.1 has been unpublished and a clean patched version is available
+    2. Once a safe version is confirmed (e.g., 1.14.2+), update `client/package.json` to that version — restore the caret if desired (e.g., `"^1.14.2"`)
+    3. After upgrading, verify with `npm ls axios` and confirm no `plain-crypto-js` in lockfile
+    4. Run `npm audit` to check for any residual advisories
+  - **General lesson**: Consider using `npm ci` (which respects lockfile exactly) in CI/CD pipelines instead of `npm install` to prevent resolution drift
+
 ### Remaining Roadmap Items
 - Reddit-like mobile threading lazy-load branching (⭐ nice-to-have — basic mobile CSS done)
-- i18n translations (post-launch)
+- 1 failing client test in `Comment.test.jsx` (report flow — see roadmap item 6)
 - README documentation (post-launch)
 
 ---
 
 ### ⏰ Deadline Breakdown
 - **Pre-launch items**: Due **3/31/2026** — ✅ All complete
-- **Items 5, 7**: Due **4/16/2026** (post-launch sprints: i18n, README)
+- **Item 5 (i18n)**: ✅ Complete — 5 languages fully implemented
+- **Items 6, 7**: Due **4/16/2026** (post-launch: fix 1 failing test, README documentation)
 
 ### 🚀 Pre-Launch — Due 3/31/2026
 
@@ -364,15 +375,31 @@ All pre-launch items are now resolved. Legal pages have been refreshed with:
 
 ### 📋 Post-Launch — Due 4/16/2026
 
-5) Add translations (include French, Italian, Dutch, German)
-- Add i18n framework and locale routing/selection strategy.
-- Localize core navigation, discussion UI, legal pages, and system messages.
-- Support at minimum: English, French, Italian, Dutch, German.
+5) ✅ Add translations (include French, Italian, Dutch, German)
+- **Priority**: ⭐⭐ Complete
+- **Scope**: Full i18n framework with 5 languages — IMPLEMENTED
+- **Implementation Details**:
+  - `i18next`, `react-i18next`, and `i18next-browser-languagedetector` installed in `client/package.json`
+  - i18n configured in `client/src/i18n.js` with language detection from URL path and English fallback
+  - Two namespaces per language: `translation` (UI strings) and `legal` (legal page content)
+  - 5 languages fully translated: English, French, German, Italian, Dutch
+  - Translation files in `client/src/locales/{en,fr,de,it,nl}/` — ~400+ keys each covering navigation, forms, comments, voting, reporting, time formatting, quiz strings, and legal content
+  - `App.jsx` wired with `useTranslation()`, `/:lang/*` URL routing via `LocaleLayout`, `i18n.changeLanguage()` sync, HTML `lang` attribute, and `hreflang` link tags for SEO
+  - `LanguageSelector` component (`client/src/components/LanguageSelector.jsx`) with accessible language switcher (`role="navigation"`, `aria-label`, `aria-current`, `lang` attributes)
+  - Default route redirects to `/en`; invalid lang prefixes redirect to English equivalent
+  - Localized seed data in `server/prisma/seed{EN,FR,DE,IT,NL}.js`
 
-6) ✅ Add unit, integrated, and system tests
-- **Status**: Mostly complete—verify final coverage
-- Frontend: Vitest with component/unit coverage for home/thread/form flows.
-- Backend: Vitest for route/controller/validator coverage.
+6) 🟡 Add unit, integrated, and system tests
+- **Status**: Nearly complete — 1 client test failing, server tests all pass
+- **Test Results (as of 3/31/2026)**:
+  - Server: 14 files, 55 tests — ✅ all passing
+  - Client: 9 files, 25 tests — 24 passing, 1 failing
+  - E2E: 3 Playwright specs (home, comments, votes)
+- **Failing Test**:
+  - File: `client/src/pages/home/Comment.test.jsx`
+  - Test: `"submits report through API flow"`
+  - Cause: Test clicks the report/flag button but then looks for a "Submit report" button in the same render. The `ReportModal` component is a separate component rendered by the parent (`HomePage`), not by `Comment` itself, so it's not present in the isolated `Comment` test render. The test needs to either mock or render `ReportModal` alongside `Comment`, or be restructured as an integration test that mounts the full comment+modal tree.
+- **Coverage Areas**: Controllers (5), validators (4), middleware (3), hooks (1), context (1), API config (1), moderation utils (1), hash utils (1), integration tests (3 client + 3 e2e)
 - Playwright for e2e integration tests covering key user journeys.
 - Keep Lighthouse-based performance regression checks in the release workflow.
 
