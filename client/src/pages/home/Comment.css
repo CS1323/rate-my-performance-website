@@ -57,8 +57,7 @@
   }
 }
 
-/* Deep nesting (depth 4+): Enable horizontal scrolling */
-.replies[data-depth="4"],
+/* Deep nesting (depth 5+): Enable horizontal scrolling */
 .replies[data-depth="5"],
 .replies[data-depth="6"],
 .replies[data-depth="7"],
@@ -69,6 +68,30 @@
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Mobile: Cap indentation at depth 5+ so replies don't get impossibly narrow */
+@media (max-width: 479px) {
+  .replies[data-depth="5"],
+  .replies[data-depth="6"],
+  .replies[data-depth="7"],
+  .replies[data-depth="8"],
+  .replies[data-depth="9"],
+  .replies[data-depth="10"] {
+    margin-left: 4px;
+    border-left: 2px solid rgba(92,7,0,0.15);
+    padding-left: 6px;
+  }
+
+  /* Give deeply nested comments a min-width so action buttons are always reachable via scroll */
+  .replies[data-depth="5"] > .comment,
+  .replies[data-depth="6"] > .comment,
+  .replies[data-depth="7"] > .comment,
+  .replies[data-depth="8"] > .comment,
+  .replies[data-depth="9"] > .comment,
+  .replies[data-depth="10"] > .comment {
+    min-width: 280px;
+  }
 }
 
 .comment-placeholder-text {
