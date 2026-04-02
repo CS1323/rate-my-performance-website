@@ -170,21 +170,27 @@ export function Accessibility() {
 
               <div className="accessibility-footer">
                 <p>
-                  <Trans i18nKey="accessibility.footerP1" ns="legal" values={{ email: 'cadence@cadencekeys.com' }}>
-                    If you encounter accessibility barriers or have feedback, you can reach out at <span 
-                      className="contact-email" 
-                      onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
-                      role="button"
-                      tabIndex="0"
-                      aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          handleCopyEmail('cadence@cadencekeys.com');
-                        }
-                      }}
-                    >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
-                  </Trans>
+                  <Trans
+                    i18nKey="accessibility.footerP1"
+                    ns="legal"
+                    values={{ email: 'cadence@cadencekeys.com' }}
+                    components={{
+                      strong: <strong />,
+                      1: <span
+                        className="contact-email"
+                        onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                        role="button"
+                        tabIndex="0"
+                        aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleCopyEmail('cadence@cadencekeys.com');
+                          }
+                        }}
+                      />
+                    }}
+                  />
                 </p>
               </div>
             </div>

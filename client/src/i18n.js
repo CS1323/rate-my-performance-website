@@ -42,6 +42,9 @@ i18n
     interpolation: {
       escapeValue: false, // React already escapes
     },
+    react: {
+      transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p', 'code'],
+    },
     detection: {
       order: ['path', 'navigator'],
       lookupFromPathIndex: 0,

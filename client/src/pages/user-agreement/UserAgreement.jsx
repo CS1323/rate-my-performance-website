@@ -119,21 +119,27 @@ export function UserAgreement() {
                 <p>{tLegal('terms.questionsP1')}</p>
                 <p>{tLegal('terms.questionsP2')}</p>
                 <p>
-                  <Trans i18nKey="terms.footerP1" ns="legal" values={{ email: 'cadence@cadencekeys.com' }}>
-                    Contact: <span 
-                      className="contact-email" 
-                      onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
-                      role="button"
-                      tabIndex="0"
-                      aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          handleCopyEmail('cadence@cadencekeys.com');
-                        }
-                      }}
-                    >cadence@cadencekeys.com</span>
-                  </Trans>
+                  <Trans
+                    i18nKey="terms.footerP1"
+                    ns="legal"
+                    values={{ email: 'cadence@cadencekeys.com' }}
+                    components={{
+                      strong: <strong />,
+                      1: <span
+                        className="contact-email"
+                        onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                        role="button"
+                        tabIndex="0"
+                        aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleCopyEmail('cadence@cadencekeys.com');
+                          }
+                        }}
+                      />
+                    }}
+                  />
                 </p>
               </div>
             </div>

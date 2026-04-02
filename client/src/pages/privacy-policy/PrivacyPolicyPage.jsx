@@ -97,9 +97,9 @@ export function PrivacyPolicy() {
                 <h2>{tLegal('privacy.thirdPartyTitle')}</h2>
                 <p>{tLegal('privacy.thirdPartyIntro')}</p>
                 <ul>
-                  <li><Trans i18nKey="privacy.thirdPartyItem1" ns="legal"><strong>Google Analytics</strong></Trans></li>
-                  <li><Trans i18nKey="privacy.thirdPartyItem2" ns="legal"><strong>Sentry</strong></Trans></li>
-                  <li><Trans i18nKey="privacy.thirdPartyItem3" ns="legal"><strong>Google Gemini API</strong></Trans></li>
+                  <li><Trans i18nKey="privacy.thirdPartyItem1" ns="legal" components={{ strong: <strong />, privacyLink: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" /> }}><strong>Google Analytics</strong></Trans></li>
+                  <li><Trans i18nKey="privacy.thirdPartyItem2" ns="legal" components={{ strong: <strong />, privacyLink: <a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer" /> }}><strong>Sentry</strong></Trans></li>
+                  <li><Trans i18nKey="privacy.thirdPartyItem3" ns="legal" components={{ strong: <strong />, privacyLink: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" /> }}><strong>Google Gemini API</strong></Trans></li>
                   <li><Trans i18nKey="privacy.thirdPartyItem4" ns="legal"><strong>Affiliate links</strong></Trans></li>
                 </ul>
                 <p>{tLegal('privacy.thirdPartyClosing')}</p>
@@ -181,21 +181,27 @@ export function PrivacyPolicy() {
 
               <div className="privacy-footer">
                 <p>
-                  <Trans i18nKey="privacy.footerP1" ns="legal" values={{ email: 'cadence@cadencekeys.com' }}>
-                    If you have privacy-related questions or concerns, you can reach out at <span 
-                      className="contact-email" 
-                      onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
-                      role="button"
-                      tabIndex="0"
-                      aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          handleCopyEmail('cadence@cadencekeys.com');
-                        }
-                      }}
-                    >cadence@cadencekeys.com</span>. We are real humans and will try to give you real answers.
-                  </Trans>
+                  <Trans
+                    i18nKey="privacy.footerP1"
+                    ns="legal"
+                    values={{ email: 'cadence@cadencekeys.com' }}
+                    components={{
+                      strong: <strong />,
+                      1: <span
+                        className="contact-email"
+                        onClick={() => handleCopyEmail('cadence@cadencekeys.com')}
+                        role="button"
+                        tabIndex="0"
+                        aria-label={t('common.emailAriaLabel', { email: 'cadence@cadencekeys.com' })}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleCopyEmail('cadence@cadencekeys.com');
+                          }
+                        }}
+                      />
+                    }}
+                  />
                 </p>
               </div>
             </div>
