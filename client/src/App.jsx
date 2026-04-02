@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Route, Routes, useLocation, useParams, Navigate, Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
@@ -98,6 +98,29 @@ function AppRoutes() {
   );
 }
 
+function ScrollRestoration() {
+  const location = useLocation();
+  const scrollPositions = useRef({});
+  const prevPath = useRef(location.pathname);
+
+  useEffect(() => {
+    // Save scroll position of the page we're leaving
+    scrollPositions.current[prevPath.current] = window.scrollY;
+
+    // Restore saved position or scroll to top for new pages
+    const saved = scrollPositions.current[location.pathname];
+    if (saved !== undefined) {
+      requestAnimationFrame(() => window.scrollTo(0, saved));
+    } else {
+      window.scrollTo(0, 0);
+    }
+
+    prevPath.current = location.pathname;
+  }, [location.pathname]);
+
+  return null;
+}
+
 function App() {
   const location = useLocation();
 
@@ -119,6 +142,7 @@ function App() {
 
   return (
     <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>}>
+      <ScrollRestoration />
       <Routes>
         {/* English routes (no prefix) */}
         <Route element={<LocaleLayout />}>
