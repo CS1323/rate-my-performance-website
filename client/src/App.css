@@ -43,6 +43,8 @@
 /* Show sidebar on mobile when toggle is active */
 .layout[style*="flex"] .left.sidebar {
   display: flex;
+  height: calc(100dvh - 75px);
+  overflow-y: auto;
 }
 
 /* Hide sidebar ads when sidebar is open on mobile */
