@@ -32,7 +32,7 @@ export function Rules() {
         className="layout"
         style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}
       >
-        <NavSidebar />
+        <NavSidebar onLinkClick={() => setSidebarOpen(false)} />
         
         <main className="content">
           <div className="rules-container">

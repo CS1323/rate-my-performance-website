@@ -243,7 +243,7 @@ export function HomePage() {
         <title>{t('home.pageTitle')}</title>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
-          <NavSidebar />
+          <NavSidebar onLinkClick={() => setSidebarOpen(false)} />
           <main className="content">
             <div style={{ textAlign: 'center', padding: '2rem' }}>{t('home.loading')}</div>
           </main>
@@ -259,7 +259,7 @@ export function HomePage() {
         <title>{t('home.pageTitle')}</title>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
         <div className="layout">
-          <NavSidebar />
+          <NavSidebar onLinkClick={() => setSidebarOpen(false)} />
           <main className="content">
             <div style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>
               {t('home.error', { message: postError })}
@@ -277,7 +277,7 @@ export function HomePage() {
       <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
 
       <div className="layout" style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}>
-        <NavSidebar />
+        <NavSidebar onLinkClick={() => setSidebarOpen(false)} />
 
         <main id="main" className="content">
           <InitialPost post={post} />

@@ -22,7 +22,7 @@ function useLocalePath(path) {
 }
 
 // Helper component for accessible NavLink with aria-current
-function AccessibleNavLink({ to, children, icon }) {
+function AccessibleNavLink({ to, children, icon, onLinkClick }) {
   const location = useLocation();
   const localeTo = useLocalePath(to);
   const isActive = location.pathname === localeTo;
@@ -32,6 +32,7 @@ function AccessibleNavLink({ to, children, icon }) {
       to={localeTo}
       className={`sidebar-link${isActive ? ' active' : ''}`}
       aria-current={isActive ? 'page' : undefined}
+      onClick={isActive ? onLinkClick : undefined}
     >
       <img src={icon} alt="" />
       <div>{children}</div>
@@ -39,7 +40,7 @@ function AccessibleNavLink({ to, children, icon }) {
   );
 }
 
-export function NavSidebar() {
+export function NavSidebar({ onLinkClick }) {
   const { t } = useTranslation();
   const location = useLocation();
   const { lang } = useParams();
@@ -50,19 +51,20 @@ export function NavSidebar() {
     <nav className="left sidebar">
       {/* <!-- top section: navigation--> */}
       <div>
-        <AccessibleNavLink to="/" icon={HomeIcon}>{t('nav.home')}</AccessibleNavLink>
-        <AccessibleNavLink to="/cfu-boyfriend-quiz" icon={FileTextIcon}>{t('nav.quiz')}</AccessibleNavLink>
-        <AccessibleNavLink to="/about-me" icon={UserIcon}>{t('nav.aboutMe')}</AccessibleNavLink>
+        <AccessibleNavLink to="/" icon={HomeIcon} onLinkClick={onLinkClick}>{t('nav.home')}</AccessibleNavLink>
+        <AccessibleNavLink to="/cfu-boyfriend-quiz" icon={FileTextIcon} onLinkClick={onLinkClick}>{t('nav.quiz')}</AccessibleNavLink>
+        <AccessibleNavLink to="/about-me" icon={UserIcon} onLinkClick={onLinkClick}>{t('nav.aboutMe')}</AccessibleNavLink>
       </div>
       {/* <!-- bottom section: website compliance --> */}
       <div>
-        <AccessibleNavLink to="/rules" icon={BookOpenIcon}>{t('nav.rules')}</AccessibleNavLink>
-        <AccessibleNavLink to="/privacy-policy" icon={ClipboardIcon}>{t('nav.privacyPolicy')}</AccessibleNavLink>
-        <AccessibleNavLink to="/user-agreement" icon={ClipboardIcon}>{t('nav.userAgreement')}</AccessibleNavLink>
+        <AccessibleNavLink to="/rules" icon={BookOpenIcon} onLinkClick={onLinkClick}>{t('nav.rules')}</AccessibleNavLink>
+        <AccessibleNavLink to="/privacy-policy" icon={ClipboardIcon} onLinkClick={onLinkClick}>{t('nav.privacyPolicy')}</AccessibleNavLink>
+        <AccessibleNavLink to="/user-agreement" icon={ClipboardIcon} onLinkClick={onLinkClick}>{t('nav.userAgreement')}</AccessibleNavLink>
         <NavLink 
           to={accessibilityPath}
           className={`sidebar-link${isAccessibilityActive ? ' active' : ''}`}
           aria-current={isAccessibilityActive ? 'page' : undefined}
+          onClick={isAccessibilityActive ? onLinkClick : undefined}
         >
           <span className="material-symbols-outlined">
             settings_accessibility

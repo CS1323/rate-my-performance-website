@@ -100,7 +100,7 @@ export function CFUBoyfriendQuiz() {
         className="layout"
         style={{ '--sidebar-open': sidebarOpen ? 'flex' : 'none' }}
       >
-        <NavSidebar />
+        <NavSidebar onLinkClick={() => setSidebarOpen(false)} />
         
         <main className="content">
           <div className="quiz-container">
