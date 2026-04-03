@@ -39,7 +39,19 @@ const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE
 const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
 
 if (isGAEnabled && import.meta.env.VITE_GA_ID) {
-  ReactGA.initialize(import.meta.env.VITE_GA_ID);
+  const proxyBase = import.meta.env.VITE_GA_PROXY_URL;
+  ReactGA.initialize(import.meta.env.VITE_GA_ID, {
+    // If a first-party proxy URL is configured, route gtag.js and collect
+    // requests through our own domain to bypass adblocker blocking.
+    // Falls back to direct Google endpoints when proxy is not configured (e.g. local dev).
+    ...(proxyBase && {
+      gtagUrl: `${proxyBase}/gtag/js`,
+      gaOptions: {
+        transport_url: proxyBase,
+        first_party_collection: true,
+      },
+    }),
+  });
 }
 
 createRoot(document.getElementById('root')).render(

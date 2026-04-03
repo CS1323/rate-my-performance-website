@@ -22,6 +22,7 @@ import commentsRoutes from "./src/routes/comments.routes.js";
 import votesRoutes from "./src/routes/votes.routes.js";
 import reportsRoutes from "./src/routes/reports.routes.js";
 import adsRoutes from "./src/routes/ads.routes.js";
+import analyticsRoutes from "./src/routes/analytics.routes.js";
 
 connectDB();
 
@@ -45,6 +46,9 @@ app.use("/images", express.static(join(__dirname, "images"), {
   maxAge: '365d',  // 1 year browser cache
   immutable: true  // Cache won't change
 }));
+
+// Analytics proxy routes — mounted at root so /gtag/js and /g/collect
+app.use("/", analyticsRoutes)
 
 // API Routes
 app.use("/api/posts", postsRoutes)
