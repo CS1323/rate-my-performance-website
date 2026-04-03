@@ -49,7 +49,6 @@ if (isGAEnabled && import.meta.env.VITE_GA_ID) {
       gtagUrl: `${proxyBase}/api/ga/p.js`,
       gaOptions: {
         transport_url: proxyBase,
-        first_party_collection: true,
       },
     }),
   });
