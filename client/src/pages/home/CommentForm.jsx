@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 import axios from 'axios';
 import { mapApiError } from '../../utils/errorMapper';
 
@@ -74,6 +75,10 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       setUsername('');
       setAvatarId(1);
       setContent('');
+      ReactGA.event({
+        category: 'comments',
+        action: mode === 'reply' ? 'reply_submit' : 'comment_submit',
+      });
       if (onSubmitSuccess) onSubmitSuccess();
       if (onCancel) onCancel();
       
