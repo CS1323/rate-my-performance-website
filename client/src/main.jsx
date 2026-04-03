@@ -45,7 +45,8 @@ if (isGAEnabled && import.meta.env.VITE_GA_ID) {
     // requests through our own domain to bypass adblocker blocking.
     // Falls back to direct Google endpoints when proxy is not configured (e.g. local dev).
     ...(proxyBase && {
-      gtagUrl: `${proxyBase}/gtag/js`,
+      // Obfuscated path to avoid adblocker script-pattern rules targeting /gtag/js
+      gtagUrl: `${proxyBase}/api/ga/p.js`,
       gaOptions: {
         transport_url: proxyBase,
         first_party_collection: true,

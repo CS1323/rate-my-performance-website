@@ -3,12 +3,13 @@ import { proxyGtagScript, proxyCollect } from '../controllers/analytics.controll
 
 const router = express.Router();
 
-// Proxy the gtag.js loader script from Google Tag Manager
-// Browser requests: GET /gtag/js?id=G-XXXXX
-router.get('/gtag/js', proxyGtagScript);
+// Proxy the gtag.js loader script from Google Tag Manager.
+// Path deliberately avoids known adblocker filter patterns like /gtag/js.
+router.get('/api/ga/p.js', proxyGtagScript);
 
-// Proxy GA4 collect beacons to Google Analytics
-// gtag.js sends to {transport_url}/g/collect via GET (debug) and POST (production)
+// Proxy GA4 collect beacons to Google Analytics.
+// GA4 always appends /g/collect to transport_url — this cannot be renamed.
+// Hosting on our own domain is sufficient to bypass domain-based blocking.
 // express.text() captures the raw body without parsing — GA sends Content-Type: text/plain
 router.all('/g/collect', express.text({ type: '*/*' }), proxyCollect);
 
