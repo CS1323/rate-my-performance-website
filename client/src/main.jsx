@@ -38,20 +38,20 @@ const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE
 
 const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
 
-if (isGAEnabled && import.meta.env.VITE_GA_ID) {
-  const proxyBase = import.meta.env.VITE_API_BASE_URL;
+// Only initialize GA on deployed environments — never on localhost.
+// This prevents test traffic from polluting analytics even if VITE_GA_ID is set locally.
+const isDeployed = window.location.hostname !== 'localhost';
+
+if (isGAEnabled && import.meta.env.VITE_GA_ID && isDeployed) {
+  // Route GA script and collect beacons through the same origin as the page
+  // via Vercel Edge Middleware (client/middleware.js). This ensures:
+  //   - No cross-subdomain cookie domain mismatch.
+  //   - Requests appear first-party to the browser, bypassing adblockers.
   ReactGA.initialize(import.meta.env.VITE_GA_ID, {
-    // If a first-party proxy URL is configured, route gtag.js and collect
-    // requests through our own domain to bypass adblocker blocking.
-    // Falls back to direct Google endpoints when proxy is not configured (e.g. local dev).
-    ...(proxyBase && {
-      // Obfuscated path to avoid adblocker script-pattern rules targeting /gtag/js
-      gtagUrl: `${proxyBase}/api/ga/p.js`,
-      gaOptions: {
-        transport_url: proxyBase,
-        cookie_domain: window.location.hostname,
-      },
-    }),
+    gtagUrl: `${window.location.origin}/api/ga/p.js`,
+    gaOptions: {
+      transport_url: window.location.origin,
+    },
   });
 }
 
