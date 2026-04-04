@@ -48,9 +48,13 @@ export const proxyCollect = async (req, res) => {
       'User-Agent': req.headers['user-agent'] || '',
     };
 
-    // Preserve the original user IP so GA can resolve accurate geolocation
+    // Preserve the original user IP so GA can resolve accurate geolocation.
+    // With trust proxy enabled, req.ip is the leftmost (real user) IP.
     const clientIp = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.ip;
     if (clientIp) {
+      // `uip` is the GA Measurement Protocol parameter for user IP override;
+      // this takes precedence over server-IP-based geolocation in GA4.
+      targetUrl.searchParams.set('uip', clientIp);
       headers['X-Forwarded-For'] = clientIp;
     }
 
