@@ -75,10 +75,12 @@ function CommentFormComponent({ postId, parentCommentId, onSubmitSuccess, onCanc
       setUsername('');
       setAvatarId(1);
       setContent('');
+
       ReactGA.event({
         category: 'comments',
         action: mode === 'reply' ? 'reply_submit' : 'comment_submit',
       });
+      
       if (onSubmitSuccess) onSubmitSuccess();
       if (onCancel) onCancel();
       

@@ -5,9 +5,9 @@ import MessageSquareIcon from '../../assets/images/icons/message-square.svg';
 import { useState, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { getUserIdentifier } from '../../utils/userIdentifier';
 import { CommentForm } from './CommentForm';
 import { ReportModal } from './ReportModal';
+import { ReactGA } from 'react-ga4';
 
 import './Comment.css';
 
@@ -87,7 +87,15 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
           reason: reason || '',
         });
         setReportStatus(t('comment.reportSuccess'));
+
+        // Add report submission event to GA
+        ReactGA.event({
+          category: 'moderation',
+          action: 'report_submit',
+        });
+
         setReportModalOpen(false);
+
         // Clear the status message after 5 seconds
         setTimeout(() => setReportStatus(''), 5000);
       } catch (err) {
