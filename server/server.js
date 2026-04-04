@@ -28,6 +28,10 @@ connectDB();
 
 const app = express();
 
+// Trust Vercel/Render proxy headers for accurate IP identification
+// Required for: rate limiting to work correctly, GA geolocation data
+app.set('trust proxy', true);
+
 // CORS Middleware - Allow frontend domains specified in CORS_ORIGIN
 app.use(corsMiddleware);
 
