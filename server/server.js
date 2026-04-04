@@ -28,9 +28,10 @@ connectDB();
 
 const app = express();
 
-// Trust Vercel/Render proxy headers for accurate IP identification
-// Required for: rate limiting to work correctly, GA geolocation data
-app.set('trust proxy', true);
+// Trust exactly 1 proxy hop (Vercel Edge → Render LB → Express).
+// Boolean `true` is rejected by express-rate-limit v7 as too permissive;
+// numeric `1` is accepted and still gives us the real client IP from X-Forwarded-For.
+app.set('trust proxy', 1);
 
 // CORS Middleware - Allow frontend domains specified in CORS_ORIGIN
 app.use(corsMiddleware);

@@ -21,12 +21,18 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const targetUrl = new URL(url.pathname + url.search, backendUrl);
 
+  // Vercel populates x-forwarded-for with the real client IP.
+  // Also check x-real-ip as a fallback — some Vercel edge deployments use it.
+  const clientIp = request.headers.get('x-forwarded-for')
+    || request.headers.get('x-real-ip')
+    || '';
+
   const proxyReq = new Request(targetUrl.toString(), {
     method: request.method,
     headers: {
       'content-type': request.headers.get('content-type') || 'text/plain',
       'user-agent': request.headers.get('user-agent') || '',
-      'x-forwarded-for': request.headers.get('x-forwarded-for') || '',
+      'x-forwarded-for': clientIp,
     },
     body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.body,
   });
