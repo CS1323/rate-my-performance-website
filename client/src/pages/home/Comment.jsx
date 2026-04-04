@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { CommentForm } from './CommentForm';
 import { ReportModal } from './ReportModal';
-import { ReactGA } from 'react-ga4';
+import ReactGA from 'react-ga4';
 
 import './Comment.css';
 

@@ -11,7 +11,7 @@ import { Comment } from "./Comment";
 import { getUserIdentifier } from "../../utils/userIdentifier";
 import { API_BASE_URL } from "../../config/api";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-import { ReactGA } from 'react-ga4';
+import ReactGA from 'react-ga4';
 
 import './HomePage.css';
 
