@@ -8,7 +8,7 @@
  *   - Requests appear first-party to the browser, bypassing adblockers.
  */
 export const config = {
-  matcher: ['/api/ga/p.js', '/g/collect'],
+  matcher: ['/api/ga/p.js', '/api/ga/c'],
 };
 
 export default async function middleware(request) {

@@ -8,9 +8,9 @@ const router = express.Router();
 router.get('/api/ga/p.js', proxyGtagScript);
 
 // Proxy GA4 collect beacons to Google Analytics.
-// GA4 always appends /g/collect to transport_url — this cannot be renamed.
-// Hosting on our own domain is sufficient to bypass domain-based blocking.
+// Path is obfuscated to avoid adblocker filter rules that match /g/collect.
+// The proxied gtag.js script is rewritten to use this path instead.
 // express.text() captures the raw body without parsing — GA sends Content-Type: text/plain
-router.all('/g/collect', express.text({ type: '*/*' }), proxyCollect);
+router.all('/api/ga/c', express.text({ type: '*/*' }), proxyCollect);
 
 export default router;

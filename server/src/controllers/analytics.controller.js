@@ -18,7 +18,13 @@ export const proxyGtagScript = async (req, res) => {
       return res.status(response.status).end();
     }
 
-    const script = await response.text();
+    let script = await response.text();
+
+    // Rewrite the hardcoded /g/collect endpoint inside the gtag.js bundle so
+    // the library POSTs beacons to our obfuscated path instead of the well-known
+    // one that adblockers block by path pattern.
+    script = script.replaceAll('/g/collect', '/api/ga/c');
+
     res.set('Content-Type', 'text/javascript; charset=utf-8');
     res.set('Cache-Control', 'public, max-age=3600');
     res.send(script);
