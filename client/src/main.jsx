@@ -53,6 +53,7 @@ if (isGAEnabled && import.meta.env.VITE_GA_ID && isDeployed) {
       transport_url: window.location.origin,
       cookie_domain: window.location.hostname,
       cookie_flags: 'SameSite=Lax;Secure',
+      send_page_view: false,
     },
   });
 }
