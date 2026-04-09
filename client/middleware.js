@@ -100,7 +100,12 @@ export default async function middleware(request) {
       ? undefined
       : await request.text();
 
-    await fetch('https://www.google-analytics.com/g/collect' + targetSearch, {
+    const xff = request.headers.get('x-forwarded-for');
+    const clientIp = xff ? xff.split(',')[0].trim() : null;
+    const collectParams = new URLSearchParams(targetSearch.slice(1));
+    if (clientIp) collectParams.set('uip', clientIp);
+
+    await fetch('https://www.google-analytics.com/g/collect?' + collectParams.toString(), {
       method: request.method,
       headers: {
         'content-type': request.headers.get('content-type') || 'text/plain',
