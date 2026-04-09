@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
+import ReactGA from 'react-ga4';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -55,7 +56,7 @@ export function AboutMe() {
                 <p>{t('about.p3')}</p>
                 <p>
                   <Trans i18nKey="about.p4" ns="legal">
-                    Find out more about my books at <a href="https://cadencekeys.com/" target="_blank" rel="noopener noreferrer" className="contact-email">cadencekeys.com</a>
+                    Find out more about my books at <a href="https://cadencekeys.com/" target="_blank" rel="noopener noreferrer" className="contact-email" onClick={() => ReactGA.event({ category: 'outbound', action: 'author_site_click' })}>cadencekeys.com</a>
                   </Trans>
                 </p>
               </div>

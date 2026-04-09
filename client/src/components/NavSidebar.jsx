@@ -1,5 +1,6 @@
 import { NavLink, useLocation, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 // Navigation Icons
 import HomeIcon from '../assets/images/icons/home.svg';
@@ -73,16 +74,16 @@ export function NavSidebar({ onLinkClick }) {
         </NavLink>
         {/* <!-- social media icons (mobile only) --> */}
         <div className="sidebar-socials">
-          <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/cadencekeysauthor" target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'social', action: 'social_click', label: 'facebook' })}>
             <FacebookIcon size={24} color="#222" />
           </a>
-          <a href="https://www.instagram.com/cadencekeysauthor/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/cadencekeysauthor/" target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'social', action: 'social_click', label: 'instagram' })}>
             <InstagramIcon size={24} color="#222" />
           </a>
-          <a href="https://www.tiktok.com/@cadencekeysauthor" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.tiktok.com/@cadencekeysauthor" target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'social', action: 'social_click', label: 'tiktok' })}>
             <TikTokIcon size={24} color="#222" />
           </a>
-          <a href="https://www.youtube.com/channel/UCR2EQ8F1x3olZDs1JrE7z4g" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.youtube.com/channel/UCR2EQ8F1x3olZDs1JrE7z4g" target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'social', action: 'social_click', label: 'youtube' })}>
             <YouTubeIcon size={24} color="#222" playButtonColor="white" />
           </a>
         </div>
