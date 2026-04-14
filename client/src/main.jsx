@@ -51,8 +51,7 @@ if (isGAEnabled && import.meta.env.VITE_GA_ID && isDeployed) {
     gtagUrl: `${window.location.origin}/api/ga/p.js`,
     gaOptions: {
       transport_url: window.location.origin,
-      cookie_domain: window.location.hostname,
-      cookie_flags: 'SameSite=Lax;Secure',
+      cookie_domain: 'auto',
       send_page_view: false,
     },
   });
