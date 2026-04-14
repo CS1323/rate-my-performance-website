@@ -135,7 +135,7 @@ function App() {
       const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
       
       if (isGAEnabled) {
-        ReactGA.send({ hitType: 'pageview', page: location.pathname });
+        ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
       }
     }
   }, [location.pathname]);
