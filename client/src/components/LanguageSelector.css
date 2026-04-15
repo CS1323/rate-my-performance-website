@@ -41,3 +41,14 @@
   font-size: 0.75rem;
   user-select: none;
 }
+
+/* Tablet breakpoint: reduce font size and spacing when sidebar icons are vertical */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .language-selector {
+    padding: 4px 2px;
+  }
+
+  .language-btn {
+    padding: 2.5px 5px;
+  }
+}
