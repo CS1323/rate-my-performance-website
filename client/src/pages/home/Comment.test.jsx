@@ -20,6 +20,9 @@ vi.mock('./ReportModal', () => ({
     ) : null,
 }));
 
+// Mock window.confirm to return true for report confirmation tests
+global.confirm = vi.fn(() => true);
+
 const baseComment = {
   id: 'comment-1',
   authorName: 'Casey',
