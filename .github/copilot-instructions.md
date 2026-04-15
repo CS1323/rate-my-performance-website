@@ -49,7 +49,6 @@ Partially complete / known risk areas
 - README lacks setup/deploy/contributor documentation.
 
 Not implemented yet
-- 1 client test fix needed (`Comment.test.jsx` report flow — see item 6 below).
 - Comprehensive README with setup/deploy/contributor guides.
 
 ## Conventions and patterns
@@ -312,7 +311,6 @@ All pre-launch items are now resolved. Legal pages have been refreshed with:
 
 ### Remaining Roadmap Items
 - Reddit-like mobile threading lazy-load branching (⭐ nice-to-have — basic mobile CSS done)
-- 1 failing client test in `Comment.test.jsx` (report flow — see roadmap item 6)
 - README documentation (post-launch)
 
 ---
@@ -389,16 +387,12 @@ All pre-launch items are now resolved. Legal pages have been refreshed with:
   - Default route redirects to `/en`; invalid lang prefixes redirect to English equivalent
   - Localized seed data in `server/prisma/seed{EN,FR,DE,IT,NL}.js`
 
-6) 🟡 Add unit, integrated, and system tests
-- **Status**: Nearly complete — 1 client test failing, server tests all pass
-- **Test Results (as of 3/31/2026)**:
+6) ✅ Add unit, integrated, and system tests
+- **Status**: ✅ Complete — all tests passing
+- **Test Results (as of 4/14/2026)**:
   - Server: 14 files, 55 tests — ✅ all passing
-  - Client: 9 files, 25 tests — 24 passing, 1 failing
-  - E2E: 3 Playwright specs (home, comments, votes)
-- **Failing Test**:
-  - File: `client/src/pages/home/Comment.test.jsx`
-  - Test: `"submits report through API flow"`
-  - Cause: Test clicks the report/flag button but then looks for a "Submit report" button in the same render. The `ReportModal` component is a separate component rendered by the parent (`HomePage`), not by `Comment` itself, so it's not present in the isolated `Comment` test render. The test needs to either mock or render `ReportModal` alongside `Comment`, or be restructured as an integration test that mounts the full comment+modal tree.
+  - Client: 10 files, 27 tests — ✅ all passing
+  - E2E: 3 Playwright specs (home, comments, votes) — ✅ implemented
 - **Coverage Areas**: Controllers (5), validators (4), middleware (3), hooks (1), context (1), API config (1), moderation utils (1), hash utils (1), integration tests (3 client + 3 e2e)
 - Playwright for e2e integration tests covering key user journeys.
 - Keep Lighthouse-based performance regression checks in the release workflow.
