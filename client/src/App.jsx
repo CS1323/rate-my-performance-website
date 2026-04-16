@@ -130,7 +130,7 @@ function App() {
     if (gaInitialized) {
       ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   return (
     <Suspense fallback={<div style={{ textAlign: 'center', padding: '2rem' }}>Loading...</div>}>
