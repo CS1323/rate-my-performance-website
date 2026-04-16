@@ -132,7 +132,7 @@ export default async function middleware(request) {
     const collectParams = new URLSearchParams(targetSearch.slice(1));
     if (clientIp) collectParams.set('uip', clientIp);
 
-    await fetch('https://www.google-analytics.com/g/collect?' + collectParams.toString(), {
+    const googleRes = await fetch('https://www.google-analytics.com/g/collect?' + collectParams.toString(), {
       method: request.method,
       headers: {
         'content-type': request.headers.get('content-type') || 'text/plain',
@@ -140,6 +140,16 @@ export default async function middleware(request) {
       },
       body,
     });
+
+    // Log non-2xx responses to Vercel function logs so rejected beacons are visible.
+    // The client always gets 204 — analytics failures must not surface to the browser.
+    if (!googleRes.ok) {
+      console.error('[GA proxy] Google rejected beacon', {
+        status: googleRes.status,
+        en: collectParams.get('en') ?? 'unknown',
+        tid: collectParams.get('tid') ?? 'unknown',
+      });
+    }
 
     // Always 204 — analytics failures must not surface to the client
     return new Response(null, { status: 204 });
