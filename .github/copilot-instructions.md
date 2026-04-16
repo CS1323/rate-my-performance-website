@@ -21,7 +21,7 @@ Purpose
   - CFU Boyfriend Quiz
 - Frontend is a React SPA (Vite). Backend is Express + Prisma + PostgreSQL.
 
-## Current repo/project status (March 29, 2026)
+## Current repo/project status (April 15, 2026)
 
 Implemented now
 - Frontend routes and lazy loading are wired in `client/src/App.jsx`.
@@ -39,7 +39,7 @@ Implemented now
 - Structured logging via Winston (`server/src/utils/logger.js`).
 - Production monitoring via Sentry (backend `instrument.js` + frontend `main.jsx`).
 - WCAG AA compliance: focus indicators, touch targets, ARIA attributes, reduced motion, focus trapping, semantic HTML, color contrast.
-- Google Analytics via `react-ga4` with date-based launch gating (`VITE_GA_LAUNCH_DATE`, `VITE_GA_ID`).
+- Google Analytics via `react-ga4` gated on `VITE_GA_ID` (no tracking without env var; localhost excluded).
 - Rollback procedures documented in `.github/ROLLBACK.md`.
 
 Partially complete / known risk areas
@@ -141,7 +141,7 @@ npm test
 
 Environment reminders
 - Backend reads env such as `PORT`, `CORS_ORIGIN`, `GEMINI_API_KEY`, `SENTRY_DSN`, `LOG_LEVEL`.
-- Frontend reads `VITE_API_BASE_URL`, `VITE_SENTRY_DSN`, `VITE_GA_ID`, `VITE_GA_LAUNCH_DATE`.
+- Frontend reads `VITE_API_BASE_URL`, `VITE_SENTRY_DSN`, `VITE_GA_ID`.
 - Test workflows may rely on `.env.test` in `server/`.
 
 ## Pre-Deployment Checklist (Target: Tuesday, 3/31/2026)
@@ -369,8 +369,8 @@ All pre-launch items are now resolved. Legal pages have been refreshed with:
   - `react-ga4` installed in `client/package.json`
   - Initialized in `client/src/main.jsx` and `client/src/App.jsx`
   - Page view tracking via useEffect on route changes
-  - Date-based launch gating via `VITE_GA_LAUNCH_DATE` environment variable
   - Gated on `VITE_GA_ID` — no tracking without env var (dev-safe)
+  - Localhost excluded via hostname check
   - No noisy local/dev tracking by default
 
 ### 📋 Post-Launch — Due 4/16/2026

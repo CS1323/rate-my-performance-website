@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Route, Routes, useLocation, useParams, Navigate, Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
+import { gaInitialized } from './config/ga';
 import { supportedLanguages } from './i18n';
 import { HomePage } from './pages/home/HomePage';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -126,17 +127,8 @@ function App() {
 
   // Track page views with Google Analytics
   useEffect(() => {
-    // Check if GA is initialized
-    if (import.meta.env.VITE_GA_ID) {
-      const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE 
-        ? new Date(import.meta.env.VITE_GA_LAUNCH_DATE) 
-        : null;
-      
-      const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
-      
-      if (isGAEnabled) {
-        ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
-      }
+    if (gaInitialized) {
+      ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
     }
   }, [location.pathname]);
 

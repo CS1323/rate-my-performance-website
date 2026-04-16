@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router'
 import * as Sentry from "@sentry/react";
 import ReactGA from 'react-ga4';
 import { AdsProvider } from './context/AdsContext'
+import { gaInitialized } from './config/ga'
 import App from './App.jsx'
 import './i18n'
 import './index.css'
@@ -31,18 +32,11 @@ Sentry.init({
   },
 });
 
-// Initialize Google Analytics with date-based gating
-const gaLaunchDate = import.meta.env.VITE_GA_LAUNCH_DATE 
-  ? new Date(import.meta.env.VITE_GA_LAUNCH_DATE) 
-  : null;
-
-const isGAEnabled = gaLaunchDate && new Date() >= gaLaunchDate;
-
+// Initialize Google Analytics
 // Only initialize GA on deployed environments — never on localhost.
 // This prevents test traffic from polluting analytics even if VITE_GA_ID is set locally.
-const isDeployed = window.location.hostname !== 'localhost';
 
-if (isGAEnabled && import.meta.env.VITE_GA_ID && isDeployed) {
+if (gaInitialized) {
   // Route GA script and collect beacons through the same origin as the page
   // via Vercel Edge Middleware (client/middleware.js). This ensures:
   //   - No cross-subdomain cookie domain mismatch.
