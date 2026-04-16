@@ -29,7 +29,7 @@ export function AdsSidebar({ adIndex }) {
     if (!ad) return null;
     return (
       <aside className="right sidebar">
-        <a href={ad.link || '#'} target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'ads', action: 'ad_click', label: ad.id?.toString() ?? ad.link })}>
+        <a href={ad.link || '#'} target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'ads', action: 'ads_clicked', label: ad.id?.toString() ?? ad.link })}>
           <img
             className="ad-image"
             src={ad.imageUrl}
@@ -45,7 +45,7 @@ export function AdsSidebar({ adIndex }) {
   return (
     <aside className="right sidebar">
       {ads.map((ad) => (
-        <a key={ad.id} href={ad.link || '#'} target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'ads', action: 'ad_click', label: ad.id?.toString() ?? ad.link })}>
+        <a key={ad.id} href={ad.link || '#'} target="_blank" rel="noopener noreferrer" onClick={() => ReactGA.event({ category: 'ads', action: 'ads_clicked', label: ad.id?.toString() ?? ad.link })}>
           <img
             className="ad-image"
             src={ad.imageUrl}
