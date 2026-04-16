@@ -2,7 +2,7 @@
  * Vercel Edge Middleware — Google Analytics Proxy
  *
  * /api/ga/p.js  — handled entirely at Vercel Edge: fetches gtag.js from Google,
- *                 rewrites /g/collect paths, and appends the base64
+ *                 rewrites /g/collect paths, and prepends the base64
  *                 query-obfuscation interceptor. No Render backend call needed,
  *                 so GA script loading has no cold-start latency.
  * /api/ga/c     — forwarded DIRECTLY to Google Analytics from Vercel Edge.
@@ -47,28 +47,55 @@ export default async function middleware(request) {
       // one that adblockers block by path pattern.
       script = script.replaceAll('/g/collect', '/api/ga/c');
 
-      // Append an interceptor that base64-encodes the full query string into a
-      // single opaque `z` param before every fetch/sendBeacon to /api/ga/c.
+      // PREPEND an interceptor that base64-encodes the full query string into a
+      // single opaque `z` param before every fetch/sendBeacon/XHR/Image to
+      // /api/ga/c. Prepending (not appending) ensures the interceptor wraps
+      // the native APIs BEFORE gtag.js executes and captures its own references.
       // This hides GA4-specific query params (tid=G-*, v=2, cid=) that adblockers
       // like AdGuard and uBlock Origin use as fingerprints for blocking.
-      script += ';(function(){' +
+      const interceptor = ';(function(){' +
+        // --- encode helper ---
+        "function enc(s){" +
+        "var u=new URL(s,location.origin),q=u.search.slice(1);" +
+        "if(q){u.search='?z='+btoa(q);}" +
+        "return u.toString();" +
+        "}" +
+        "function isGa(s){return typeof s==='string'&&s.indexOf('/api/ga/c')!==-1;}" +
+        // --- fetch ---
         'var _f=window.fetch;' +
         'window.fetch=function(r,o){' +
-        "if(typeof r==='string'&&r.indexOf('/api/ga/c')!==-1){" +
-        'var u=new URL(r,location.origin),q=u.search.slice(1);' +
-        "if(q){u.search='?z='+btoa(q);r=u.toString();}" +
-        '}' +
+        "if(isGa(r)){r=enc(r);}" +
         'return _f.call(this,r,o);' +
         '};' +
+        // --- sendBeacon ---
         'var _sb=navigator.sendBeacon;' +
         'if(_sb)navigator.sendBeacon=function(u,d){' +
-        "if(u&&u.indexOf('/api/ga/c')!==-1){" +
-        'var p=new URL(u,location.origin),q=p.search.slice(1);' +
-        "if(q){p.search='?z='+btoa(q);u=p.toString();}" +
-        '}' +
+        "if(isGa(u)){u=enc(u);}" +
         'return _sb.call(navigator,u,d);' +
         '};' +
+        // --- XMLHttpRequest (fallback transport) ---
+        'var _xo=XMLHttpRequest.prototype.open;' +
+        'XMLHttpRequest.prototype.open=function(m,u){' +
+        "if(isGa(u)){u=enc(u);}" +
+        'return _xo.apply(this,[m,u].concat([].slice.call(arguments,2)));' +
+        '};' +
+        // --- Image pixel (fallback transport) ---
+        'var _Img=window.Image;' +
+        'window.Image=function(w,h){' +
+        'var img=new _Img(w,h);' +
+        'var desc=Object.getOwnPropertyDescriptor(_Img.prototype,"src")||' +
+        'Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");' +
+        'if(desc&&desc.set){' +
+        'Object.defineProperty(img,"src",{' +
+        "set:function(v){if(isGa(v)){v=enc(v);}desc.set.call(this,v);}," +
+        'get:function(){return desc.get.call(this);}' +
+        '});' +
+        '}' +
+        'return img;' +
+        '};' +
         '})();';
+
+      script = interceptor + script;
 
       return new Response(script, {
         status: 200,
