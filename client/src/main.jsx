@@ -41,12 +41,14 @@ if (gaInitialized) {
   // via Vercel Edge Middleware (client/middleware.js). This ensures:
   //   - No cross-subdomain cookie domain mismatch.
   //   - Requests appear first-party to the browser, bypassing adblockers.
+  const isStaging = window.location.hostname.startsWith('staging.');
   ReactGA.initialize(import.meta.env.VITE_GA_ID, {
     gtagUrl: `${window.location.origin}/api/ga/p.js`,
     gaOptions: {
       transport_url: window.location.origin,
       cookie_domain: 'auto',
       send_page_view: false,
+      ...(isStaging && { debug_mode: true }),
     },
   });
 }
