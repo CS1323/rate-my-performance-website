@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router'
 import * as Sentry from "@sentry/react";
 import ReactGA from 'react-ga4';
 import { AdsProvider } from './context/AdsContext'
-import { gaInitialized } from './config/ga'
+import { gaInitialized, isStaging } from './utils/ga'
 import App from './App.jsx'
 import './i18n'
 import './index.css'
@@ -41,7 +41,6 @@ if (gaInitialized) {
   // via Vercel Edge Middleware (client/middleware.js). This ensures:
   //   - No cross-subdomain cookie domain mismatch.
   //   - Requests appear first-party to the browser, bypassing adblockers.
-  const isStaging = window.location.hostname.startsWith('staging.');
   ReactGA.initialize(import.meta.env.VITE_GA_ID, {
     gtagUrl: `${window.location.origin}/api/ga/p.js`,
     gaOptions: {

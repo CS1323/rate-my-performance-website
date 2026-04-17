@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { CommentForm } from './CommentForm';
 import { ReportModal } from './ReportModal';
-import ReactGA from 'react-ga4';
+import { gaEvent } from '../../utils/ga';
 
 import './Comment.css';
 
@@ -89,7 +89,7 @@ function CommentComponent({ comment, onVote, onReply, userVoteState, onReplyPost
         setReportStatus(t('comment.reportSuccess'));
 
         // Add report submission event to GA
-        ReactGA.event({
+        gaEvent({
           category: 'moderation',
           action: 'report_submit',
         });

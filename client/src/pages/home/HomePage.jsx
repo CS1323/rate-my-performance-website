@@ -11,7 +11,7 @@ import { Comment } from "./Comment";
 import { getUserIdentifier } from "../../utils/userIdentifier";
 import { API_BASE_URL } from "../../config/api";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-import ReactGA from 'react-ga4';
+import { gaEvent } from "../../utils/ga";
 
 import './HomePage.css';
 
@@ -169,7 +169,7 @@ export function HomePage() {
       });
 
       // Add voting event to GA
-      ReactGA.event({
+      gaEvent({
         category: 'engagement',
         action: currentUserVote === voteType ? 'vote_remove' : `vote_${voteType}`,
       });

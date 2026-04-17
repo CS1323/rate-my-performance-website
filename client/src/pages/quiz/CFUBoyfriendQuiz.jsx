@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactGA from 'react-ga4';
+import { gaEvent } from '../../utils/ga';
 import { Header } from "../../components/Header";
 import { NavSidebar } from "../../components/NavSidebar";
 import { AdsSidebar } from "../../components/AdsSidebar";
@@ -75,7 +75,7 @@ export function CFUBoyfriendQuiz() {
     setResult(winningBoyfriend);
     setQuizCompleted(true);
 
-    ReactGA.event({
+    gaEvent({
       category: 'quiz',
       action: 'complete',
       label: winningBoyfriend?.id ?? 'unknown',
