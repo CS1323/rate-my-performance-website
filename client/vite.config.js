@@ -1,6 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// Debug: Log environment variables during build
+console.log('[Vite Build Debug]');
+console.log('  VITE_GA_ID:', process.env.VITE_GA_ID || 'NOT SET');
+console.log('  VITE_API_BASE_URL:', process.env.VITE_API_BASE_URL || 'NOT SET');
+console.log('  NODE_ENV:', process.env.NODE_ENV);
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
