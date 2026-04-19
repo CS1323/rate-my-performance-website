@@ -19,9 +19,9 @@ export function gaSend(fieldsObject) {
 }
 
 /**
- * Wrapper around ReactGA.event() that automatically includes debug_mode on staging.
- * Uses the string-form API so all parameters (including debug_mode) are preserved
- * in the underlying gtag("event", name, params) call.
+ * Wrapper around ReactGA.gtag() that automatically includes debug_mode on staging.
+ * Direct gtag call bypasses react-ga4's event() method to ensure all parameters
+ * (including debug_mode) are preserved and sent to GA4.
  */
 export function gaEvent({ action, category, label, value, ...rest }) {
   if (!gaInitialized) {
@@ -30,18 +30,22 @@ export function gaEvent({ action, category, label, value, ...rest }) {
   }
   
   const params = {
-    ...(category && { event_category: category }),
-    ...(label && { event_label: label }),
-    ...(value !== undefined && { value }),
+    event_category: category,
+    event_label: label,
     ...rest,
+    ...(value !== undefined && { value }),
     ...(isStaging && { debug_mode: true }),
   };
   
-  console.log('[GA] Firing event:', { action, params });
+  // Remove undefined values to avoid sending empty fields
+  Object.keys(params).forEach(key => params[key] === undefined && delete params[key]);
+  
+  console.log('[GA] Firing event via gtag:', { action, params });
   
   try {
-    ReactGA.event(action, params);
+    // Call gtag() directly to avoid react-ga4's event() filtering
+    ReactGA.gtag('event', action, params);
   } catch (err) {
-    console.error('[GA] ReactGA.event() failed:', err);
+    console.error('[GA] gtag() failed:', err);
   }
 }
