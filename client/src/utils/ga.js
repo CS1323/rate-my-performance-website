@@ -20,13 +20,16 @@ export function gaSend(fieldsObject) {
 
 /**
  * Wrapper around ReactGA.event() that automatically includes debug_mode on staging.
- * On production, behaves like normal ReactGA.event().
+ * Uses the string-form API so all parameters (including debug_mode) are preserved
+ * in the underlying gtag("event", name, params) call.
  */
-export function gaEvent(fieldsObject) {
+export function gaEvent({ action, category, label, value, ...rest }) {
   if (!gaInitialized) return;
-  const payload = {
-    ...fieldsObject,
+  ReactGA.event(action, {
+    ...(category && { event_category: category }),
+    ...(label && { event_label: label }),
+    ...(value !== undefined && { value }),
+    ...rest,
     ...(isStaging && { debug_mode: true }),
-  };
-  ReactGA.event(payload);
+  });
 }
