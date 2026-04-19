@@ -132,6 +132,22 @@ export default async function middleware(request) {
     const collectParams = new URLSearchParams(targetSearch.slice(1));
     if (clientIp) collectParams.set('uip', clientIp);
 
+    // Debug: log decoded params to confirm GA data is being received
+    console.log('[GA proxy] Decoded params:', {
+      z: z ? 'present' : 'missing',
+      tid: collectParams.get('tid'),
+      en: collectParams.get('en'),
+      debug_mode: collectParams.get('debug_mode') ? 'present' : 'missing',
+      ep_debug_mode: collectParams.get('ep.debug_mode') ? 'present' : 'missing',
+    });
+
+    // Debug: log before forwarding to confirm we're calling Google
+    console.log('[GA proxy] Forwarding to Google:', {
+      url: 'https://www.google-analytics.com/g/collect',
+      method: request.method,
+      tid: collectParams.get('tid'),
+    });
+
     const googleRes = await fetch('https://www.google-analytics.com/g/collect?' + collectParams.toString(), {
       method: request.method,
       headers: {
