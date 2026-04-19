@@ -24,12 +24,24 @@ export function gaSend(fieldsObject) {
  * in the underlying gtag("event", name, params) call.
  */
 export function gaEvent({ action, category, label, value, ...rest }) {
-  if (!gaInitialized) return;
-  ReactGA.event(action, {
+  if (!gaInitialized) {
+    console.log('[GA] Skipping event — gaInitialized is false');
+    return;
+  }
+  
+  const params = {
     ...(category && { event_category: category }),
     ...(label && { event_label: label }),
     ...(value !== undefined && { value }),
     ...rest,
     ...(isStaging && { debug_mode: true }),
-  });
+  };
+  
+  console.log('[GA] Firing event:', { action, params });
+  
+  try {
+    ReactGA.event(action, params);
+  } catch (err) {
+    console.error('[GA] ReactGA.event() failed:', err);
+  }
 }

@@ -133,7 +133,11 @@ export default async function middleware(request) {
     if (clientIp) collectParams.set('uip', clientIp);
 
     // Debug: log decoded params to confirm GA data is being received
+    const page = collectParams.get('dp') || '/';
+    const pageTitle = collectParams.get('dt') || 'unknown';
     console.log('[GA proxy] Decoded params:', {
+      page,
+      pageTitle,
       z: z ? 'present' : 'missing',
       tid: collectParams.get('tid'),
       en: collectParams.get('en'),
