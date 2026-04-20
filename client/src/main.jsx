@@ -46,6 +46,7 @@ if (gaInitialized) {
     gaOptions: {
       transport_url: window.location.origin,
       cookie_domain: 'auto',
+      send_page_view: false,
     },
     gtagOptions: {
       send_page_view: false,
