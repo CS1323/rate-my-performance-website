@@ -2,7 +2,7 @@ import ReactGA from 'react-ga4';
 
 // Determine staging status (used locally for debug_mode tagging)
 const isDeployed = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
-const isStaging = typeof window !== 'undefined' && window.location.hostname.startsWith('staging.');
+export const isStaging = typeof window !== 'undefined' && window.location.hostname.startsWith('staging.');
 export const gaInitialized = !!(import.meta.env.VITE_GA_ID && isDeployed);
 
 /**

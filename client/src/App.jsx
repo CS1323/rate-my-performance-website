@@ -123,9 +123,17 @@ function ScrollRestoration() {
 
 function App() {
   const location = useLocation();
+  const isInitialLoad = useRef(true);
 
-  // Track page views with Google Analytics
+  // Track page views with Google Analytics.
+  // Skip the first render — gtag.js auto-fires a page_view during its own
+  // initialization (from the ?id= param in the script URL). Only fire
+  // manually for subsequent SPA route changes.
   useEffect(() => {
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
     gaSend({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
   }, [location.pathname, location.search]);
 

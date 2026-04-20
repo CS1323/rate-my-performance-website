@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router'
 import * as Sentry from "@sentry/react";
 import ReactGA from 'react-ga4';
 import { AdsProvider } from './context/AdsContext'
-import { gaInitialized } from './utils/ga'
+import { gaInitialized, isStaging } from './utils/ga'
 import App from './App.jsx'
 import './i18n'
 import './index.css'
@@ -47,9 +47,11 @@ if (gaInitialized) {
       transport_url: window.location.origin,
       cookie_domain: 'auto',
     },
-    gtagOptions: {
-      send_page_view: false,
-    },
+    ...(isStaging && {
+      gtagOptions: {
+        debug_mode: true,
+      },
+    }),
   });
 }
 
