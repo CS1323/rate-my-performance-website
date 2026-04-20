@@ -55,19 +55,27 @@ export default async function middleware(request) {
       // like AdGuard and uBlock Origin use as fingerprints for blocking.
       const interceptor = ';(function(){' +
         // --- suppress auto-config page_view ---
-        // gtag.js reads document.currentScript.src to extract ?id= and auto-
-        // configures with send_page_view:true BEFORE processing the dataLayer
-        // queue. By hiding ?id= from the src, the only config is our explicit
-        // gtag("config",...,{send_page_view:false}) call in the dataLayer,
-        // preventing the duplicate page_view. The CDN still received ?id= so
-        // the measurement-specific bundle is already loaded.
-        'var _cs=document.currentScript;' +
-        'if(_cs&&_cs.src&&_cs.src.indexOf("?id=")!==-1){' +
-        'Object.defineProperty(_cs,"src",{' +
-        'get:function(){return _cs.getAttribute("src").split("?")[0];},' +
-        'configurable:true' +
-        '});' +
+        // react-ga4 loads gtag.js as an async script, so document.currentScript
+        // is always null during execution. Instead, scan document.scripts to find
+        // the script element and override BOTH the src property AND getAttribute
+        // so gtag.js cannot read ?id= through either access path. Without ?id=,
+        // gtag.js skips its auto-configuration (which uses send_page_view:true by
+        // default) and falls back entirely to our explicit dataLayer config, which
+        // has send_page_view:false. Our manual gaSend() in App.jsx then becomes
+        // the sole source of page_view events.
+        '(function(){' +
+        'var ss=document.scripts;' +
+        'for(var i=0;i<ss.length;i++){' +
+        'var el=ss[i];' +
+        'if(el.src&&el.src.indexOf("/api/ga/")!==-1&&el.src.indexOf("id=")!==-1){' +
+        'var base=el.src.split("?")[0];' +
+        'try{Object.defineProperty(el,"src",{get:function(){return base;},configurable:true});}catch(e){}' +
+        'var _ga=el.getAttribute.bind(el);' +
+        'el.getAttribute=function(n){var v=_ga(n);return(n==="src"&&v&&v.indexOf("id=")!==-1)?v.split("?")[0]:v;};' +
+        'break;' +
         '}' +
+        '}' +
+        '})();' +
         // --- encode helper ---
         "function enc(s){" +
         "var u=new URL(s,location.origin),q=u.search.slice(1);" +
