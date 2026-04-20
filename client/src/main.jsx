@@ -47,11 +47,10 @@ if (gaInitialized) {
       transport_url: window.location.origin,
       cookie_domain: 'auto',
     },
-    ...(isStaging && {
-      gtagOptions: {
-        debug_mode: true,
-      },
-    }),
+    gtagOptions: {
+      send_page_view: false,
+      ...(isStaging && { debug_mode: true }),
+    },
   });
 }
 
