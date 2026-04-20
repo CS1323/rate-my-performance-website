@@ -54,6 +54,20 @@ export default async function middleware(request) {
       // This hides GA4-specific query params (tid=G-*, v=2, cid=) that adblockers
       // like AdGuard and uBlock Origin use as fingerprints for blocking.
       const interceptor = ';(function(){' +
+        // --- suppress auto-config page_view ---
+        // gtag.js reads document.currentScript.src to extract ?id= and auto-
+        // configures with send_page_view:true BEFORE processing the dataLayer
+        // queue. By hiding ?id= from the src, the only config is our explicit
+        // gtag("config",...,{send_page_view:false}) call in the dataLayer,
+        // preventing the duplicate page_view. The CDN still received ?id= so
+        // the measurement-specific bundle is already loaded.
+        'var _cs=document.currentScript;' +
+        'if(_cs&&_cs.src&&_cs.src.indexOf("?id=")!==-1){' +
+        'Object.defineProperty(_cs,"src",{' +
+        'get:function(){return _cs.getAttribute("src").split("?")[0];},' +
+        'configurable:true' +
+        '});' +
+        '}' +
         // --- encode helper ---
         "function enc(s){" +
         "var u=new URL(s,location.origin),q=u.search.slice(1);" +
