@@ -57,7 +57,7 @@ export default async function middleware(request) {
         // --- encode helper ---
         "function enc(s){" +
         "var u=new URL(s,location.origin),q=u.search.slice(1);" +
-        "if(q){u.search='?z='+btoa(q);}" +
+        "if(q){u.search='?z='+encodeURIComponent(btoa(q));}" +
         "return u.toString();" +
         "}" +
         "function isGa(s){return typeof s==='string'&&s.indexOf('/api/ga/c')!==-1;}" +
@@ -127,22 +127,30 @@ export default async function middleware(request) {
       ? undefined
       : await request.text();
 
-    // Debug: log body presence so we can confirm where event data lives
-    if (body) console.log('[GA proxy] Request body (first 200):', body.substring(0, 200));
-
     const collectParams = new URLSearchParams(targetSearch.slice(1));
 
-    // Debug: log decoded params to confirm GA data is being received
-    const page = collectParams.get('dp') || '/';
-    const pageTitle = collectParams.get('dt') || 'unknown';
+    // GA4 batched events send shared params (tid, cid, etc.) in the query string
+    // and per-event params (en, ep.*) in the POST body as newline-separated entries.
+    // Parse body lines to surface event names in debug logs.
+    const bodyEvents = [];
+    if (body) {
+      for (const line of body.split('\n')) {
+        if (!line.trim()) continue;
+        const bp = new URLSearchParams(line);
+        const en = bp.get('en');
+        if (en) bodyEvents.push(en);
+      }
+    }
+
+    // Debug: log decoded params (GA4 uses 'dl' for document location, 'dt' for title)
     console.log('[GA proxy] Decoded params:', {
-      page,
-      pageTitle,
+      dl: collectParams.get('dl') || collectParams.get('dp') || '/',
+      dt: collectParams.get('dt') || 'unknown',
       z: z ? 'present' : 'missing',
       tid: collectParams.get('tid'),
-      en: collectParams.get('en'),
-      debug_mode: collectParams.get('debug_mode') ? 'present' : 'missing',
-      ep_debug_mode: collectParams.get('ep.debug_mode') ? 'present' : 'missing',
+      en: collectParams.get('en') || (bodyEvents.length ? bodyEvents.join(',') : null),
+      bodyEvents: bodyEvents.length ? bodyEvents : 'none',
+      debug_mode: collectParams.get('debug_mode') || collectParams.get('ep.debug_mode') || 'missing',
     });
 
     // Debug: log before forwarding to confirm we're calling Google
@@ -150,6 +158,7 @@ export default async function middleware(request) {
       url: 'https://www.google-analytics.com/g/collect',
       method: request.method,
       tid: collectParams.get('tid'),
+      events: bodyEvents.length ? bodyEvents : [collectParams.get('en') || 'unknown'],
     });
 
     const googleRes = await fetch('https://www.google-analytics.com/g/collect?' + collectParams.toString(), {
