@@ -45,10 +45,6 @@ export default async function middleware(request) {
       // Rewrite the hardcoded collect endpoints inside the gtag.js bundle so
       // the library POSTs beacons to our obfuscated path instead of the well-known
       // ones that adblockers block by path pattern.
-      // NOTE: /debug/g/collect must be rewritten BEFORE /g/collect — otherwise
-      // the shorter pattern matches inside the longer one first, producing
-      // /debug/api/ga/c which is an unhandled dead path.
-      script = script.replaceAll('/debug/g/collect', '/api/ga/c');
       script = script.replaceAll('/g/collect', '/api/ga/c');
 
       // PREPEND an interceptor that base64-encodes the full query string into a
@@ -134,10 +130,7 @@ export default async function middleware(request) {
     // Debug: log body presence so we can confirm where event data lives
     if (body) console.log('[GA proxy] Request body (first 200):', body.substring(0, 200));
 
-    const xff = request.headers.get('x-forwarded-for');
-    const clientIp = xff ? xff.split(',')[0].trim() : null;
     const collectParams = new URLSearchParams(targetSearch.slice(1));
-    if (clientIp) collectParams.set('uip', clientIp);
 
     // Debug: log decoded params to confirm GA data is being received
     const page = collectParams.get('dp') || '/';

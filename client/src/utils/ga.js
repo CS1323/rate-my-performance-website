@@ -1,8 +1,8 @@
 import ReactGA from 'react-ga4';
 
-// Determine staging status (shared across app)
+// Determine staging status (used locally for debug_mode tagging)
 const isDeployed = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
-export const isStaging = typeof window !== 'undefined' && window.location.hostname.startsWith('staging.');
+const isStaging = typeof window !== 'undefined' && window.location.hostname.startsWith('staging.');
 export const gaInitialized = !!(import.meta.env.VITE_GA_ID && isDeployed);
 
 /**
@@ -30,15 +30,12 @@ export function gaEvent({ action, category, label, value, ...rest }) {
   }
   
   const params = {
-    event_category: category,
-    event_label: label,
+    ...(category && { event_category: category }),
+    ...(label && { event_label: label }),
     ...rest,
     ...(value !== undefined && { value }),
     ...(isStaging && { debug_mode: true }),
   };
-  
-  // Remove undefined values to avoid sending empty fields
-  Object.keys(params).forEach(key => params[key] === undefined && delete params[key]);
   
   console.log('[GA] Firing event via gtag:', { action, params });
   
