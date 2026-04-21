@@ -277,7 +277,8 @@
     "emailCopyFailed": "E-Mail konnte nicht kopiert werden",
     "emailAriaLabel": "E-Mail-Adresse in die Zwischenablage kopieren: {{email}}",
     "contact": "Kontakt:",
-    "effectiveDate": "Gültig ab: {{date}}"
+    "effectiveDate": "Gültig ab: {{date}}",
+    "lastUpdated": "Zuletzt aktualisiert: {{date}}"
   },
   "language": {
     "selectLanguage": "Sprache wählen",

@@ -277,7 +277,8 @@
     "emailCopyFailed": "Copia email fallita",
     "emailAriaLabel": "Copia l'indirizzo email negli appunti: {{email}}",
     "contact": "Contatto:",
-    "effectiveDate": "Data di entrata in vigore: {{date}}"
+    "effectiveDate": "Data di entrata in vigore: {{date}}",
+    "lastUpdated": "Ultimo aggiornamento: {{date}}"
   },
   "language": {
     "selectLanguage": "Seleziona lingua",

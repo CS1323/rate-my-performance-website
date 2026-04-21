@@ -38,8 +38,8 @@ export function Rules() {
           <div className="rules-container">
             <div className="rules-header">
               <h1>{tLegal('rules.heading')}</h1>
-              <p className="rules-subtitle">{t('common.effectiveDate', { date: 'March 31, 2026' })}</p>
               <p className="rules-subtitle">{tLegal('rules.subtitle')}</p>
+              <p className="rules-subtitle">{t('common.effectiveDate', { date: 'April 20, 2026' })} | {t('common.lastUpdated', { date: 'April 20, 2026' })}</p>
             </div>
 
             <div className="rules-content">

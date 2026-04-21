@@ -38,7 +38,7 @@ export function UserAgreement() {
           <div className="agreement-container">
             <div className="agreement-header">
               <h1>{tLegal('terms.heading')}</h1>
-              <p className="agreement-subtitle">{t('common.effectiveDate', { date: 'March 31, 2026' })}</p>
+              <p className="agreement-subtitle">{t('common.effectiveDate', { date: 'April 20, 2026' })} | {t('common.lastUpdated', { date: 'April 20, 2026' })}</p>
             </div>
 
             <div className="agreement-content">

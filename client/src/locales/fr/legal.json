@@ -161,7 +161,6 @@
     "pageTitle": "Accessibilité RMP",
     "heading": "Accessibilité",
     "subtitle": "Rendre ce site utilisable par tous",
-    "reviewDate": "Dernière révision : {{date}}",
     "commitmentTitle": "Notre engagement",
     "commitmentContent": "Nous voulons que Rate My Performance CFU (RMP) soit accessible à tous, y compris les personnes qui utilisent des lecteurs d'écran, la navigation au clavier ou d'autres technologies d'assistance. Nous visons la conformité aux normes WCAG 2.1 Niveau AA — la référence largement acceptée en matière d'accessibilité web. Bien que nous ne soyons pas parfaits, nous travaillons activement à améliorer l'expérience pour tous les utilisateurs.",
     "featuresTitle": "Fonctionnalités actuelles",

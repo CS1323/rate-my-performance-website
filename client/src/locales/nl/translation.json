@@ -277,7 +277,8 @@
     "emailCopyFailed": "E-mail kopiëren mislukt",
     "emailAriaLabel": "Kopieer e-mailadres naar klembord: {{email}}",
     "contact": "Contact:",
-    "effectiveDate": "Ingangsdatum: {{date}}"
+    "effectiveDate": "Ingangsdatum: {{date}}",
+    "lastUpdated": "Laatst bijgewerkt: {{date}}"
   },
   "language": {
     "selectLanguage": "Taal selecteren",

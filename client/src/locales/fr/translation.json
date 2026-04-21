@@ -277,7 +277,8 @@
     "emailCopyFailed": "Échec de la copie de l'email",
     "emailAriaLabel": "Copier l'adresse email dans le presse-papiers : {{email}}",
     "contact": "Contact :",
-    "effectiveDate": "Date d'entrée en vigueur : {{date}}"
+    "effectiveDate": "Date d'entrée en vigueur : {{date}}",
+    "lastUpdated": "Dernière mise à jour : {{date}}"
   },
   "language": {
     "selectLanguage": "Choisir la langue",

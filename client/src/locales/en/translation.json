@@ -277,7 +277,8 @@
     "emailCopyFailed": "Failed to copy email",
     "emailAriaLabel": "Copy email address to clipboard: {{email}}",
     "contact": "Contact:",
-    "effectiveDate": "Effective Date: {{date}}"
+    "effectiveDate": "Effective Date: {{date}}",
+    "lastUpdated": "Last Updated: {{date}}"
   },
   "language": {
     "selectLanguage": "Select language",

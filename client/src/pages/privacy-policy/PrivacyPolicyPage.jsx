@@ -38,7 +38,7 @@ export function PrivacyPolicy() {
           <div className="privacy-container">
             <div className="privacy-header">
               <h1>{tLegal('privacy.heading')}</h1>
-              <p className="privacy-subtitle">{t('common.effectiveDate', { date: 'March 31, 2026' })}</p>
+              <p className="privacy-subtitle">{t('common.effectiveDate', { date: 'April 20, 2026' })} | {t('common.lastUpdated', { date: 'April 20, 2026' })}</p>
             </div>
 
             <div className="privacy-content">

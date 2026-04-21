@@ -161,7 +161,6 @@
     "pageTitle": "RMP-Barrierefreiheit",
     "heading": "Barrierefreiheit",
     "subtitle": "Diese Website für alle nutzbar machen",
-    "reviewDate": "Zuletzt überprüft: {{date}}",
     "commitmentTitle": "Unser Engagement",
     "commitmentContent": "Wir möchten, dass Rate My Performance CFU (RMP) für alle zugänglich ist, einschließlich Menschen, die Screenreader, Tastaturnavigation oder andere assistive Technologien verwenden. Wir streben die Konformität mit WCAG 2.1 Level AA an — dem weithin akzeptierten Standard für Web-Barrierefreiheit. Obwohl wir nicht perfekt sind, arbeiten wir aktiv daran, die Erfahrung für alle Benutzer zu verbessern.",
     "featuresTitle": "Aktuelle Funktionen",

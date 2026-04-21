@@ -39,7 +39,7 @@ export function Accessibility() {
             <div className="accessibility-header">
               <h1>{tLegal('accessibility.heading')}</h1>
               <p className="accessibility-subtitle">{tLegal('accessibility.subtitle')}</p>
-              <p className="accessibility-subtitle">{tLegal('accessibility.reviewDate', { date: 'March 31, 2026' })}</p>
+              <p className="accessibility-subtitle">{t('common.effectiveDate', { date: 'April 20, 2026' })} | {t('common.lastUpdated', { date: 'April 20, 2026' })}</p>
             </div>
 
             <div className="accessibility-content">
