@@ -1,13 +1,13 @@
 # Rollback Strategy & Recovery Procedures
 
-**Last Updated**: March 30, 2026  
-**Target Launch Date**: April 16, 2026
+**Last Updated**: April 20, 2026  
+**Target Launch Date**: April 20, 2026
 
 ---
 
 ## Overview
 
-This document outlines the procedures to rollback **Rate My Performance** in case of critical issues requiring recovery from production deployment.
+This document outlines the procedures to rollback **Rate My Performance CFU** in case of critical issues requiring recovery from production deployment.
 
 **Scope**: Covers both frontend (Vercel) and backend (Render) with database migration rollback.
 
@@ -243,4 +243,4 @@ After any rollback, verify the following:
 ---
 
 **Last Tested**: March 30, 2026  
-**Next Review**: Post-launch (April 20, 2026)
+**Next Review**: Post-launch (April 30, 2026)

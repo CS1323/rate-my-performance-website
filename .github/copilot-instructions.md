@@ -1,10 +1,10 @@
-# Copilot instructions for "Rate My Performance"
+# Copilot instructions for "Rate My Performance CFU"
 
 Purpose
 - Provide concise, repo-specific guidance so AI coding agents can make safe, focused edits to this project.
 
 ## What the site does
-- Reddit-like single-post discussion experience for the "Rate My Performance" world.
+- Reddit-like single-post discussion experience for the "Rate My Performance CFU" world.
 - Home page presents one primary post with content/image plus community comments and nested replies.
 - Comment system supports:
   - Top-level comments and replies
@@ -21,7 +21,7 @@ Purpose
   - CFU Boyfriend Quiz
 - Frontend is a React SPA (Vite). Backend is Express + Prisma + PostgreSQL.
 
-## Current repo/project status (April 15, 2026)
+## Current repo/project status (April 20, 2026)
 
 Implemented now
 - Frontend routes and lazy loading are wired in `client/src/App.jsx`.
