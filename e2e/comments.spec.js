@@ -15,7 +15,7 @@ test.describe('Comment submission', () => {
     await page.getByLabel('Comment').first().fill('Missing a display name');
     await page.getByRole('button', { name: 'Post comment' }).first().click();
 
-    await expect(page.getByRole('alert')).toContainText('Please enter a display name');
+    await expect(page.getByRole('alert')).toContainText('Display name required');
   });
 
   test('shows a validation error when comment body is missing', async ({ page }) => {
@@ -25,7 +25,7 @@ test.describe('Comment submission', () => {
     await page.getByLabel('Display name').first().fill('E2E Tester');
     await page.getByRole('button', { name: 'Post comment' }).first().click();
 
-    await expect(page.getByRole('alert')).toContainText('Please enter a comment');
+    await expect(page.getByRole('alert')).toContainText('Please enter a Comment');
   });
 
   test('submits a new comment and displays it in the list', async ({ page }) => {
