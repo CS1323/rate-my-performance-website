@@ -16,7 +16,7 @@ A lightweight, interactive companion website for the sports-romance novel *Campu
 - **Multi-language** — English, French, German, Italian, Dutch (URL-based routing)
 - **Accessible** — WCAG 2.1 Level AA: full keyboard navigation, screen reader support, focus management, 44×44 px touch targets
 - **Mobile-responsive** — mobile-first CSS, reduced thread indentation on narrow viewports
-- **Performance** — Lighthouse 95/100, LCP 2.4 s, TBT 0 ms
+- **Performance** — Lighthouse 90/100, LCP 3.0 s, TBT 0 ms
 
 ---
 
