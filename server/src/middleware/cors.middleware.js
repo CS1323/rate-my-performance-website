@@ -12,12 +12,19 @@ import cors from 'cors';
  *     - Staging:      "https://staging.yourdomain.com,https://staging-abc123.vercel.app"
  *     - Production:   "https://yourdomain.com"
  *     - Multiple:     "http://localhost:5173,https://staging.yourdomain.com,https://yourdomain.com"
- *     - All (dev):    "*" or empty string
  */
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean)
+  .filter(o => o !== '*');
+
 export const corsMiddleware = cors({
-  origin: process.env.CORS_ORIGIN 
-    ? process.env.CORS_ORIGIN.split(',').map(o => o.trim()) 
-    : '*',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
