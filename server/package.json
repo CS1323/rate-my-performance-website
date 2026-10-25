@@ -37,7 +37,7 @@
     "jsdom": "^29.0.1",
     "prisma": "6.19.3",
     "winston": "^3.19.0",
-    "zod": "^3.25.76"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^4.1.8",
